@@ -1,0 +1,18 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+      "tslint:recommended"
+    ],
+    "rulesDirectory": [
+      "tslint-consistent-codestyle",
+      "tslint-eslint-rules"
+    ],
+    "rules": {
+
+    },
+    "linterOptions": {
+      "exclude": [
+        "node_modules/**/*"
+      ]
+    }
+  }

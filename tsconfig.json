@@ -1,0 +1,50 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+
+        // Module
+        "module": "es2015",
+        "moduleResolution": "node",
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+
+        // Path
+        "rootDir": "./",
+        "outDir": "./outjs/",
+
+        // Delcaration
+        "declaration": true,
+        "declarationDir": "declaration",
+
+        // Log
+        "traceResolution": true,
+        "listFiles": true,
+        "locale": "ko",
+        "pretty": true,
+
+        // Lint
+        "strict": true,
+        "allowUnreachableCode": false,
+        "allowUnusedLabels": false,
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitReturns": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "newLine": "lf",
+
+        // Outfile
+        "charset": "utf8",
+        "removeComments": true,
+        "noEmitOnError": true,
+
+        // SourceMap
+        "sourceMap": true,
+
+        // etc
+        "importHelpers": true,
+        "watch": true,
+    },
+    "include": [
+        "./src/**/*.ts"
+    ]
+  }

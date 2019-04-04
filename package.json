@@ -1,0 +1,26 @@
+{
+  "name": "css-camera",
+  "version": "0.0.1",
+  "description": "Add a new perspective to your web page",
+  "main": "index.js",
+  "scripts": {
+    "test": "exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WoodNeck/css-camera.git"
+  },
+  "author": "WoodNeck",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/WoodNeck/css-camera/issues"
+  },
+  "homepage": "https://github.com/WoodNeck/css-camera#readme",
+  "devDependencies": {
+    "tslint": "^5.15.0",
+    "tslint-consistent-codestyle": "^1.15.1",
+    "tslint-eslint-rules": "^5.4.0",
+    "typescript": "^3.4.3"
+  },
+  "dependencies": {}
+}
