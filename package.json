@@ -4,7 +4,8 @@
   "description": "Add a new perspective to your web page",
   "main": "index.js",
   "scripts": {
-    "test": "exit 1"
+    "build": "rm -rf ./lib && rollup -c && npm run declaration",
+    "declaration": "rm -rf ./lib/declaration && tsc -p tsconfig.json"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,12 @@
   },
   "homepage": "https://github.com/WoodNeck/css-camera#readme",
   "devDependencies": {
+    "rollup": "^1.10.1",
+    "rollup-plugin-node-resolve": "^4.2.3",
+    "rollup-plugin-prototype-minify": "^1.0.5",
+    "rollup-plugin-replace": "^2.2.0",
+    "rollup-plugin-typescript": "^1.0.1",
+    "rollup-plugin-uglify": "^6.0.2",
     "tslint": "^5.15.0",
     "tslint-consistent-codestyle": "^1.15.1",
     "tslint-eslint-rules": "^5.4.0",

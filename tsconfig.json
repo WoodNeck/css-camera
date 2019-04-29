@@ -9,17 +9,14 @@
         "esModuleInterop": true,
 
         // Path
-        "rootDir": "./",
-        "outDir": "./outjs/",
+        "rootDir": "./src",
+        "outDir": "./lib/",
 
         // Delcaration
         "declaration": true,
-        "declarationDir": "declaration",
+        "declarationDir": "./lib/declaration",
 
         // Log
-        "traceResolution": true,
-        "listFiles": true,
-        "locale": "ko",
         "pretty": true,
 
         // Lint
@@ -42,7 +39,6 @@
 
         // etc
         "importHelpers": true,
-        "watch": true,
     },
     "include": [
         "./src/**/*.ts"
