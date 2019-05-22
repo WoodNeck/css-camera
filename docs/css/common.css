@@ -15,9 +15,22 @@ body {
 #camera {
   width: 100%;
   height: 100%;
-  transform: translate3d(0, 0, 100px);
+  animation-duration: 3s;
+  animation-name: backandforth;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  will-change: transform;
   transform-style: preserve-3d;
 }
+@keyframes backandforth {
+  from {
+    transform: translateZ(0px);
+  }
+  to {
+    transform: translateZ(450px);
+  }
+}
+
 .cube-wrapper {
   display: inline-block;
   width: 300px;
