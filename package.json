@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/WoodNeck/css-camera#readme",
   "devDependencies": {
+    "@types/gl-matrix": "^2.4.5",
     "rollup": "^1.10.1",
     "rollup-plugin-node-resolve": "^4.2.3",
     "rollup-plugin-prototype-minify": "^1.0.5",
@@ -29,5 +30,7 @@
     "tslint-eslint-rules": "^5.4.0",
     "typescript": "^3.4.3"
   },
-  "dependencies": {}
+  "dependencies": {
+    "gl-matrix": "^3.0.0"
+  }
 }

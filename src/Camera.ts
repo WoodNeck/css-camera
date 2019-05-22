@@ -1,22 +1,19 @@
-import { BASE_ELEMENT_NOT_EXIST, MUST_STRING_OR_ELEMENT } from './constants/error';
+import { vec3 } from 'gl-matrix';
+import { getElement } from './utils/helper';
 
-class Camera {
+abstract class Camera {
   private _element: HTMLElement;
+  private _fov: number;
+  private _orthographic: boolean;
 
   public get element() { return this._element; }
 
   constructor(el: string | HTMLElement) {
-    if (typeof el === "string") {
-      const queryResult = document.querySelector(el);
-      if (!queryResult) {
-        throw new Error(BASE_ELEMENT_NOT_EXIST);
-      }
-      this._element = queryResult as HTMLElement;
-    } else if (el.nodeName && el.nodeType === 1) {
-      this._element = el;
-    } else {
-      throw new Error(MUST_STRING_OR_ELEMENT);
-    }
+    this._element = getElement(el);
+  }
+
+  public lookAt(target: [number, number, number]) {
+
   }
 }
 
