@@ -13,3 +13,9 @@ export const getElement = (el: string | HTMLElement): HTMLElement => {
         throw new Error(MUST_STRING_OR_ELEMENT);
     }
 }
+
+export function applyCSS(element: HTMLElement, cssObj: { [keys: string]: string }): void {
+  Object.keys(cssObj).forEach(property => {
+    (element.style as any)[property] = cssObj[property];
+  });
+}

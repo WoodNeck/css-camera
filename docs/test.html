@@ -6,16 +6,17 @@
   <link type="text/css" rel="stylesheet" href="css/common.css">
 </html>
 <body>
-  <div id="viewport">
-    <div id="camera">
-      <div id="cube" class="cube-wrapper">
-        <div class="cube-side front"></div>
-        <div class="cube-side back"></div>
-        <div class="cube-side up"></div>
-        <div class="cube-side down"></div>
-        <div class="cube-side left"></div>
-        <div class="cube-side right"></div>
-      </div>
-    </div>
+  <div id="cube" class="cube-wrapper">
+    <div class="cube-side front"></div>
+    <div class="cube-side back"></div>
+    <div class="cube-side up"></div>
+    <div class="cube-side down"></div>
+    <div class="cube-side left"></div>
+    <div class="cube-side right"></div>
   </div>
+  <script type="text/javascript" src="../lib/css-camera.pkgd.js"></script>
+  <script type="text/javascript">
+    var camera = new CSSCamera("#cube");
+    console.log(camera);
+  </script>
 </body>

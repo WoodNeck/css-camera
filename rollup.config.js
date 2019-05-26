@@ -8,7 +8,7 @@ export default [
 			`./lib/css-camera.js`,
 			`./lib/css-camera.min.js`,
 		],
-		library: "CssCamera"
+		library: "CSSCamera"
 	}),
 	...umds({
 		input: "./src/index.umd.ts",
@@ -16,7 +16,7 @@ export default [
 			`./lib/css-camera.pkgd.js`,
 			`./lib/css-camera.pkgd.min.js`,
 		],
-		library: "CssCamera",
+		library: "CSSCamera",
 	}),
 	esm({
 		input: "./src/index.ts",
