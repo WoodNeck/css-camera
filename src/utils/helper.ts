@@ -21,9 +21,12 @@ export function applyCSS(element: HTMLElement, cssObj: { [keys: string]: string 
   });
 }
 
-export function getTransformMatrix(el: HTMLElement): Float32Array {
+export function getTransformMatrix(el: HTMLElement): mat4 {
   const trVal = window.getComputedStyle(el, null).getPropertyValue('transform');
-  const matrixVal = /\(((\s|\S)+)\)/.exec(trVal)![1].split(',').map(val => parseFloat(val)) as Matrix4x4;
+  const transformStr = /\(((\s|\S)+)\)/.exec(trVal);
+  const matrixVal = transformStr
+    ? transformStr[1].split(',').map(val => parseFloat(val)) as Matrix4x4
+    : [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1] as Matrix4x4;
   const matrix = mat4.fromValues(...matrixVal);
 
   return matrix;

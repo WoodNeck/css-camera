@@ -41,9 +41,21 @@ abstract class Camera {
   }
 
   public focus(el: HTMLElement) {
-    const matrix = getTransformMatrix(el);
+    const elements = [];
+    while (el) {
+      elements.push(el);
+      if (el === this._element) break;
+      el = el.parentElement!;
+    }
 
-    console.log(matrix);
+    let matrix = mat4.create();
+    elements.reverse().forEach(element => {
+      matrix = mat4.mul(matrix, matrix, getTransformMatrix(element)) ;
+    });
+
+    const invMatrix = mat4.create();
+    mat4.invert(invMatrix, matrix);
+    this._camera.style.transform = mat4.str(invMatrix).replace(/mat4/, 'matrix3d');
   }
 
   public setFOV(fov: number) {
@@ -59,6 +71,7 @@ abstract class Camera {
 
   private _updatePerspective() {
     const perspective = Math.abs(0.25 * this._element.getBoundingClientRect().height /  Math.tan(this._fov * 0.5));
+    console.log('PERS', perspective);
 
     applyCSS(this._viewport, { perspective: `${perspective}px` });
   }

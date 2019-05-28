@@ -31,7 +31,7 @@ body {
   }
 }
 
-.cube-wrapper {
+#cube {
   display: inline-block;
   width: 300px;
   height: 300px;
@@ -39,6 +39,7 @@ body {
   left: calc(50% - 150px);
   top: calc(50% - 150px);
   transform-style: preserve-3d;
+  transform: rotateX(30deg) translateZ(150px);
 }
 .cube-side {
   width: 300px;
