@@ -33,17 +33,17 @@ body {
 
 #cube {
   display: inline-block;
-  width: 300px;
-  height: 300px;
+  width: 100vh;
+  height: 100vh;
   position: absolute;
-  left: calc(50% - 150px);
-  top: calc(50% - 150px);
+  left: calc(50% - 50vh);
+  top: calc(50% - 50vh);
   transform-style: preserve-3d;
   transform: rotateX(30deg) translateZ(150px);
 }
 .cube-side {
-  width: 300px;
-  height: 300px;
+  width: 100%;
+  height: 100%;
   background: red;
   position: absolute;
   left: 0; top: 0;
@@ -70,6 +70,9 @@ body {
 }
 .cube-side.front {
   background: url("../assets/cover.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 .cube-side.back {
   background: url(https://thumbs.gfycat.com/IdealisticOilyFlicker-size_restricted.gif);
@@ -77,5 +80,6 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   transform: translateZ(-300px);
+  transform-style: preserve-3d;
 }
 

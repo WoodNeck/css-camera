@@ -1,8 +1,9 @@
 import { mat4 } from 'gl-matrix';
 import Transform from './Transform';
-import { getElement, applyCSS, getTransformMatrix } from './utils/helper';
+import { getElement, applyCSS, getTransformMatrix, findIndex } from './utils/helper';
 import DEFAULT from './constants/default';
-
+import { Matrix4x4 } from './types';
+import { IdentityMatrix4x4 } from './constants/math';
 
 abstract class Camera {
   private _element: HTMLElement;
@@ -40,22 +41,40 @@ abstract class Camera {
     this._init();
   }
 
-  public focus(el: HTMLElement) {
+  public focus(element: HTMLElement, worldMatrix: Matrix4x4 = IdentityMatrix4x4) {
+    const focusMatrix = this.getFocusMatrix(element, worldMatrix);
+    const invMatrix = mat4.create();
+    mat4.invert(invMatrix, focusMatrix);
+
+    this._camera.style.transform = mat4.str(invMatrix).replace(/mat4/, 'matrix3d');
+  }
+
+  public getFocusMatrix(element: HTMLElement, worldMatrix: Matrix4x4 = IdentityMatrix4x4): mat4 {
     const elements = [];
-    while (el) {
-      elements.push(el);
-      if (el === this._element) break;
-      el = el.parentElement!;
+    while (element) {
+      elements.push(element);
+      if (element === this._element) break;
+      element = element.parentElement!;
     }
 
-    let matrix = mat4.create();
-    elements.reverse().forEach(element => {
-      matrix = mat4.mul(matrix, matrix, getTransformMatrix(element)) ;
+    // Order by shallow to deep
+    elements.reverse();
+
+    const elStyles = elements.map(el => window.getComputedStyle(el));
+    // From this._element to element's first parent
+    // Find most element that transform-style is not preserve-3d
+    // As all childs of that element is affected by its matrix
+    const firstFlatIndex = findIndex(elStyles, style => style.transformStyle !== 'preserve-3d');
+    if (firstFlatIndex >= 0) {
+      elStyles.splice(firstFlatIndex + 1);
+    }
+
+    let matrix = mat4.fromValues(...worldMatrix);
+    elStyles.forEach(style => {
+      matrix = mat4.mul(matrix, matrix, getTransformMatrix(style)) ;
     });
 
-    const invMatrix = mat4.create();
-    mat4.invert(invMatrix, matrix);
-    this._camera.style.transform = mat4.str(invMatrix).replace(/mat4/, 'matrix3d');
+    return matrix;
   }
 
   public setFOV(fov: number) {

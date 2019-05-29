@@ -18,6 +18,11 @@
   <script type="text/javascript">
     var camera = new CSSCamera("#cube");
     const back = document.querySelector("#back");
-    camera.focus(back);
+    camera.focus(back, [
+      1, 0, 0, 0,
+      0, 1, 0, 0,
+      0, 0, 1, 0,
+      0, 0, 0, 1,
+    ]);
   </script>
 </body>
