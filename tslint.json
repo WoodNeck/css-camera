@@ -16,7 +16,8 @@
       "object-literal-shorthand": false,
       "ordered-imports": false,
       "no-console": false,
-      "curly": false
+      "curly": false,
+      "adjacent-overload-signatures": false
     },
     "linterOptions": {
       "exclude": [

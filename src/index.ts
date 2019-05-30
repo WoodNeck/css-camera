@@ -1,6 +1,6 @@
-import Camera from "./Camera";
+import Camera from './Camera';
 
-export * from "./types";
+export * from './types';
 export {
-  Camera as default
+  Camera as default,
 };

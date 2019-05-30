@@ -22,7 +22,7 @@ abstract class Camera {
     this._element = getElement(el);
     this._fov = DEFAULT.FOV;
     this._orthographic = isOrthoGraphic;
-    this._transform = new Transform(0, 0, 0);
+    this._transform = new Transform();
 
     const element = this._element;
     const viewport = document.createElement('div');

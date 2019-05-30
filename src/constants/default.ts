@@ -1,3 +1,5 @@
+import { TRANSFORM_MODE } from './enums';
+
 export default {
   FOV: 50,
   ORTHOGRAPHIC: false,
@@ -6,4 +8,5 @@ export default {
     height: '100%',
     'transform-style': 'preserve-3d',
   },
+  TRANSFORM_MODE: TRANSFORM_MODE.RTS,
 };
