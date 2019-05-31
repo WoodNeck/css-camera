@@ -43,3 +43,16 @@ export function findIndex<T>(iterable: T[], callback: (el: T) => boolean): numbe
 
   return -1;
 }
+
+// return [0, 1, ...., max - 1]
+export function range(max: number): number[] {
+  const counterArray: number[] = [];
+  for (let i = 0; i < max; i += 1) {
+    counterArray[i] = i;
+  }
+  return counterArray;
+}
+
+export function degToRad(deg: number): number {
+  return Math.PI * deg / 180;
+}

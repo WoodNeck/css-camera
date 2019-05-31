@@ -18,11 +18,17 @@
   <script type="text/javascript">
     var camera = new CSSCamera("#cube");
     const back = document.querySelector("#back");
-    camera.focus(back, [
-      1, 0, 0, 0,
-      0, 1, 0, 0,
-      0, 0, 1, 0,
-      0, 0, 0, 1,
-    ]);
+    camera.focus(back);
+    camera.update();
+    setTimeout(() => {
+      camera.transform.translate(0, 0, -430);
+      camera.update();
+      console.log(camera.transform.matrix);
+      // setTimeout(() => {
+      //   camera.transform.rotateY(-90);
+      //   camera.update();
+      //   console.log(camera.transform.matrix);
+      // }, 2000);
+    }, 2000);
   </script>
 </body>

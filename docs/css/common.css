@@ -6,45 +6,25 @@ body {
   height: 100%;
   min-height: 100%;
 }
-#viewport {
-  perspective: 300px;
-  width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
-}
-#camera {
-  width: 100%;
-  height: 100%;
-  animation-duration: 3s;
-  animation-name: backandforth;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
-  will-change: transform;
-  transform-style: preserve-3d;
-}
-@keyframes backandforth {
-  from {
-    transform: translateZ(0px);
-  }
-  to {
-    transform: translateZ(450px);
-  }
+
+.cc-camera {
+  transition: transform 2s;
 }
 
 #cube {
   display: inline-block;
-  width: 100vh;
-  height: 100vh;
+  width: 300px;
+  height: 300px;
   position: absolute;
-  left: calc(50% - 50vh);
-  top: calc(50% - 50vh);
+  left: calc(50% - 150px);
+  top: calc(50% - 150px);
   transform-style: preserve-3d;
-  transform: rotateX(30deg) translateZ(150px);
+  transform: rotateX(30deg) rotateY(60deg);
 }
 .cube-side {
   width: 100%;
   height: 100%;
-  background: red;
+  background: rgb(114, 55, 55);
   position: absolute;
   left: 0; top: 0;
 }

@@ -8,5 +8,9 @@ export default {
     height: '100%',
     'transform-style': 'preserve-3d',
   },
-  TRANSFORM_MODE: TRANSFORM_MODE.RTS,
+  TRANSFORM_MODE: TRANSFORM_MODE.TRS,
+  CLASS: {
+    VIEWPORT: 'cc-viewport',
+    CAMERA: 'cc-camera',
+  },
 };

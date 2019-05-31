@@ -17,7 +17,8 @@
       "ordered-imports": false,
       "no-console": false,
       "curly": false,
-      "adjacent-overload-signatures": false
+      "adjacent-overload-signatures": false,
+      "no-bitwise": false
     },
     "linterOptions": {
       "exclude": [

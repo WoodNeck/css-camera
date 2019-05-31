@@ -7,8 +7,8 @@ import { IdentityMatrix4x4 } from './constants/math';
 
 abstract class Camera {
   private _element: HTMLElement;
-  private _viewport: HTMLElement;
-  private _camera: HTMLElement;
+  private _viewportEl: HTMLElement;
+  private _cameraEl: HTMLElement;
 
   private _transform: Transform;
 
@@ -17,6 +17,8 @@ abstract class Camera {
 
   public get transform() { return this._transform; }
   public get element() { return this._element; }
+  public get viewportEl() { return this._viewportEl; }
+  public get cameraEl() { return this._cameraEl; }
 
   constructor(el: string | HTMLElement, isOrthoGraphic: boolean = DEFAULT.ORTHOGRAPHIC) {
     this._element = getElement(el);
@@ -29,10 +31,14 @@ abstract class Camera {
     applyCSS(viewport, DEFAULT.STYLE_VIEWPORT);
 
     const camera = viewport.cloneNode() as HTMLElement;
+
+    viewport.className = DEFAULT.CLASS.VIEWPORT;
+    camera.className = DEFAULT.CLASS.CAMERA;
+
     viewport.appendChild(camera);
 
-    this._viewport = viewport;
-    this._camera = camera;
+    this._viewportEl = viewport;
+    this._cameraEl = camera;
 
     // EL's PARENT -> VIEWPORT -> CAMERA -> EL
     element.parentElement!.insertBefore(viewport, element);
@@ -43,10 +49,8 @@ abstract class Camera {
 
   public focus(element: HTMLElement, worldMatrix: Matrix4x4 = IdentityMatrix4x4) {
     const focusMatrix = this.getFocusMatrix(element, worldMatrix);
-    const invMatrix = mat4.create();
-    mat4.invert(invMatrix, focusMatrix);
 
-    this._camera.style.transform = mat4.str(invMatrix).replace(/mat4/, 'matrix3d');
+    this._transform.matrix = focusMatrix;
   }
 
   public getFocusMatrix(element: HTMLElement, worldMatrix: Matrix4x4 = IdentityMatrix4x4): mat4 {
@@ -83,6 +87,12 @@ abstract class Camera {
     this._updatePerspective();
   }
 
+  public update() {
+    const invMatrix = mat4.create();
+    mat4.invert(invMatrix, this.transform.matrix);
+    this._cameraEl.style.transform = mat4.str(invMatrix).replace(/mat4/, 'matrix3d');
+  }
+
   private _init() {
     this._updatePerspective();
     this._listenResize();
@@ -90,9 +100,8 @@ abstract class Camera {
 
   private _updatePerspective() {
     const perspective = Math.abs(0.25 * this._element.getBoundingClientRect().height /  Math.tan(this._fov * 0.5));
-    console.log('PERS', perspective);
 
-    applyCSS(this._viewport, { perspective: `${perspective}px` });
+    applyCSS(this._viewportEl, { perspective: `${perspective}px` });
   }
 
   private _listenResize() {
