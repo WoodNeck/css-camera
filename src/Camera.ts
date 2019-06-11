@@ -9,21 +9,17 @@ abstract class Camera {
   private _element: HTMLElement;
   private _viewportEl: HTMLElement;
   private _cameraEl: HTMLElement;
+  private _worldEl: HTMLElement;
 
   private _transform: Transform;
-
-  private _fov: number;
-  private _orthographic: boolean;
 
   public get transform() { return this._transform; }
   public get element() { return this._element; }
   public get viewportEl() { return this._viewportEl; }
   public get cameraEl() { return this._cameraEl; }
 
-  constructor(el: string | HTMLElement, isOrthoGraphic: boolean = DEFAULT.ORTHOGRAPHIC) {
+  constructor(el: string | HTMLElement) {
     this._element = getElement(el);
-    this._fov = DEFAULT.FOV;
-    this._orthographic = isOrthoGraphic;
     this._transform = new Transform();
 
     const element = this._element;
@@ -31,26 +27,28 @@ abstract class Camera {
     applyCSS(viewport, DEFAULT.STYLE_VIEWPORT);
 
     const camera = viewport.cloneNode() as HTMLElement;
+    const world = viewport.cloneNode() as HTMLElement;
 
     viewport.className = DEFAULT.CLASS.VIEWPORT;
     camera.className = DEFAULT.CLASS.CAMERA;
+    world.className = DEFAULT.CLASS.WORLD;
 
+    camera.appendChild(world);
     viewport.appendChild(camera);
 
     this._viewportEl = viewport;
     this._cameraEl = camera;
+    this._worldEl = world;
 
-    // EL's PARENT -> VIEWPORT -> CAMERA -> EL
+    // EL's PARENT -> VIEWPORT -> CAMERA -> WORLD -> EL
     element.parentElement!.insertBefore(viewport, element);
-    camera.appendChild(element);
-
-    this._init();
+    world.appendChild(element);
   }
 
   public focus(element: HTMLElement, worldMatrix: Matrix4x4 = IdentityMatrix4x4) {
     const focusMatrix = this.getFocusMatrix(element, worldMatrix);
 
-    this._transform.matrix = focusMatrix;
+    console.log(focusMatrix);
   }
 
   public getFocusMatrix(element: HTMLElement, worldMatrix: Matrix4x4 = IdentityMatrix4x4): mat4 {
@@ -81,33 +79,20 @@ abstract class Camera {
     return matrix;
   }
 
-  public setFOV(fov: number) {
-    this._fov = fov;
-
-    this._updatePerspective();
+  public setPerspective(val: number) {
+    applyCSS(this._viewportEl, { perspective: `${val}px` });
+    this._transform.perspective = val;
+    this.update();
   }
 
   public update() {
-    const invMatrix = mat4.create();
-    mat4.invert(invMatrix, this.transform.matrix);
-    this._cameraEl.style.transform = mat4.str(invMatrix).replace(/mat4/, 'matrix3d');
-  }
+    const invCameraMat = mat4.create();
+    const invWorldMat = mat4.create();
+    mat4.invert(invCameraMat, this.transform.cameraMatrix);
+    mat4.invert(invWorldMat, this.transform.worldMatrix);
 
-  private _init() {
-    this._updatePerspective();
-    this._listenResize();
-  }
-
-  private _updatePerspective() {
-    const perspective = Math.abs(0.25 * this._element.getBoundingClientRect().height /  Math.tan(this._fov * 0.5));
-
-    applyCSS(this._viewportEl, { perspective: `${perspective}px` });
-  }
-
-  private _listenResize() {
-    window.addEventListener('resize', () => {
-      this._updatePerspective();
-    });
+    this._cameraEl.style.transform = mat4.str(invCameraMat).replace(/mat4/, 'matrix3d');
+    this._worldEl.style.transform = mat4.str(invWorldMat).replace(/mat4/, 'matrix3d');
   }
 }
 

@@ -8,7 +8,7 @@
 <body>
   <div id="cube">
     <div class="cube-side front"></div>
-    <div id="back" class="cube-side back"></div>
+    <div class="cube-side back"></div>
     <div class="cube-side up"></div>
     <div class="cube-side down"></div>
     <div class="cube-side left"></div>
@@ -17,18 +17,22 @@
   <script type="text/javascript" src="../lib/css-camera.pkgd.js"></script>
   <script type="text/javascript">
     var camera = new CSSCamera("#cube");
-    const back = document.querySelector("#back");
-    camera.focus(back);
-    camera.update();
-    setTimeout(() => {
-      camera.transform.translate(0, 0, -430);
+    camera.setPerspective(300);
+
+    const front = document.querySelector(".front");
+    const back = document.querySelector(".back");
+    const right = document.querySelector(".right");
+
+    const rotate = () => {
+      camera.transform.rotateY(-90);
+
       camera.update();
-      console.log(camera.transform.matrix);
-      // setTimeout(() => {
-      //   camera.transform.rotateY(-90);
-      //   camera.update();
-      //   console.log(camera.transform.matrix);
-      // }, 2000);
-    }, 2000);
+      setTimeout(rotate, 1000);
+    }
+
+    // camera.focus(back);
+    camera.transform.translate(0, 0, -450);
+    camera.update();
+    setTimeout(rotate, 1000);
   </script>
 </body>

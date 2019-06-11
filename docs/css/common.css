@@ -8,7 +8,11 @@ body {
 }
 
 .cc-camera {
-  transition: transform 2s;
+  transition: transform 1s;
+}
+
+.cc-world {
+  transition: transform 1s;
 }
 
 #cube {
@@ -19,7 +23,8 @@ body {
   left: calc(50% - 150px);
   top: calc(50% - 150px);
   transform-style: preserve-3d;
-  transform: rotateX(30deg) rotateY(60deg);
+  /* transform: rotateX(30deg) rotateY(60deg); */
+  transition: transform 3s;
 }
 .cube-side {
   width: 100%;
