@@ -86,13 +86,10 @@ abstract class Camera {
   }
 
   public update() {
-    const invCameraMat = mat4.create();
-    const invWorldMat = mat4.create();
-    mat4.invert(invCameraMat, this.transform.cameraMatrix);
-    mat4.invert(invWorldMat, this.transform.worldMatrix);
+    const transform = this._transform;
 
-    this._cameraEl.style.transform = mat4.str(invCameraMat).replace(/mat4/, 'matrix3d');
-    this._worldEl.style.transform = mat4.str(invWorldMat).replace(/mat4/, 'matrix3d');
+    this._cameraEl.style.transform = transform.cameraCSS;
+    this._worldEl.style.transform = transform.worldCSS;
   }
 }
 

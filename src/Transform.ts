@@ -1,10 +1,9 @@
-import { mat4, vec3, quat } from 'gl-matrix';
-import { degToRad } from './utils/helper';
+import { vec3, quat } from 'gl-matrix';
 
 class Transform {
   private _position: vec3;
   private _scale: vec3;
-  private _rotation: quat;
+  private _rotation: vec3;
   private _perspective: number;
 
   public get position() { return this._position; }
@@ -12,30 +11,19 @@ class Transform {
   public get rotation() { return this._rotation; }
   public get perspective() { return this._perspective; }
 
-  public get cameraMatrix() {
-    const mat = mat4.create();
+  public get cameraCSS() {
+    const perspective = this._perspective;
+    const rotation = this._rotation;
 
-    mat4.fromRotationTranslationScale(
-      mat,
-      this._rotation,
-      vec3.create(),
-      this._scale,
-    );
-
-    mat4.translate(mat, mat, vec3.fromValues(0, 0, -this._perspective));
-
-    return mat;
+    // tslint:disable-next-line: max-line-length
+    return `translateZ(${perspective}px) rotateY(${rotation[1]}deg) rotateZ(${rotation[2]}deg) rotateX(${rotation[0]}deg)`;
   }
 
-  public get worldMatrix() {
-    const mat = mat4.create();
+  public get worldCSS() {
+    const perspective = this._perspective;
+    const position = this._position;
 
-    const position = vec3.create();
-    vec3.add(position, this._position, vec3.fromValues(0, 0, this._perspective));
-
-    mat4.fromTranslation(mat, position);
-
-    return mat;
+    return `translate3d(${-position[0]}px, ${-position[1]}px, ${-position[2] - perspective}px)`;
   }
 
   public set perspective(val: number) {
@@ -45,24 +33,35 @@ class Transform {
   constructor() {
     this._position = vec3.create();
     this._scale = vec3.fromValues(1, 1, 1);
-    this._rotation = quat.create();
+    this._rotation = vec3.create();
     this._perspective = 0;
   }
 
   public translate(x: number, y: number, z: number) {
+    const transVec = vec3.fromValues(x, y, z);
+    const rotation = this._rotation;
+    const rotQuat = quat.create();
+    quat.fromEuler(rotQuat, rotation[0], rotation[1], rotation[2]);
+    quat.invert(rotQuat, rotQuat);
+    vec3.transformQuat(transVec, transVec, rotQuat);
+
+    vec3.add(this._position, this._position, transVec);
+  }
+
+  public absTranslate(x: number, y: number, z: number) {
     vec3.add(this._position, this._position, vec3.fromValues(x, y, z));
   }
 
   public rotateX(deg: number) {
-    quat.rotateX(this._rotation, this._rotation, degToRad(deg));
+    this._rotation[0] += deg;
   }
 
   public rotateY(deg: number) {
-    quat.rotateY(this._rotation, this._rotation, degToRad(deg));
+    this._rotation[1] += deg;
   }
 
   public rotateZ(deg: number) {
-    quat.rotateZ(this._rotation, this._rotation, degToRad(deg));
+    this._rotation[2] += deg;
   }
 }
 

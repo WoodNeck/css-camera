@@ -6,33 +6,93 @@
   <link type="text/css" rel="stylesheet" href="css/common.css">
 </html>
 <body>
-  <div id="cube">
-    <div class="cube-side front"></div>
-    <div class="cube-side back"></div>
-    <div class="cube-side up"></div>
-    <div class="cube-side down"></div>
-    <div class="cube-side left"></div>
-    <div class="cube-side right"></div>
+  <div id="space">
+    <div class="cube" id="cube1">
+      <div class="cube-side front"></div>
+      <div class="cube-side back"></div>
+      <div class="cube-side up"></div>
+      <div class="cube-side down"></div>
+      <div class="cube-side left"></div>
+      <div class="cube-side right"></div>
+    </div>
+    <div class="cube" id="cube2">
+      <div class="cube-side front"></div>
+      <div class="cube-side back"></div>
+      <div class="cube-side up"></div>
+      <div class="cube-side down"></div>
+      <div class="cube-side left"></div>
+      <div class="cube-side right"></div>
+    </div>
+    <div class="cube" id="cube3">
+      <div class="cube-side front"></div>
+      <div class="cube-side back"></div>
+      <div class="cube-side up"></div>
+      <div class="cube-side down"></div>
+      <div class="cube-side left"></div>
+      <div class="cube-side right"></div>
+    </div>
   </div>
   <script type="text/javascript" src="../lib/css-camera.pkgd.js"></script>
   <script type="text/javascript">
-    var camera = new CSSCamera("#cube");
+    var camera = new CSSCamera("#space");
     camera.setPerspective(300);
 
     const front = document.querySelector(".front");
     const back = document.querySelector(".back");
     const right = document.querySelector(".right");
 
-    const rotate = () => {
-      camera.transform.rotateY(-90);
-
-      camera.update();
-      setTimeout(rotate, 1000);
-    }
-
     // camera.focus(back);
-    camera.transform.translate(0, 0, -450);
-    camera.update();
-    setTimeout(rotate, 1000);
+    const loop = () => {
+      setTimeout(() => {
+        camera.transform.translate(0, 0, -450);
+        camera.update();
+        setTimeout(() => {
+          camera.transform.rotateY(90);
+          camera.update();
+          setTimeout(() => {
+            camera.transform.translate(0, 0, -300);
+            camera.update();
+            setTimeout(() => {
+              camera.transform.rotateY(90);
+              camera.update();
+              setTimeout(() => {
+                camera.transform.translate(0, 0, -300);
+                camera.update();
+                setTimeout(() => {
+                  camera.transform.rotateY(-180);
+                  camera.update();
+                  setTimeout(() => {
+                    camera.transform.translate(0, 0, -300);
+                    camera.update();
+                    setTimeout(() => {
+                      camera.transform.rotateY(-90);
+                      camera.update();
+                      setTimeout(() => {
+                        camera.transform.translate(0, 0, -300);
+                        camera.update();
+                        setTimeout(() => {
+                          camera.transform.rotateY(-90);
+                          camera.update();
+                          setTimeout(() => {
+                            camera.transform.translate(0, 0, -450);
+                            camera.update();
+                            setTimeout(() => {
+                              camera.transform.rotateY(180);
+                              camera.update();
+                              setTimeout(loop, 1000);
+                            }, 1000);
+                          }, 1000);
+                        }, 1000);
+                      }, 1000);
+                    }, 1000);
+                  }, 1000);
+                }, 1000);
+              }, 1000);
+            }, 1000);
+          }, 1000);
+        }, 1000);
+      }, 1000);
+    }
+    setTimeout(loop, 1000);
   </script>
 </body>
