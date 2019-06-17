@@ -1,6 +1,6 @@
 {
   "name": "css-camera",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Add a new perspective to your web page",
   "main": "index.js",
   "scripts": {
