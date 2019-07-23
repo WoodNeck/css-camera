@@ -4,7 +4,6 @@
   "description": "Add a new perspective to your web page",
   "main": "index.js",
   "scripts": {
-    "start": "rollup -c -w",
     "build": "rm -rf ./lib && rollup -c && npm run declaration",
     "build:windows": "rd /s /q ./lib || rollup -c && npm run declaration:windows",
     "declaration": "rm -rf ./lib/declaration && tsc -p tsconfig.json",

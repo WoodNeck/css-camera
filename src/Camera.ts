@@ -1,9 +1,7 @@
-import { mat4 } from 'gl-matrix';
+import { mat4, vec3, quat } from 'gl-matrix';
 import Transform from './Transform';
-import { getElement, applyCSS, getTransformMatrix, findIndex } from './utils/helper';
+import { getElement, applyCSS, getTransformMatrix, findIndex, quatToEuler } from './utils/helper';
 import DEFAULT from './constants/default';
-import { Matrix4x4 } from './types';
-import { IdentityMatrix4x4 } from './constants/math';
 
 abstract class Camera {
   private _element: HTMLElement;
@@ -17,6 +15,10 @@ abstract class Camera {
   public get element() { return this._element; }
   public get viewportEl() { return this._viewportEl; }
   public get cameraEl() { return this._cameraEl; }
+
+  public set perspective(val: number) {
+    this._transform.perspective = val;
+  }
 
   constructor(el: string | HTMLElement) {
     this._element = getElement(el);
@@ -45,13 +47,20 @@ abstract class Camera {
     world.appendChild(element);
   }
 
-  public focus(element: HTMLElement, worldMatrix: Matrix4x4 = IdentityMatrix4x4) {
-    const focusMatrix = this.getFocusMatrix(element, worldMatrix);
+  public lookAt(element: HTMLElement) {
+    const focusMatrix = this.getFocusMatrix(element);
 
-    console.log(focusMatrix);
+    const rotation = quat.create();
+    const translation = vec3.create();
+    mat4.getRotation(rotation, focusMatrix);
+    mat4.getTranslation(translation, focusMatrix);
+
+    const eulerAngle = quatToEuler(rotation);
+
+    this.transform.rotation = eulerAngle;
   }
 
-  public getFocusMatrix(element: HTMLElement, worldMatrix: Matrix4x4 = IdentityMatrix4x4): mat4 {
+  public getFocusMatrix(element: HTMLElement): mat4 {
     const elements = [];
     while (element) {
       elements.push(element);
@@ -63,15 +72,17 @@ abstract class Camera {
     elements.reverse();
 
     const elStyles = elements.map(el => window.getComputedStyle(el));
+
     // From this._element to element's first parent
     // Find most element that transform-style is not preserve-3d
     // As all childs of that element is affected by its matrix
     const firstFlatIndex = findIndex(elStyles, style => style.transformStyle !== 'preserve-3d');
-    if (firstFlatIndex >= 0) {
+    if (firstFlatIndex > 0) { // el doesn't have to be preserve-3d'ed
       elStyles.splice(firstFlatIndex + 1);
     }
 
-    let matrix = mat4.fromValues(...worldMatrix);
+    let matrix = mat4.create();
+    mat4.identity(matrix);
     elStyles.forEach(style => {
       matrix = mat4.mul(matrix, matrix, getTransformMatrix(style)) ;
     });
@@ -79,15 +90,40 @@ abstract class Camera {
     return matrix;
   }
 
-  public setPerspective(val: number) {
-    applyCSS(this._viewportEl, { perspective: `${val}px` });
-    this._transform.perspective = val;
-    this.update();
+  public translate(x: number, y: number, z: number) {
+    const transform = this._transform;
+    const position = transform.position;
+    const rotation = transform.rotation;
+
+    const transVec = vec3.fromValues(x, y, z);
+    const rotQuat = quat.create();
+    quat.fromEuler(rotQuat, rotation[0], rotation[1], rotation[2]);
+    quat.invert(rotQuat, rotQuat);
+    vec3.transformQuat(transVec, transVec, rotQuat);
+
+    vec3.add(position, position, transVec);
+  }
+
+  public absTranslate(x: number, y: number, z: number) {
+    this._transform.position = vec3.fromValues(x, y, z);
+  }
+
+  public rotateX(deg: number) {
+    this._transform.rotation[0] += deg;
+  }
+
+  public rotateY(deg: number) {
+    this._transform.rotation[1] += deg;
+  }
+
+  public rotateZ(deg: number) {
+    this._transform.rotation[2] += deg;
   }
 
   public update() {
     const transform = this._transform;
 
+    applyCSS(this._viewportEl, { perspective: `${transform.perspective}px` });
     this._cameraEl.style.transform = transform.cameraCSS;
     this._worldEl.style.transform = transform.worldCSS;
   }
