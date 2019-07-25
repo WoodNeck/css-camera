@@ -81,9 +81,10 @@ body {
 }
 #rotated {
   transform-style: preserve-3d;
-  transform: rotateY(30deg);
+  transform: rotateY(100deg);
   width: 300px;
   height: 300px;
+  /* transform-origin: 100% 0%; */
   background: aquamarine;
 }
 #rotated2 {

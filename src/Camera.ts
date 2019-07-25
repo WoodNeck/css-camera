@@ -1,7 +1,8 @@
 import { mat4, vec3, quat } from 'gl-matrix';
 import Transform from './Transform';
-import { getElement, applyCSS, getTransformMatrix, findIndex, quatToEuler } from './utils/helper';
+import { getElement, applyCSS, getTransformMatrix, findIndex, quatToEuler, getOffsetFromParent, getRotateOffset, translateMat } from './utils/helper';
 import DEFAULT from './constants/default';
+import { Offset } from './types';
 
 abstract class Camera {
   private _element: HTMLElement;
@@ -57,11 +58,14 @@ abstract class Camera {
 
     const eulerAngle = quatToEuler(rotation);
 
+    vec3.negate(eulerAngle, eulerAngle);
+
     this.transform.rotation = eulerAngle;
+    this.transform.position = translation;
   }
 
   public getFocusMatrix(element: HTMLElement): mat4 {
-    const elements = [];
+    const elements: HTMLElement[] = [];
     while (element) {
       elements.push(element);
       if (element === this._element) break;
@@ -73,18 +77,43 @@ abstract class Camera {
 
     const elStyles = elements.map(el => window.getComputedStyle(el));
 
-    // From this._element to element's first parent
-    // Find most element that transform-style is not preserve-3d
+    // Find first element that transform-style is not preserve-3d
     // As all childs of that element is affected by its matrix
     const firstFlatIndex = findIndex(elStyles, style => style.transformStyle !== 'preserve-3d');
     if (firstFlatIndex > 0) { // el doesn't have to be preserve-3d'ed
       elStyles.splice(firstFlatIndex + 1);
     }
 
-    let matrix = mat4.create();
+    let parentOffset: Offset = {
+      left: 0,
+      top: 0,
+      width: this.cameraEl.offsetWidth,
+      height: this.cameraEl.offsetHeight,
+    };
+    const position = vec3.fromValues(0, 0, this.transform.perspective);
+    const matrix = mat4.create();
     mat4.identity(matrix);
-    elStyles.forEach(style => {
-      matrix = mat4.mul(matrix, matrix, getTransformMatrix(style)) ;
+    mat4.translate(matrix, matrix, position);
+    elStyles.forEach((style, idx) => {
+      const el = elements[idx];
+      const currentOffset = {
+        left: el.offsetLeft,
+        top: el.offsetTop,
+        width: el.offsetWidth,
+        height: el.offsetHeight,
+      };
+      const rotateOffset = getRotateOffset(style, currentOffset);
+      const offsetFromParent = getOffsetFromParent(currentOffset, parentOffset);
+
+      vec3.negate(rotateOffset, rotateOffset);
+      translateMat(matrix, rotateOffset);
+      mat4.mul(matrix, getTransformMatrix(style), matrix);
+      vec3.negate(rotateOffset, rotateOffset);
+      translateMat(matrix, rotateOffset);
+
+      translateMat(matrix, offsetFromParent);
+
+      parentOffset = currentOffset;
     });
 
     return matrix;

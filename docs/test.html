@@ -8,7 +8,7 @@
 <body>
   <div id="space">
     <div id="rotated">
-      <div id="rotated2"></div>
+      <!-- <div id="rotated2"></div> -->
     </div>
     <div class="cube" id="cube1">
       <div class="cube-side front"></div>
@@ -44,9 +44,9 @@
     const back = document.querySelector(".back");
     const right = document.querySelector(".right");
     const rotated1 = document.querySelector("#rotated");
-    const rotated2 = document.querySelector("#rotated2");
+    // const rotated2 = document.querySelector("#rotated2");
 
-    camera.lookAt(rotated);
+    camera.lookAt(rotated1);
     camera.update();
     // const loop = () => {
     //   setTimeout(() => {

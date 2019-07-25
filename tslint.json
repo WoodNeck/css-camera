@@ -18,7 +18,9 @@
       "no-console": false,
       "curly": false,
       "adjacent-overload-signatures": false,
-      "no-bitwise": false
+      "no-bitwise": false,
+      "interface-name": false,
+      "max-line-length": false
     },
     "linterOptions": {
       "exclude": [

@@ -21,10 +21,9 @@ class Transform {
   }
 
   public get worldCSS() {
-    const perspective = this._perspective;
     const position = this._position;
 
-    return `translate3d(${-position[0]}px, ${-position[1]}px, ${-position[2] - perspective}px)`;
+    return `translate3d(${-position[0]}px, ${-position[1]}px, ${-position[2]}px)`;
   }
 
   public set position(val: vec3) { this._position = val; }
