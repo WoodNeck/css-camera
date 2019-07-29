@@ -8,7 +8,9 @@
 <body>
   <div id="space">
     <div id="rotated">
-      <!-- <div id="rotated2"></div> -->
+      <div id="rotated2">
+        <div id="rotated3"></div>
+      </div>
     </div>
     <div class="cube" id="cube1">
       <div class="cube-side front"></div>
@@ -42,11 +44,13 @@
 
     const front = document.querySelector(".front");
     const back = document.querySelector(".back");
+    const left = document.querySelector(".left");
     const right = document.querySelector(".right");
     const rotated1 = document.querySelector("#rotated");
-    // const rotated2 = document.querySelector("#rotated2");
+    const rotated2 = document.querySelector("#rotated2");
+    const rotated3 = document.querySelector("#rotated3");
 
-    camera.lookAt(rotated1);
+    camera.focus(rotated2);
     camera.update();
 
     // const loop = () => {

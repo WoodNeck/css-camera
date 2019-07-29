@@ -27,14 +27,16 @@ abstract class Camera {
 
     const element = this._element;
     const viewport = document.createElement('div');
-    applyCSS(viewport, DEFAULT.STYLE_VIEWPORT);
-
     const camera = viewport.cloneNode() as HTMLElement;
     const world = viewport.cloneNode() as HTMLElement;
 
     viewport.className = DEFAULT.CLASS.VIEWPORT;
     camera.className = DEFAULT.CLASS.CAMERA;
     world.className = DEFAULT.CLASS.WORLD;
+
+    applyCSS(viewport, DEFAULT.STYLE.VIEWPORT);
+    applyCSS(camera, DEFAULT.STYLE.CAMERA);
+    applyCSS(world, DEFAULT.STYLE.WORLD);
 
     camera.appendChild(world);
     viewport.appendChild(camera);
@@ -48,7 +50,7 @@ abstract class Camera {
     world.appendChild(element);
   }
 
-  public lookAt(element: HTMLElement) {
+  public focus(element: HTMLElement) {
     const focusMatrix = this.getFocusMatrix(element);
 
     const rotation = quat.create();
@@ -90,10 +92,13 @@ abstract class Camera {
       width: this.cameraEl.offsetWidth,
       height: this.cameraEl.offsetHeight,
     };
-    const position = vec3.fromValues(0, 0, this.transform.perspective);
+
     const matrix = mat4.create();
+    const position = vec3.fromValues(0, 0, this.transform.perspective);
+    const rotation = quat.create();
     mat4.identity(matrix);
-    mat4.translate(matrix, matrix, position);
+    quat.identity(rotation);
+
     elStyles.forEach((style, idx) => {
       const el = elements[idx];
       const currentOffset = {
@@ -102,19 +107,33 @@ abstract class Camera {
         width: el.offsetWidth,
         height: el.offsetHeight,
       };
+      const transformMat = getTransformMatrix(style);
       const rotateOffset = getRotateOffset(style, currentOffset);
       const offsetFromParent = getOffsetFromParent(currentOffset, parentOffset);
+      const currentRotation = quat.create();
+      const invRotation = quat.create();
+      mat4.getRotation(currentRotation, transformMat);
+      quat.invert(invRotation, rotation);
 
       vec3.negate(rotateOffset, rotateOffset);
       translateMat(matrix, rotateOffset);
-      mat4.mul(matrix, getTransformMatrix(style), matrix);
+      vec3.add(position, position, rotateOffset);
+
+      mat4.mul(matrix, matrix, transformMat);
+      vec3.transformQuat(position, position, invRotation);
+      quat.mul(rotation, rotation, currentRotation);
+      vec3.transformQuat(position, position, rotation);
+
       vec3.negate(rotateOffset, rotateOffset);
       translateMat(matrix, rotateOffset);
+      vec3.add(position, position, rotateOffset);
 
       translateMat(matrix, offsetFromParent);
 
       parentOffset = currentOffset;
     });
+
+    translateMat(matrix, position);
 
     return matrix;
   }

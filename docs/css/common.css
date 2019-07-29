@@ -5,6 +5,7 @@ body {
   width: 100%;
   height: 100%;
   min-height: 100%;
+  margin: 0;
 }
 
 .cc-camera {
@@ -82,16 +83,27 @@ body {
 }
 #rotated {
   transform-style: preserve-3d;
-  transform: rotateZ(10deg) rotateX(50deg);
+  transform: rotateZ(10deg) rotateX(90deg) rotateY(45deg);
+  transform-origin: 0% 100%;
   width: 300px;
   height: 300px;
   /* transform-origin: 100% 0%; */
   background: aquamarine;
+  backface-visibility: hidden;
 }
 #rotated2 {
   transform-style: preserve-3d;
-  transform: rotateY(-45deg);
+  transform: rotateY(-45deg) rotateX(-45deg) rotateZ(-30deg);
   width: 300px;
   height: 300px;
   background: chartreuse;
+  backface-visibility: hidden;
+}
+#rotated3 {
+  transform-style: preserve-3d;
+  transform: rotateY(-90deg);
+  width: 300px;
+  height: 300px;
+  background: tomato;
+  backface-visibility: hidden;
 }
