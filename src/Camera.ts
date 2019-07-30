@@ -1,6 +1,6 @@
 import { mat4, vec3, quat } from 'gl-matrix';
 import Transform from './Transform';
-import { getElement, applyCSS, getTransformMatrix, findIndex, quatToEuler, getOffsetFromParent, getRotateOffset, translateMat } from './utils/helper';
+import { getElement, applyCSS, getTransformMatrix, findIndex, quatToEuler, getOffsetFromParent, getRotateOffset, translateMat, removeTranslate } from './utils/helper';
 import DEFAULT from './constants/default';
 import { Offset } from './types';
 
@@ -94,10 +94,10 @@ abstract class Camera {
     };
 
     const matrix = mat4.create();
-    const position = vec3.fromValues(0, 0, this.transform.perspective);
-    const rotation = quat.create();
     mat4.identity(matrix);
-    quat.identity(rotation);
+
+    // Center of screen as origin
+    const centerPos = vec3.fromValues(0, 0, 0);
 
     elStyles.forEach((style, idx) => {
       const el = elements[idx];
@@ -110,30 +110,36 @@ abstract class Camera {
       const transformMat = getTransformMatrix(style);
       const rotateOffset = getRotateOffset(style, currentOffset);
       const offsetFromParent = getOffsetFromParent(currentOffset, parentOffset);
-      const currentRotation = quat.create();
-      const invRotation = quat.create();
-      mat4.getRotation(currentRotation, transformMat);
-      quat.invert(invRotation, rotation);
+
+      const transformOrigin = vec3.create();
+      const rotScaleMat = mat4.clone(transformMat);
+      removeTranslate(rotScaleMat);
 
       vec3.negate(rotateOffset, rotateOffset);
       translateMat(matrix, rotateOffset);
-      vec3.add(position, position, rotateOffset);
+      vec3.add(transformOrigin, transformOrigin, rotateOffset);
 
       mat4.mul(matrix, matrix, transformMat);
-      vec3.transformQuat(position, position, invRotation);
-      quat.mul(rotation, rotation, currentRotation);
-      vec3.transformQuat(position, position, rotation);
+      vec3.transformMat4(transformOrigin, transformOrigin, rotScaleMat);
 
       vec3.negate(rotateOffset, rotateOffset);
       translateMat(matrix, rotateOffset);
-      vec3.add(position, position, rotateOffset);
+      vec3.add(transformOrigin, transformOrigin, rotateOffset);
 
-      translateMat(matrix, offsetFromParent);
+      vec3.add(centerPos, centerPos, offsetFromParent);
+      vec3.add(centerPos, centerPos, transformOrigin);
 
       parentOffset = currentOffset;
     });
 
-    translateMat(matrix, position);
+    translateMat(matrix, centerPos);
+
+    const rotation = quat.create();
+    const perspective = vec3.fromValues(0, 0, this.transform.perspective);
+    mat4.getRotation(rotation, matrix);
+    vec3.transformQuat(perspective, perspective, rotation);
+
+    translateMat(matrix, perspective);
 
     return matrix;
   }

@@ -41,6 +41,7 @@
   <script type="text/javascript">
     var camera = new CSSCamera("#space");
     camera.perspective = 300;
+    camera.absTranslate(0, 0, 300);
 
     const front = document.querySelector(".front");
     const back = document.querySelector(".back");
@@ -50,7 +51,7 @@
     const rotated2 = document.querySelector("#rotated2");
     const rotated3 = document.querySelector("#rotated3");
 
-    camera.focus(rotated2);
+    // camera.focus(rotated1);
     camera.update();
 
     // const loop = () => {

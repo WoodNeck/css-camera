@@ -127,6 +127,12 @@ export function translateMat(mat: mat4, vec: vec3): void {
   mat[14] += vec[2];
 }
 
+export function removeTranslate(mat: mat4): void {
+  mat[12] = 0;
+  mat[13] = 0;
+  mat[14] = 0;
+}
+
 export function clamp(val: number, min: number, max: number): number {
   return Math.max(Math.min(val, max), min);
 }
