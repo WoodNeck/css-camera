@@ -1,6 +1,7 @@
 import { mat4, vec3, quat } from 'gl-matrix';
 import Transform from './Transform';
-import { getElement, applyCSS, getTransformMatrix, findIndex, quatToEuler, getOffsetFromParent, getRotateOffset, translateMat, removeTranslate } from './utils/helper';
+import { getElement, applyCSS, getTransformMatrix, findIndex, getOffsetFromParent, getRotateOffset } from './utils/helper';
+import { quatToEuler, translateMat, removeTranslate } from './utils/math';
 import DEFAULT from './constants/default';
 import { Offset } from './types';
 
