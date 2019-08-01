@@ -111,24 +111,25 @@ abstract class Camera {
       const transformMat = getTransformMatrix(style);
       const rotateOffset = getRotateOffset(style, currentOffset);
       const offsetFromParent = getOffsetFromParent(currentOffset, parentOffset);
+      const translation = mat4.getTranslation(vec3.create(), transformMat);
+      removeTranslate(transformMat);
 
       const transformOrigin = vec3.create();
-      const rotScaleMat = mat4.clone(transformMat);
-      removeTranslate(rotScaleMat);
+      const rotationMatrix = mat4.create();
 
       vec3.negate(rotateOffset, rotateOffset);
-      translateMat(matrix, rotateOffset);
       vec3.add(transformOrigin, transformOrigin, rotateOffset);
 
       mat4.mul(matrix, matrix, transformMat);
-      vec3.transformMat4(transformOrigin, transformOrigin, rotScaleMat);
+      mat4.fromQuat(rotationMatrix, mat4.getRotation(quat.create(), matrix));
+      vec3.transformMat4(transformOrigin, transformOrigin, rotationMatrix);
 
       vec3.negate(rotateOffset, rotateOffset);
-      translateMat(matrix, rotateOffset);
       vec3.add(transformOrigin, transformOrigin, rotateOffset);
 
       vec3.add(centerPos, centerPos, offsetFromParent);
       vec3.add(centerPos, centerPos, transformOrigin);
+      vec3.add(centerPos, centerPos, translation);
 
       parentOffset = currentOffset;
     });

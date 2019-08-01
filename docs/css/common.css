@@ -83,8 +83,8 @@ body {
 }
 #rotated {
   transform-style: preserve-3d;
-  transform: rotateX(45deg);
-  transform-origin: 10px 30%;
+  transform: translateZ(-600px) rotateX(90deg);
+  transform-origin: 50px 30%;
   width: 300px;
   height: 300px;
   /* transform-origin: 100% 0%; */
@@ -93,7 +93,8 @@ body {
 }
 #rotated2 {
   transform-style: preserve-3d;
-  transform: rotateY(-45deg) rotateZ(45deg);
+  transform: translate3d(200px, -100px, 300px) rotateY(90deg);
+  transform-origin: 100% 50%;
   width: 300px;
   height: 300px;
   background: chartreuse;
@@ -101,7 +102,7 @@ body {
 }
 #rotated3 {
   transform-style: preserve-3d;
-  transform: rotateX(30deg) rotateY(-30deg);
+  transform: rotateX(30deg) translate3d(200px, -500px, 300px) rotateY(-30deg);
   width: 300px;
   height: 300px;
   background: tomato;
