@@ -1,4 +1,4 @@
-import { vec3 } from 'gl-matrix';
+import { vec3, quat } from 'gl-matrix';
 
 class Transform {
   private _position: vec3;
@@ -9,15 +9,20 @@ class Transform {
   public get position() { return this._position; }
   public get scale() { return this._scale; }
   public get rotation() { return this._rotation; }
+  public get quaternion() {
+    const r = this._rotation;
+    return quat.fromEuler(quat.create(), r[0], r[1], r[2]);
+  }
   public get perspective() { return this._perspective; }
 
   public get cameraCSS() {
     const perspective = this._perspective;
     const rotation = this._rotation;
+    const scale = this._scale;
 
     // Rotate in order of Z - Y - X
     // tslint:disable-next-line: max-line-length
-    return `translateZ(${perspective}px) rotateX(${rotation[0]}deg) rotateY(${rotation[1]}deg) rotateZ(${rotation[2]}deg)`;
+    return `scale3d(${scale[0]}, ${scale[1]}, ${scale[2]}) translateZ(${perspective}px) rotateX(${rotation[0]}deg) rotateY(${rotation[1]}deg) rotateZ(${rotation[2]}deg)`;
   }
 
   public get worldCSS() {

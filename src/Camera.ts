@@ -145,7 +145,7 @@ abstract class Camera {
     return matrix;
   }
 
-  public translate(x: number = 0, y: number = 0, z: number = 0) {
+  public translateLocal(x: number = 0, y: number = 0, z: number = 0) {
     const transform = this._transform;
     const position = transform.position;
     const rotation = transform.rotation;
@@ -158,22 +158,50 @@ abstract class Camera {
     vec3.add(position, position, transVec);
   }
 
-  public absTranslate(x: number = 0, y: number = 0, z: number = 0) {
-    this._transform.position = vec3.fromValues(x, y, z);
+  public translate(x: number = 0, y: number = 0, z: number = 0) {
+    const transform = this.transform;
+    vec3.add(transform.position, transform.position, vec3.fromValues(x, y, z));
+  }
+
+  public rotateLocal(x: number = 0, y: number = 0, z: number = 0) {
+    const transform = this._transform;
+    const currentRotation = transform.quaternion;
+    const newRotation = quat.fromEuler(quat.create(), x, y, z);
+
+    const newEuler = quatToEuler(quat.mul(quat.create(), currentRotation, newRotation));
+    transform.rotation = newEuler;
   }
 
   public rotate(x: number = 0, y: number = 0, z: number = 0) {
-    this._transform.rotation[0] += x;
-    this._transform.rotation[1] += y;
-    this._transform.rotation[2] += z;
+    const transform = this.transform;
+    vec3.add(transform.rotation, transform.rotation, vec3.fromValues(x, y, z));
   }
 
-  public update() {
+  public async update(duration: number = 0): Promise<void> {
     const transform = this._transform;
+    const transition = duration > 0 ? `transform ${duration}ms` : '';
 
     applyCSS(this._viewportEl, { perspective: `${transform.perspective}px` });
-    this._cameraEl.style.transform = transform.cameraCSS;
-    this._worldEl.style.transform = transform.worldCSS;
+    applyCSS(this._cameraEl, {
+      transition,
+      transform: transform.cameraCSS,
+    });
+    applyCSS(this._worldEl, {
+      transition,
+      transform: transform.worldCSS,
+    });
+
+    return new Promise(resolve => {
+      setTimeout(() => {
+        applyCSS(this._cameraEl, {
+          transition: '',
+        });
+        applyCSS(this._worldEl, {
+          transition: '',
+        });
+        resolve();
+      }, duration);
+    });
   }
 }
 

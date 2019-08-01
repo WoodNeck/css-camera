@@ -39,6 +39,7 @@
 
         // etc
         "importHelpers": true,
+        "downlevelIteration": true
     },
     "include": [
         "./src/**/*.ts"
