@@ -1,7 +1,7 @@
 import { mat4, vec3, quat } from 'gl-matrix';
 import Transform from './Transform';
 import { getElement, applyCSS, getTransformMatrix, findIndex, getOffsetFromParent, getRotateOffset } from './utils/helper';
-import { quatToEuler, translateMat, removeTranslate } from './utils/math';
+import { quatToEuler } from './utils/math';
 import DEFAULT from './constants/default';
 import { Offset } from './types';
 
@@ -90,14 +90,13 @@ abstract class Camera {
     let parentOffset: Offset = {
       left: 0,
       top: 0,
-      width: this.cameraEl.offsetWidth,
-      height: this.cameraEl.offsetHeight,
+      width: this.viewportEl.offsetWidth,
+      height: this.viewportEl.offsetHeight,
     };
 
-    const matrix = mat4.create();
-    mat4.identity(matrix);
-
-    // Center of screen as origin
+    // Accumulated rotation
+    const accRotation = quat.identity(quat.create());
+    // Assume center of screen as (0, 0, 0)
     const centerPos = vec3.fromValues(0, 0, 0);
 
     elStyles.forEach((style, idx) => {
@@ -109,44 +108,44 @@ abstract class Camera {
         height: el.offsetHeight,
       };
       const transformMat = getTransformMatrix(style);
-      const rotateOffset = getRotateOffset(style, currentOffset);
       const offsetFromParent = getOffsetFromParent(currentOffset, parentOffset);
-      const translation = mat4.getTranslation(vec3.create(), transformMat);
-      removeTranslate(transformMat);
-
-      const transformOrigin = vec3.create();
-      const rotationMatrix = mat4.create();
-
-      vec3.negate(rotateOffset, rotateOffset);
-      vec3.add(transformOrigin, transformOrigin, rotateOffset);
-
-      mat4.mul(matrix, matrix, transformMat);
-      mat4.fromQuat(rotationMatrix, mat4.getRotation(quat.create(), matrix));
-      vec3.transformMat4(transformOrigin, transformOrigin, rotationMatrix);
-
-      vec3.negate(rotateOffset, rotateOffset);
-      vec3.add(transformOrigin, transformOrigin, rotateOffset);
+      vec3.transformQuat(offsetFromParent, offsetFromParent, accRotation);
 
       vec3.add(centerPos, centerPos, offsetFromParent);
-      vec3.add(centerPos, centerPos, transformOrigin);
-      vec3.add(centerPos, centerPos, translation);
 
+      const rotateOffset = getRotateOffset(style, currentOffset);
+      vec3.transformQuat(rotateOffset, rotateOffset, accRotation);
+
+      const transformOrigin = vec3.clone(centerPos);
+      vec3.add(transformOrigin, transformOrigin, rotateOffset);
+
+      const centerFromOrigin = vec3.create();
+      vec3.sub(centerFromOrigin, centerPos, transformOrigin);
+
+      const invAccRotation = quat.invert(quat.create(), accRotation);
+      vec3.transformQuat(centerFromOrigin, centerFromOrigin, invAccRotation);
+      vec3.transformMat4(centerFromOrigin, centerFromOrigin, transformMat);
+      vec3.transformQuat(centerFromOrigin, centerFromOrigin, accRotation);
+
+      const newCenterPos = vec3.add(vec3.create(), transformOrigin, centerFromOrigin);
+      const rotation = mat4.getRotation(quat.create(), transformMat);
+
+      vec3.copy(centerPos, newCenterPos);
+      quat.mul(accRotation, accRotation, rotation);
       parentOffset = currentOffset;
     });
 
-    translateMat(matrix, centerPos);
-
-    const rotation = quat.create();
     const perspective = vec3.fromValues(0, 0, this.transform.perspective);
-    mat4.getRotation(rotation, matrix);
-    vec3.transformQuat(perspective, perspective, rotation);
+    vec3.transformQuat(perspective, perspective, accRotation);
+    vec3.add(centerPos, centerPos, perspective);
 
-    translateMat(matrix, perspective);
+    const matrix = mat4.create();
+    mat4.fromRotationTranslation(matrix, accRotation, centerPos);
 
     return matrix;
   }
 
-  public translate(x: number, y: number, z: number) {
+  public translate(x: number = 0, y: number = 0, z: number = 0) {
     const transform = this._transform;
     const position = transform.position;
     const rotation = transform.rotation;
@@ -160,20 +159,14 @@ abstract class Camera {
     vec3.add(position, position, transVec);
   }
 
-  public absTranslate(x: number, y: number, z: number) {
+  public absTranslate(x: number = 0, y: number = 0, z: number = 0) {
     this._transform.position = vec3.fromValues(x, y, z);
   }
 
-  public rotateX(deg: number) {
-    this._transform.rotation[0] += deg;
-  }
-
-  public rotateY(deg: number) {
-    this._transform.rotation[1] += deg;
-  }
-
-  public rotateZ(deg: number) {
-    this._transform.rotation[2] += deg;
+  public rotate(x: number = 0, y: number = 0, z: number = 0) {
+    this._transform.rotation[0] += x;
+    this._transform.rotation[1] += y;
+    this._transform.rotation[2] += z;
   }
 
   public update() {

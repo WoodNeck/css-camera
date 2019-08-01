@@ -26,14 +26,14 @@ export function quatToEuler(q: quat): vec3 {
 
   const euler = vec3.create();
 
-  // ZXY
-  euler[0] = Math.asin(clamp(m32, -1, 1));
-  if (Math.abs(m32) < 0.99999) {
-    euler[1] = Math.atan2(-m31, m33);
-    euler[2] = Math.atan2(-m12, m22);
-  } else {
-    euler[1] = 0;
+  // ZYX
+  euler[1] = Math.asin(-clamp(m31, -1, 1));
+  if (Math.abs(m31) < 0.99999) {
+    euler[0] = Math.atan2(m32, m33);
     euler[2] = Math.atan2(m21, m11);
+  } else {
+    euler[0] = 0;
+    euler[2] = Math.atan2(-m12, m22);
   }
 
   return euler.map(val => radToDeg(val)) as vec3;

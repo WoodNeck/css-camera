@@ -15,9 +15,9 @@ class Transform {
     const perspective = this._perspective;
     const rotation = this._rotation;
 
-    // Rotate in order of Z - X - Y
+    // Rotate in order of Z - Y - X
     // tslint:disable-next-line: max-line-length
-    return `translateZ(${perspective}px) rotateY(${rotation[1]}deg) rotateX(${rotation[0]}deg) rotateZ(${rotation[2]}deg)`;
+    return `translateZ(${perspective}px) rotateX(${rotation[0]}deg) rotateY(${rotation[1]}deg) rotateZ(${rotation[2]}deg)`;
   }
 
   public get worldCSS() {
