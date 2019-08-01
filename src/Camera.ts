@@ -163,15 +163,6 @@ abstract class Camera {
     vec3.add(transform.position, transform.position, vec3.fromValues(x, y, z));
   }
 
-  public rotateLocal(x: number = 0, y: number = 0, z: number = 0) {
-    const transform = this._transform;
-    const currentRotation = transform.quaternion;
-    const newRotation = quat.fromEuler(quat.create(), x, y, z);
-
-    const newEuler = quatToEuler(quat.mul(quat.create(), currentRotation, newRotation));
-    transform.rotation = newEuler;
-  }
-
   public rotate(x: number = 0, y: number = 0, z: number = 0) {
     const transform = this.transform;
     vec3.add(transform.rotation, transform.rotation, vec3.fromValues(x, y, z));
@@ -191,17 +182,21 @@ abstract class Camera {
       transform: transform.worldCSS,
     });
 
-    return new Promise(resolve => {
-      setTimeout(() => {
-        applyCSS(this._cameraEl, {
-          transition: '',
-        });
-        applyCSS(this._worldEl, {
-          transition: '',
-        });
-        resolve();
-      }, duration);
-    });
+    if (duration > 0) {
+      return new Promise(resolve => {
+        setTimeout(() => {
+          applyCSS(this._cameraEl, {
+            transition: '',
+          });
+          applyCSS(this._worldEl, {
+            transition: '',
+          });
+          resolve();
+        }, duration);
+      });
+    } else {
+      return new Promise(resolve => resolve());
+    }
   }
 }
 

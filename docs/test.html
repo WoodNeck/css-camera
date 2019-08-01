@@ -44,7 +44,7 @@
   <script type="text/javascript" src="../lib/css-camera.pkgd.js"></script>
   <script type="text/javascript">
     var camera = new CSSCamera("#space");
-    camera.perspective = 300;
+    camera.perspective = 450;
     camera.translate(0, 0, 300);
     camera.update();
 
@@ -104,36 +104,36 @@
     const prevMouseLocation = {
       x, y,
     }
-    // document.onmousemove = e => {
-    //   const diffX = e.screenX - prevMouseLocation.x;
-    //   const diffY = e.screenY - prevMouseLocation.y;
+    window.onmousemove = e => {
+      const diffX = e.screenX - prevMouseLocation.x;
+      const diffY = e.screenY - prevMouseLocation.y;
 
-    //   camera.worldRotate(-diffY / 5, diffX / 5);
-    //   camera.update(1000);
+      camera.rotate(-diffY / 5, diffX / 5);
+      camera.update(0);
 
-    //   prevMouseLocation.x = e.screenX;
-    //   prevMouseLocation.y = e.screenY;
-    // }
-    // const keyLoop = () => {
-    //   if (up){
-    //     camera.translateLocal(0, 0, -5);
-    //   }
-    //   if (right){
-    //     camera.translateLocal(5, 0, 0);
-    //   }
-    //   if (down){
-    //     camera.translateLocal(0, 0, 5);
-    //   }
-    //   if (left){
-    //     camera.translateLocal(-5, 0, 0);
-    //   }
-    //   if (space) {
-    //     camera.translateLocal(0, -5, 0);
-    //   }
-    //   camera.update(1000);
-    //   requestAnimationFrame(keyLoop);
-    // }
-    // keyLoop();
+      prevMouseLocation.x = e.screenX;
+      prevMouseLocation.y = e.screenY;
+    }
+    const keyLoop = () => {
+      if (up){
+        camera.translateLocal(0, 0, -5);
+      }
+      if (right){
+        camera.translateLocal(5, 0, 0);
+      }
+      if (down){
+        camera.translateLocal(0, 0, 5);
+      }
+      if (left){
+        camera.translateLocal(-5, 0, 0);
+      }
+      if (space) {
+        camera.translate(0, -5, 0);
+      }
+      camera.update(0);
+      requestAnimationFrame(keyLoop);
+    }
+    keyLoop();
 
     const loop = async () => {
       await camera.update(1000);
@@ -163,6 +163,6 @@
       await camera.update(1000);
       loop();
     }
-    loop();
+    // loop();
   </script>
 </body>
