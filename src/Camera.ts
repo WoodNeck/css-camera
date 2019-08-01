@@ -152,8 +152,7 @@ abstract class Camera {
 
     const transVec = vec3.fromValues(x, y, z);
     const rotQuat = quat.create();
-    quat.fromEuler(rotQuat, rotation[0], rotation[1], rotation[2]);
-    quat.invert(rotQuat, rotQuat);
+    quat.fromEuler(rotQuat, -rotation[0], -rotation[1], -rotation[2]);
     vec3.transformQuat(transVec, transVec, rotQuat);
 
     vec3.add(position, position, transVec);
