@@ -288,7 +288,6 @@ class CSSCamera {
   /**
    * Updates a camera CSS with given duration.
    * Every other camera transforming properties / methods will be batched until this method is called.
-   * Giving `0` as duration will update camera style immediately.
    * ```
    * const camera = new CSSCamera(el);
    * console.log(camera.cameraEl.style.transform); // ''
@@ -317,21 +316,17 @@ class CSSCamera {
       transform: this.worldCSS,
     });
 
-    if (duration > 0) {
-      return new Promise(resolve => {
-        setTimeout(() => {
-          applyCSS(this._cameraEl, {
-            transition: '',
-          });
-          applyCSS(this._worldEl, {
-            transition: '',
-          });
-          resolve();
-        }, duration);
-      });
-    } else {
-      return new Promise(resolve => resolve(this));
-    }
+    return new Promise(resolve => {
+      setTimeout(() => {
+        applyCSS(this._cameraEl, {
+          transition: '',
+        });
+        applyCSS(this._worldEl, {
+          transition: '',
+        });
+        resolve();
+      }, duration);
+    });
   }
 
   private _getFocusMatrix(element: HTMLElement): mat4 {

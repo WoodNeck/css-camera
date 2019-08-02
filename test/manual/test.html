@@ -12,6 +12,7 @@
       <div id="rotated2">
         TEXT
         <div id="rotated3">
+          <input type="text" />
           TEXT
         </div>
       </div>
@@ -46,7 +47,8 @@
     var camera = new CSSCamera("#space");
     camera.perspective = 300;
     camera.translate(0, 0, 300);
-    camera.update();
+    camera.focus(rotated3)
+    camera.update(1000);
 
     const front = document.querySelector(".front");
     const back = document.querySelector(".back");

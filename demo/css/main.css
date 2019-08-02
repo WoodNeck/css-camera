@@ -1,0 +1,23 @@
+* {
+  box-sizing: border-box;
+}
+html, body {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+#space {
+  width: 100%; height: 100%;
+  margin: 0; padding: 0; border: 0;
+}
+#welcome-wrapper {
+  width: 100%; height: 100%;
+  margin: 0; padding: 0; border: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: black;
+  color: white;
+}
