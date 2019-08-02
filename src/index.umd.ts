@@ -1,3 +1,3 @@
-import Camera from './Camera';
+import CSSCamera from './CSSCamera';
 
-export default Camera;
+export default CSSCamera;

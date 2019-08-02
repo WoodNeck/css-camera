@@ -1,13 +1,19 @@
 {
   "name": "css-camera",
   "version": "0.1.0-snapshot",
-  "description": "Add a new perspective to your web page",
-  "main": "index.js",
+  "description": "Add a depth to your web page with CSS3 3D transform.",
+  "main": "lib/css-camera.js",
+  "module": "lib/css-camera.esm.js",
+  "types": "lib/declaration/index.d.ts",
   "scripts": {
     "build": "rm -rf ./lib && rollup -c && npm run declaration",
     "build:windows": "rd /s /q ./lib || rollup -c && npm run declaration:windows",
     "declaration": "rm -rf ./lib/declaration && tsc -p tsconfig.json",
-    "declaration:windows": "rd /s /q ./lib || tsc -p tsconfig.json"
+    "declaration:windows": "rd /s /q ./lib || tsc -p tsconfig.json",
+    "demo:prebuild-version": "cpx 'dist/**/*' demo/release/$npm_package_version/dist --clean && cpx 'doc/**/*' demo/release/$npm_package_version/doc --clean",
+		"demo:prebuild-latest": "cpx 'dist/**/*' demo/release/latest/dist --clean && cpx 'doc/**/*' demo/release/latest/doc --clean",
+    "demo:deploy": "npm run build && npm run doc && npm run demo:prebuild-version && npm run demo:prebuild-latest && gh-pages -d demo/ --add --remote upstream",
+    "doc": "rm -rf ./docs && jsdoc -c jsdoc.json"
   },
   "repository": {
     "type": "git",
@@ -20,7 +26,12 @@
   },
   "homepage": "https://github.com/WoodNeck/css-camera#readme",
   "devDependencies": {
+    "@daybrush/jsdoc": "^0.3.7",
+    "@egjs/build-helper": "0.0.5",
     "@types/gl-matrix": "^2.4.5",
+    "cpx": "^1.5.0",
+    "docdash": "^1.1.1",
+    "gh-pages": "^2.1.0",
     "rollup": "^1.10.1",
     "rollup-plugin-node-resolve": "^4.2.3",
     "rollup-plugin-prototype-minify": "^1.0.5",

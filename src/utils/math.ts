@@ -38,15 +38,3 @@ export function quatToEuler(q: quat): vec3 {
 
   return euler.map(val => radToDeg(val)) as vec3;
 }
-
-export function translateMat(mat: mat4, vec: vec3): void {
-  mat[12] += vec[0];
-  mat[13] += vec[1];
-  mat[14] += vec[2];
-}
-
-export function removeTranslate(mat: mat4): void {
-  mat[12] = 0;
-  mat[13] = 0;
-  mat[14] = 0;
-}

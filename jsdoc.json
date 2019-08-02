@@ -1,0 +1,51 @@
+{
+  "tags": {
+    "allowUnknownTags" : false,
+    "dictionaries": ["jsdoc", "closure"]
+  },
+  "source": {
+      "include": ["src", "README.md"],
+      "includePattern": ".+\\.(j|t)s(doc|x)?$",
+      "excludePattern": "(^|\\/|\\\\)_"
+  },
+  "opts": {
+      "template": "node_modules/docdash",
+      "destination": "./docs/",
+      "ignores": [],
+      "expendsItemMembers": true,
+      "recurse": true
+  },
+  "plugins": [
+    "plugins/markdown"
+  ],
+  "docdash": {
+    "static": true,
+    "cleverLinks": true,
+    "monospaceLinks": true,
+    "typedefs": true,
+    "private": true,
+    "search": true,
+    "openGraph": {
+      "title": "css-camera",
+      "type": "website",
+      "site_name": "css-camera",
+      "image": "",
+      "url": "https://woodneck.github.io/css-camera/"
+    },
+    "meta": {
+      "title": "css-camera",
+      "description": "Add a depth to your web page with CSS3 3D transform.",
+      "keyword": "css3, camera, graphics, 3d"
+    },
+    "menu":{
+      "Github":{
+          "href":"https://github.com/WoodNeck/css-camera",
+          "target":"_blank"
+      }
+    }
+  },
+  "markdown": {
+    "parser": "gfm",
+    "hardwrap": true
+  }
+}

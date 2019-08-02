@@ -1,6 +1,5 @@
-import Camera from './Camera';
+import CSSCamera from './CSSCamera';
 
-export * from './types';
 export {
-  Camera as default,
+  CSSCamera as default,
 };

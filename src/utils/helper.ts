@@ -1,18 +1,20 @@
 import { mat4, vec3 } from 'gl-matrix';
-import { BASE_ELEMENT_NOT_EXIST, MUST_STRING_OR_ELEMENT } from '../constants/error';
+import { ELEMENT_NOT_EXIST, MUST_STRING_OR_ELEMENT } from '../constants/error';
 import { Matrix4x4, Offset } from '../types';
 
-export const getElement = (el: string | HTMLElement): HTMLElement => {
+export const getElement = (el: string | HTMLElement, baseElement?: HTMLElement): HTMLElement => {
     if (typeof el === 'string') {
-        const queryResult = document.querySelector(el);
+        const queryResult = baseElement
+          ? baseElement.querySelector(el)
+          : document.querySelector(el);
         if (!queryResult) {
-            throw new Error(BASE_ELEMENT_NOT_EXIST);
+            throw new Error(ELEMENT_NOT_EXIST(el));
         }
         return queryResult as HTMLElement;
     } else if (el.nodeName && el.nodeType === 1) {
         return el;
     } else {
-        throw new Error(MUST_STRING_OR_ELEMENT);
+        throw new Error(MUST_STRING_OR_ELEMENT(el));
     }
 };
 
