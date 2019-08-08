@@ -7,17 +7,66 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
+  overflow: hidden;
 }
-#space {
-  width: 100%; height: 100%;
-  margin: 0; padding: 0; border: 0;
-}
-#welcome-wrapper {
-  width: 100%; height: 100%;
-  margin: 0; padding: 0; border: 0;
+.page-header-container {
+  position: absolute;
+  top: 10%;
+  width: 100%;
   display: flex;
   justify-content: center;
+  flex-flow: column;
+}
+.page-header-wrapper {
+  font-size: 5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.page-header-icon {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: 0.8rem;
+}
+.page-title {
+  font-size: 5rem;
+  color: #4a4a4a;
+}
+.page-header-buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 1%;
+}
+.page-header-buttons .button {
+  margin: 0.3rem;
+}
+#space {
+  display: flex;
+  width: 100%; height: 100%;
+  flex-direction: column;
   align-items: center;
-  background: black;
-  color: white;
+  justify-content: center;
+  margin: 0; padding: 0; border: 0;
+  transform-style: preserve-3d;
+}
+.card-wrapper {
+  transform-style: preserve-3d;
+  transform: translate3d(-75%, 50%, -800px) rotateY(70deg);
+}
+.panel {
+  transform-style: preserve-3d;
+  transform: rotateZ(45deg) translate3d(50%, 30%, -200px) rotateX(45deg);
+}
+#hero {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  transform-style: preserve-3d;
+  transform: translateZ(1600px) rotateY(180deg);
+}
+#level {
+  transform-style: preserve-3d;
+  transform: rotateX(90deg) translate3d(0, 0, -1200px);
+}
+.subtitle {
+  text-align: center;
 }

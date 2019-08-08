@@ -16,7 +16,7 @@
           TEXT
         </div>
       </div>
-    </div>
+    </div>˜
     <div class="cube" id="cube1">
       <div class="cube-side front"></div>
       <div class="cube-side back"></div>
@@ -47,124 +47,127 @@
     var camera = new CSSCamera("#space");
     camera.perspective = 300;
     camera.translate(0, 0, 300);
-    camera.focus(rotated3)
-    camera.update(1000);
+    camera.update(0).then(async () => {
+      camera.focus(rotated3)
+      await camera.update(3000);
+    });
 
-    const front = document.querySelector(".front");
-    const back = document.querySelector(".back");
-    const cubeLeft = document.querySelector(".left");
-    const cubeRight = document.querySelector(".right");
 
-    // camera.focus(rotated3);
+    // const front = document.querySelector(".front");
+    // const back = document.querySelector(".back");
+    // const cubeLeft = document.querySelector(".left");
+    // const cubeRight = document.querySelector(".right");
 
-    var up = false,
-    right = false,
-    down = false,
-    left = false,
-    space = false,
-    x = window.innerWidth/2,
-    y = window.innerHeight/2;
+    // // camera.focus(rotated3);
 
-    document.addEventListener('keydown', press);
-    function press(e){
-      if (e.keyCode === 38 /* up */ || e.keyCode === 87 /* w */){
-        up = true;
-      }
-      if (e.keyCode === 39 /* right */ || e.keyCode === 68 /* d */){
-        right = true;
-      }
-      if (e.keyCode === 40 /* down */ || e.keyCode === 83 /* s */){
-        down = true;
-      }
-      if (e.keyCode === 37 /* left */ || e.keyCode === 65 /* a */){
-        left = true;
-      }
-      if (e.keyCode === 32 /* space */) {
-        space = true;
-      }
-    }
+    // var up = false,
+    // right = false,
+    // down = false,
+    // left = false,
+    // space = false,
+    // x = window.innerWidth/2,
+    // y = window.innerHeight/2;
 
-    document.addEventListener('keyup', release);
-    function release(e){
-      if (e.keyCode === 38 /* up */ || e.keyCode === 87 /* w */){
-        up = false
-      }
-      if (e.keyCode === 39 /* right */ || e.keyCode === 68 /* d */){
-        right = false
-      }
-      if (e.keyCode === 40 /* down */ || e.keyCode === 83 /* s */){
-        down = false
-      }
-      if (e.keyCode === 37 /* left */ || e.keyCode === 65 /* a */){
-        left = false
-      }
-      if (e.keyCode === 32 /* space */) {
-        space = false;
-      }
-    }
+    // document.addEventListener('keydown', press);
+    // function press(e){
+    //   if (e.keyCode === 38 /* up */ || e.keyCode === 87 /* w */){
+    //     up = true;
+    //   }
+    //   if (e.keyCode === 39 /* right */ || e.keyCode === 68 /* d */){
+    //     right = true;
+    //   }
+    //   if (e.keyCode === 40 /* down */ || e.keyCode === 83 /* s */){
+    //     down = true;
+    //   }
+    //   if (e.keyCode === 37 /* left */ || e.keyCode === 65 /* a */){
+    //     left = true;
+    //   }
+    //   if (e.keyCode === 32 /* space */) {
+    //     space = true;
+    //   }
+    // }
 
-    const prevMouseLocation = {
-      x, y,
-    }
-    window.onmousemove = e => {
-      const diffX = e.screenX - prevMouseLocation.x;
-      const diffY = e.screenY - prevMouseLocation.y;
+    // document.addEventListener('keyup', release);
+    // function release(e){
+    //   if (e.keyCode === 38 /* up */ || e.keyCode === 87 /* w */){
+    //     up = false
+    //   }
+    //   if (e.keyCode === 39 /* right */ || e.keyCode === 68 /* d */){
+    //     right = false
+    //   }
+    //   if (e.keyCode === 40 /* down */ || e.keyCode === 83 /* s */){
+    //     down = false
+    //   }
+    //   if (e.keyCode === 37 /* left */ || e.keyCode === 65 /* a */){
+    //     left = false
+    //   }
+    //   if (e.keyCode === 32 /* space */) {
+    //     space = false;
+    //   }
+    // }
 
-      camera.rotate(-diffY / 5, diffX / 5);
-      camera.update(0);
+    // const prevMouseLocation = {
+    //   x, y,
+    // }
+    // window.onmousemove = e => {
+    //   const diffX = e.screenX - prevMouseLocation.x;
+    //   const diffY = e.screenY - prevMouseLocation.y;
 
-      prevMouseLocation.x = e.screenX;
-      prevMouseLocation.y = e.screenY;
-    }
-    const keyLoop = () => {
-      if (up){
-        camera.translateLocal(0, 0, -5);
-      }
-      if (right){
-        camera.translateLocal(5, 0, 0);
-      }
-      if (down){
-        camera.translateLocal(0, 0, 5);
-      }
-      if (left){
-        camera.translateLocal(-5, 0, 0);
-      }
-      if (space) {
-        camera.translate(0, -5, 0);
-      }
-      camera.update(0);
-      requestAnimationFrame(keyLoop);
-    }
-    keyLoop();
+    //   camera.rotate(-diffY / 5, diffX / 5);
+    //   camera.update(0);
 
-    const loop = async () => {
-      await camera.update(1000);
-      camera.translateLocal(0, 0, -450);
-      await camera.update(1000);
-      camera.rotate(0, 90, 0);
-      await camera.update(1000);
-      camera.translateLocal(0, 0, -300);
-      await camera.update(1000);
-      camera.rotate(0, 90, 0);
-      await camera.update(1000);
-      camera.translateLocal(0, 0, -300);
-      await camera.update(1000);
-      camera.rotate(0, 180, 0);
-      await camera.update(1000);
-      camera.translateLocal(0, 0, -300);
-      await camera.update(1000);
-      camera.rotate(0, -90, 0);
-      await camera.update(1000);
-      camera.translateLocal(0, 0, -300);
-      await camera.update(1000);
-      camera.rotate(0, -90, 0);
-      await camera.update(1000);
-      camera.translateLocal(0, 0, -450);
-      await camera.update(1000);
-      camera.rotate(0, 180, 0);
-      await camera.update(1000);
-      loop();
-    }
+    //   prevMouseLocation.x = e.screenX;
+    //   prevMouseLocation.y = e.screenY;
+    // }
+    // const keyLoop = () => {
+    //   if (up){
+    //     camera.translateLocal(0, 0, -5);
+    //   }
+    //   if (right){
+    //     camera.translateLocal(5, 0, 0);
+    //   }
+    //   if (down){
+    //     camera.translateLocal(0, 0, 5);
+    //   }
+    //   if (left){
+    //     camera.translateLocal(-5, 0, 0);
+    //   }
+    //   if (space) {
+    //     camera.translate(0, -5, 0);
+    //   }
+    //   camera.update(0);
+    //   requestAnimationFrame(keyLoop);
+    // }
+    // keyLoop();
+
+    // const loop = async () => {
+    //   await camera.update(1000);
+    //   camera.translateLocal(0, 0, -450);
+    //   await camera.update(1000);
+    //   camera.rotate(0, 90, 0);
+    //   await camera.update(1000);
+    //   camera.translateLocal(0, 0, -300);
+    //   await camera.update(1000);
+    //   camera.rotate(0, 90, 0);
+    //   await camera.update(1000);
+    //   camera.translateLocal(0, 0, -300);
+    //   await camera.update(1000);
+    //   camera.rotate(0, 180, 0);
+    //   await camera.update(1000);
+    //   camera.translateLocal(0, 0, -300);
+    //   await camera.update(1000);
+    //   camera.rotate(0, -90, 0);
+    //   await camera.update(1000);
+    //   camera.translateLocal(0, 0, -300);
+    //   await camera.update(1000);
+    //   camera.rotate(0, -90, 0);
+    //   await camera.update(1000);
+    //   camera.translateLocal(0, 0, -450);
+    //   await camera.update(1000);
+    //   camera.rotate(0, 180, 0);
+    //   await camera.update(1000);
+    //   loop();
+    // }
     // loop();
   </script>
 </body>

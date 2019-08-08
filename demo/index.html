@@ -8,15 +8,220 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://woodneck.github.io/css-camera/" />
     <meta property="og:image" content="" />
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css" integrity="sha256-ujE/ZUB6CMZmyJSgQjXGCF4sRRneOimQplBVLu8OU5w=" crossorigin="anonymous" />
     <link type="text/css" rel="stylesheet" href="css/main.css">
     <script src="./release/latest/lib/css-camera.pkgd.js"></script>
   </head>
   <body>
     <div id="space">
-      <div id="welcome-wrapper">
-        중앙 텍스트
+      <div id="card" class="card-wrapper">
+        <div class="card">
+          <div class="card-image">
+            <figure class="image is-4by3">
+              <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
+            </figure>
+          </div>
+          <div class="card-content">
+            <div class="media">
+              <div class="media-left">
+                <figure class="image is-48x48">
+                  <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+                </figure>
+              </div>
+              <div class="media-content">
+                <p class="title is-4">John Smith</p>
+                <p class="subtitle is-6">@johnsmith</p>
+              </div>
+            </div>
+
+            <div class="content">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Phasellus nec iaculis mauris. <a>@bulmaio</a>.
+              <a href="#">#css</a> <a href="#">#responsive</a>
+              <br>
+              <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+            </div>
+          </div>
+        </div>
       </div>
+      <nav id="panel" class="panel">
+        <p class="panel-heading">
+          repositories
+        </p>
+        <div class="panel-block">
+          <p class="control has-icons-left">
+            <input class="input is-small" type="text" placeholder="search">
+            <span class="icon is-small is-left">
+              <i class="fas fa-search" aria-hidden="true"></i>
+            </span>
+          </p>
+        </div>
+        <p class="panel-tabs">
+          <a class="is-active">all</a>
+          <a>public</a>
+          <a>private</a>
+          <a>sources</a>
+          <a>forks</a>
+        </p>
+        <a class="panel-block is-active">
+          <span class="panel-icon">
+            <i class="fas fa-book" aria-hidden="true"></i>
+          </span>
+          bulma
+        </a>
+        <a class="panel-block">
+          <span class="panel-icon">
+            <i class="fas fa-book" aria-hidden="true"></i>
+          </span>
+          marksheet
+        </a>
+        <a class="panel-block">
+          <span class="panel-icon">
+            <i class="fas fa-book" aria-hidden="true"></i>
+          </span>
+          minireset.css
+        </a>
+        <a class="panel-block">
+          <span class="panel-icon">
+            <i class="fas fa-book" aria-hidden="true"></i>
+          </span>
+          jgthms.github.io
+        </a>
+        <a class="panel-block">
+          <span class="panel-icon">
+            <i class="fas fa-code-branch" aria-hidden="true"></i>
+          </span>
+          daniellowtw/infboard
+        </a>
+        <a class="panel-block">
+          <span class="panel-icon">
+            <i class="fas fa-code-branch" aria-hidden="true"></i>
+          </span>
+          mojs
+        </a>
+        <label class="panel-block">
+          <input type="checkbox">
+          remember me
+        </label>
+        <div class="panel-block">
+          <button class="button is-link is-outlined is-fullwidth">
+            reset all filters
+          </button>
+        </div>
+      </nav>
+      <section id="hero" class="hero is-success is-fullheight">
+        <!-- Hero head: will stick at the top -->
+        <div class="hero-head">
+          <header class="navbar">
+            <div class="container">
+              <div class="navbar-brand">
+                <a class="navbar-item">
+                  <img src="https://bulma.io/images/bulma-type-white.png" alt="Logo">
+                </a>
+                <span class="navbar-burger burger" data-target="navbarMenuHeroC">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </span>
+              </div>
+              <div id="navbarMenuHeroC" class="navbar-menu">
+                <div class="navbar-end">
+                  <a class="navbar-item is-active">
+                    Home
+                  </a>
+                  <a class="navbar-item">
+                    Examples
+                  </a>
+                  <a class="navbar-item">
+                    Documentation
+                  </a>
+                  <span class="navbar-item">
+                    <a class="button is-success is-inverted">
+                      <span class="icon">
+                        <i class="fab fa-github"></i>
+                      </span>
+                      <span>Download</span>
+                    </a>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </header>
+        </div>
+
+        <!-- Hero content: will be in the middle -->
+        <div class="hero-body">
+          <div class="container has-text-centered">
+            <h1 class="title">
+              Title
+            </h1>
+            <h2 class="subtitle">
+              Subtitle
+            </h2>
+          </div>
+        </div>
+
+        <!-- Hero footer: will stick at the bottom -->
+        <div class="hero-foot">
+          <nav class="tabs is-boxed is-fullwidth">
+            <div class="container">
+              <ul>
+                <li class="is-active"><a>Overview</a></li>
+                <li><a>Modifiers</a></li>
+                <li><a>Grid</a></li>
+                <li><a>Elements</a></li>
+                <li><a>Components</a></li>
+                <li><a>Layout</a></li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </section>
+
+      <nav id="level" class="level is-mobile">
+        <div class="level-item has-text-centered">
+          <div>
+            <p class="heading">Tweets</p>
+            <p class="title">3,456</p>
+          </div>
+        </div>
+        <div class="level-item has-text-centered">
+          <div>
+            <p class="heading">Following</p>
+            <p class="title">123</p>
+          </div>
+        </div>
+        <div class="level-item has-text-centered">
+          <div>
+            <p class="heading">Followers</p>
+            <p class="title">456K</p>
+          </div>
+        </div>
+        <div class="level-item has-text-centered">
+          <div>
+            <p class="heading">Likes</p>
+            <p class="title">789</p>
+          </div>
+        </div>
+      </nav>
     </div>
+
+    <header class="page-header-container">
+      <div class="page-header-wrapper">
+        <i class="page-header-icon fas fa-camera-retro"></i>
+        <h1 class="page-title title">CSS-CAMERA</h1>
+      </div>
+      <div class="page-subtitle">
+        <p class="subtitle">Add a depth to your web page with CSS3 3D transform.</p>
+      </div>
+      <div class="page-header-buttons">
+        <a id="card-button" class="button is-link is-outlined">Card</a>
+        <a id="panel-button" class="button is-link is-outlined">Panel</a>
+        <a id="hero-button" class="button is-link is-outlined">Hero</a>
+        <a id="level-button" class="button is-link is-outlined">Level</a>
+      </div>
+    </header>
     <script src="js/index.js"></script>
   </body>
 </html>

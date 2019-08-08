@@ -318,12 +318,6 @@ class CSSCamera {
 
     return new Promise(resolve => {
       setTimeout(() => {
-        applyCSS(this._cameraEl, {
-          transition: '',
-        });
-        applyCSS(this._worldEl, {
-          transition: '',
-        });
         resolve();
       }, duration);
     });

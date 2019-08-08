@@ -11,8 +11,8 @@
     "declaration": "rm -rf ./lib/declaration && tsc -p tsconfig.json",
     "declaration:windows": "rd /s /q ./lib || tsc -p tsconfig.json",
     "demo:build": "npm run build && cpx 'lib/**/*' demo/release/latest/lib --clean",
-    "demo:prebuild-version": "cpx 'lib/**/*' demo/release/$npm_package_version/lib --clean && cpx 'doc/**/*' demo/release/$npm_package_version/doc --clean",
-		"demo:prebuild-latest": "cpx 'lib/**/*' demo/release/latest/lib --clean && cpx 'doc/**/*' demo/release/latest/doc --clean",
+    "demo:prebuild-version": "cpx 'lib/**/*' demo/release/$npm_package_version/lib --clean && cpx 'docs/**/*' demo/release/$npm_package_version/docs --clean",
+		"demo:prebuild-latest": "cpx 'lib/**/*' demo/release/latest/lib --clean && cpx 'docs/**/*' demo/release/latest/docs --clean",
     "demo:deploy": "npm run build && npm run doc && npm run demo:prebuild-version && npm run demo:prebuild-latest && gh-pages -d demo/ --add --remote upstream",
     "doc": "rm -rf ./docs && jsdoc -c jsdoc.json"
   },
