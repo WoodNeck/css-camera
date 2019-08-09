@@ -7,11 +7,14 @@
     <meta property="og:title" content="css-camera" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://woodneck.github.io/css-camera/" />
-    <meta property="og:image" content="" />
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css" integrity="sha256-ujE/ZUB6CMZmyJSgQjXGCF4sRRneOimQplBVLu8OU5w=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.9/build/styles/an-old-hope.min.css">
     <link type="text/css" rel="stylesheet" href="css/main.css">
+    <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.9/build/highlight.min.js"></script>
     <script src="./release/latest/lib/css-camera.pkgd.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
   </head>
   <body>
     <div id="space">
@@ -19,206 +22,97 @@
         <div class="card">
           <div class="card-image">
             <figure class="image is-4by3">
-              <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
+              <iframe class="card-youtube" src="https://www.youtube.com/embed/AckybSTFSXo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </figure>
           </div>
           <div class="card-content">
             <div class="media">
               <div class="media-left">
                 <figure class="image is-48x48">
-                  <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+                  <img src="https://avatars0.githubusercontent.com/u/26213435?s=460&v=4" alt="Placeholder image">
                 </figure>
               </div>
               <div class="media-content">
-                <p class="title is-4">John Smith</p>
-                <p class="subtitle is-6">@johnsmith</p>
+                <p class="title is-4">WoodNeck</p>
+                <p class="subtitle is-6">@woodneck</p>
               </div>
             </div>
 
             <div class="content">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Phasellus nec iaculis mauris. <a>@bulmaio</a>.
-              <a href="#">#css</a> <a href="#">#responsive</a>
-              <br>
-              <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+              You can put any HTML element you like, then just transform it.
+              <a href="https://github.com/WoodNeck/css-camera">@css-camera</a> will do the rest for you.
             </div>
           </div>
         </div>
       </div>
-      <nav id="panel" class="panel">
-        <p class="panel-heading">
-          repositories
-        </p>
-        <div class="panel-block">
-          <p class="control has-icons-left">
-            <input class="input is-small" type="text" placeholder="search">
-            <span class="icon is-small is-left">
-              <i class="fas fa-search" aria-hidden="true"></i>
-            </span>
-          </p>
-        </div>
-        <p class="panel-tabs">
-          <a class="is-active">all</a>
-          <a>public</a>
-          <a>private</a>
-          <a>sources</a>
-          <a>forks</a>
-        </p>
-        <a class="panel-block is-active">
-          <span class="panel-icon">
-            <i class="fas fa-book" aria-hidden="true"></i>
-          </span>
-          bulma
-        </a>
-        <a class="panel-block">
-          <span class="panel-icon">
-            <i class="fas fa-book" aria-hidden="true"></i>
-          </span>
-          marksheet
-        </a>
-        <a class="panel-block">
-          <span class="panel-icon">
-            <i class="fas fa-book" aria-hidden="true"></i>
-          </span>
-          minireset.css
-        </a>
-        <a class="panel-block">
-          <span class="panel-icon">
-            <i class="fas fa-book" aria-hidden="true"></i>
-          </span>
-          jgthms.github.io
-        </a>
-        <a class="panel-block">
-          <span class="panel-icon">
-            <i class="fas fa-code-branch" aria-hidden="true"></i>
-          </span>
-          daniellowtw/infboard
-        </a>
-        <a class="panel-block">
-          <span class="panel-icon">
-            <i class="fas fa-code-branch" aria-hidden="true"></i>
-          </span>
-          mojs
-        </a>
-        <label class="panel-block">
-          <input type="checkbox">
-          remember me
-        </label>
-        <div class="panel-block">
-          <button class="button is-link is-outlined is-fullwidth">
-            reset all filters
-          </button>
-        </div>
-      </nav>
-      <section id="hero" class="hero is-success is-fullheight">
-        <!-- Hero head: will stick at the top -->
-        <div class="hero-head">
-          <header class="navbar">
-            <div class="container">
-              <div class="navbar-brand">
-                <a class="navbar-item">
-                  <img src="https://bulma.io/images/bulma-type-white.png" alt="Logo">
-                </a>
-                <span class="navbar-burger burger" data-target="navbarMenuHeroC">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </span>
-              </div>
-              <div id="navbarMenuHeroC" class="navbar-menu">
-                <div class="navbar-end">
-                  <a class="navbar-item is-active">
-                    Home
-                  </a>
-                  <a class="navbar-item">
-                    Examples
-                  </a>
-                  <a class="navbar-item">
-                    Documentation
-                  </a>
-                  <span class="navbar-item">
-                    <a class="button is-success is-inverted">
-                      <span class="icon">
-                        <i class="fab fa-github"></i>
-                      </span>
-                      <span>Download</span>
-                    </a>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </header>
-        </div>
+      <div id="code" class="container">
+        <h1 class="title">How to use? It's super simple.</h1>
+        <pre><code class="camera-code js">// Prerequisite:
+// Create your scene as you like
 
-        <!-- Hero content: will be in the middle -->
+// First, make camera
+const camera = new CSSCamera("#space");
+
+// Call its method, then update it!
+camera.focus(card);
+camera.update(2000);</code></pre>
+      </div>
+      <section id="hero" class="hero is-white is-fullheight">
         <div class="hero-body">
           <div class="container has-text-centered">
             <h1 class="title">
-              Title
+              <i class="fas fa-camera-retro"></i>
+              CSS-CAMERA
             </h1>
             <h2 class="subtitle">
-              Subtitle
+                Add a depth to your web page with CSS3 3D transform.
             </h2>
+            <a class="button is-white" href="./release/latest/docs/index.html">
+              <span class="icon">
+                <i class="fas fa-book"></i>
+              </span>
+              <span>Documents</span>
+            </a>
+            <a class="button is-white" href="https://github.com/WoodNeck/css-camera">
+              <span class="icon">
+                <i class="fab fa-github"></i>
+              </span>
+              <span>Github</span>
+            </a>
           </div>
         </div>
-
-        <!-- Hero footer: will stick at the bottom -->
-        <div class="hero-foot">
-          <nav class="tabs is-boxed is-fullwidth">
-            <div class="container">
-              <ul>
-                <li class="is-active"><a>Overview</a></li>
-                <li><a>Modifiers</a></li>
-                <li><a>Grid</a></li>
-                <li><a>Elements</a></li>
-                <li><a>Components</a></li>
-                <li><a>Layout</a></li>
-              </ul>
+        <div class="container is-fluid">
+          <div class="container">
+            <h1 class="title">
+              <i class="fas fa-cog"></i>
+              Install
+            </h1>
+            <div class="notification">
+              $ npm i css-camera
             </div>
-          </nav>
+          </div>
         </div>
       </section>
 
-      <nav id="level" class="level is-mobile">
-        <div class="level-item has-text-centered">
-          <div>
-            <p class="heading">Tweets</p>
-            <p class="title">3,456</p>
+      <section id="level" class="hero is-medium is-primary is-bold">
+        <div class="hero-body">
+          <div class="container">
+            <h1 class="title">
+              Primary bold title
+            </h1>
+            <h2 class="subtitle">
+              Primary bold subtitle
+            </h2>
           </div>
         </div>
-        <div class="level-item has-text-centered">
-          <div>
-            <p class="heading">Following</p>
-            <p class="title">123</p>
-          </div>
-        </div>
-        <div class="level-item has-text-centered">
-          <div>
-            <p class="heading">Followers</p>
-            <p class="title">456K</p>
-          </div>
-        </div>
-        <div class="level-item has-text-centered">
-          <div>
-            <p class="heading">Likes</p>
-            <p class="title">789</p>
-          </div>
-        </div>
-      </nav>
+      </section>
     </div>
 
     <header class="page-header-container">
-      <div class="page-header-wrapper">
-        <i class="page-header-icon fas fa-camera-retro"></i>
-        <h1 class="page-title title">CSS-CAMERA</h1>
-      </div>
-      <div class="page-subtitle">
-        <p class="subtitle">Add a depth to your web page with CSS3 3D transform.</p>
-      </div>
       <div class="page-header-buttons">
+        <a id="hero-button" class="button is-link is-outlined">Main</a>
         <a id="card-button" class="button is-link is-outlined">Card</a>
-        <a id="panel-button" class="button is-link is-outlined">Panel</a>
-        <a id="hero-button" class="button is-link is-outlined">Hero</a>
+        <a id="code-button" class="button is-link is-outlined">Code</a>
         <a id="level-button" class="button is-link is-outlined">Level</a>
       </div>
     </header>

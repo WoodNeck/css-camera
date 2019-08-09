@@ -12,8 +12,8 @@
     "declaration:windows": "rd /s /q ./lib || tsc -p tsconfig.json",
     "demo:build": "npm run build && cpx 'lib/**/*' demo/release/latest/lib --clean",
     "demo:prebuild-version": "cpx 'lib/**/*' demo/release/$npm_package_version/lib --clean && cpx 'docs/**/*' demo/release/$npm_package_version/docs --clean",
-		"demo:prebuild-latest": "cpx 'lib/**/*' demo/release/latest/lib --clean && cpx 'docs/**/*' demo/release/latest/docs --clean",
-    "demo:deploy": "npm run build && npm run doc && npm run demo:prebuild-version && npm run demo:prebuild-latest && gh-pages -d demo/ --add --remote upstream",
+    "demo:prebuild-latest": "cpx 'lib/**/*' demo/release/latest/lib --clean && cpx 'docs/**/*' demo/release/latest/docs --clean",
+    "demo:deploy": "npm run build && npm run doc && npm run demo:prebuild-version && npm run demo:prebuild-latest && gh-pages -d demo/",
     "doc": "rm -rf ./docs && jsdoc -c jsdoc.json"
   },
   "repository": {
@@ -32,7 +32,7 @@
     "@types/gl-matrix": "^2.4.5",
     "cpx": "^1.5.0",
     "docdash": "^1.1.1",
-    "gh-pages": "^2.1.0",
+    "gh-pages": "2.0.1",
     "rollup": "^1.10.1",
     "rollup-plugin-node-resolve": "^4.2.3",
     "rollup-plugin-prototype-minify": "^1.0.5",
