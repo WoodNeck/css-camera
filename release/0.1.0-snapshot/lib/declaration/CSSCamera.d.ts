@@ -1,0 +1,32 @@
+declare class CSSCamera {
+    private _element;
+    private _viewportEl;
+    private _cameraEl;
+    private _worldEl;
+    private _position;
+    private _scale;
+    private _rotation;
+    private _perspective;
+    private _perspectiveOffset;
+    static readonly VERSION: string;
+    readonly element: HTMLElement;
+    readonly viewportEl: HTMLElement;
+    readonly cameraEl: HTMLElement;
+    readonly worldEl: HTMLElement;
+    position: number[];
+    scale: number[];
+    rotation: number[];
+    quaternion: number[];
+    perspective: number;
+    perspectiveOffset: number;
+    readonly cameraCSS: string;
+    readonly worldCSS: string;
+    constructor(el: string | HTMLElement);
+    focus(el: string | HTMLElement): this;
+    translateLocal(x?: number, y?: number, z?: number): this;
+    translate(x?: number, y?: number, z?: number): this;
+    rotate(x?: number, y?: number, z?: number): this;
+    update(duration?: number): Promise<this>;
+    private _getFocusMatrix;
+}
+export default CSSCamera;
