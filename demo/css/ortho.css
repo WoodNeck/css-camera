@@ -1,0 +1,26 @@
+
+* {
+  box-sizing: border-box;
+}
+html, body {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  transform-style: preserve-3d;
+}
+
+#space {
+  transform-style: preserve-3d;
+}
+.tile {
+  background: url(../asset/Top.png);
+}
+.tileX {
+  background: url(../asset/SideX.png);
+}
+.tileZ {
+  background: url(../asset/SideZ.png);
+}

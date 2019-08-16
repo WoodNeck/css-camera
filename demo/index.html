@@ -11,109 +11,95 @@
     <link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css" integrity="sha256-ujE/ZUB6CMZmyJSgQjXGCF4sRRneOimQplBVLu8OU5w=" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.9/build/styles/an-old-hope.min.css">
-    <link type="text/css" rel="stylesheet" href="css/main.css">
+    <link type="text/css" rel="stylesheet" href="css/index.css">
     <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.9/build/highlight.min.js"></script>
     <script src="./release/latest/lib/css-camera.pkgd.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
   </head>
   <body>
     <div id="space">
-      <div id="card" class="card-wrapper">
-        <div class="card">
-          <div class="card-image">
-            <figure class="image is-4by3">
-              <iframe class="card-youtube" src="https://www.youtube.com/embed/AckybSTFSXo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </figure>
-          </div>
-          <div class="card-content">
-            <div class="media">
-              <div class="media-left">
-                <figure class="image is-48x48">
-                  <img src="https://avatars0.githubusercontent.com/u/26213435?s=460&v=4" alt="Placeholder image">
-                </figure>
-              </div>
-              <div class="media-content">
-                <p class="title is-4">WoodNeck</p>
-                <p class="subtitle is-6">@woodneck</p>
-              </div>
-            </div>
-
-            <div class="content">
-              You can put any HTML element you like, then just transform it.
-              <a href="https://github.com/WoodNeck/css-camera">@css-camera</a> will do the rest for you.
-            </div>
-          </div>
-        </div>
-      </div>
-      <div id="code" class="container">
-        <h1 class="title">How to use? It's super simple.</h1>
-        <pre><code class="camera-code js">// Prerequisite:
-// Create your scene as you like
-
-// First, make camera
-const camera = new CSSCamera("#space");
-
-// Call its method, then update it!
-camera.focus(card);
-camera.update(2000);</code></pre>
-      </div>
       <section id="hero" class="hero is-white is-fullheight">
         <div class="hero-body">
           <div class="container has-text-centered">
-            <h1 class="title">
-              <i class="fas fa-camera-retro"></i>
-              CSS-CAMERA
-            </h1>
-            <h2 class="subtitle">
-                Add a depth to your web page with CSS3 3D transform.
-            </h2>
+            <h1 class="title"><i class="fas fa-camera-retro"></i> CSS-CAMERA</h1>
+            <h2 class="subtitle">Add a depth to your web page with CSS3 3D transform.</h2>
             <a class="button is-white" href="./release/latest/docs/index.html">
-              <span class="icon">
-                <i class="fas fa-book"></i>
-              </span>
+              <span class="icon"><i class="fas fa-book"></i></span>
               <span>Documents</span>
             </a>
             <a class="button is-white" href="https://github.com/WoodNeck/css-camera">
-              <span class="icon">
-                <i class="fab fa-github"></i>
-              </span>
+              <span class="icon"><i class="fab fa-github"></i></span>
               <span>Github</span>
             </a>
           </div>
         </div>
         <div class="container is-fluid">
           <div class="container">
-            <h1 class="title">
-              <i class="fas fa-cog"></i>
-              Install
-            </h1>
-            <div class="notification">
-              $ npm i css-camera
+            <h1 class="title"><i class="fas fa-cog"></i> Install</h1>
+            <div class="notification">$ npm i css-camera</div>
+          </div>
+        </div>
+      </section>
+      <div id="card" class="container">
+        <div class="card-wrapper">
+          <div class="card">
+            <div class="card-image">
+              <figure class="image is-4by3">
+                <iframe class="card-youtube" src="https://www.youtube.com/embed/AckybSTFSXo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              </figure>
+            </div>
+            <div class="card-content">
+              <div class="media">
+                <div class="media-left">
+                  <figure class="image is-48x48">
+                    <img src="https://avatars0.githubusercontent.com/u/26213435?s=460&v=4" alt="Placeholder image">
+                  </figure>
+                </div>
+                <div class="media-content">
+                  <p class="title is-4">WoodNeck</p>
+                  <p class="subtitle is-6">@woodneck</p>
+                </div>
+              </div>
+
+              <div class="content">
+                You can put any HTML element you like, then just transform it.
+                <a href="https://github.com/WoodNeck/css-camera">@css-camera</a> will do the rest for you.
+              </div>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+      <div id="code" class="container">
+        <h1 class="title">It's super simple!</h1>
+        <pre><code class="camera-code js">// Prerequisite:
+// Create your scene as you like
+const card = document.querySelector("#card");
+const cardButton = document.querySelector("#card-button");
 
-      <section id="level" class="hero is-medium is-primary is-bold">
-        <div class="hero-body">
-          <div class="container">
-            <h1 class="title">
-              Primary bold title
-            </h1>
-            <h2 class="subtitle">
-              Primary bold subtitle
-            </h2>
-          </div>
-        </div>
-      </section>
+// First, make camera
+const camera = new CSSCamera("#space");
+
+// Call its method, then update it!
+cardButton.onclick = () => {
+  camera.focus(card);
+  camera.update(2000);
+}</code></pre>
+        <h1 class="title">That will focus to "#card", showing it's original size.</h1>
+      </div>
+
+      <div id="more" class="container">
+        <h1 class="title">More demos?</h1>
+        <ul>
+          <li><a href="">Orthographic projection</a></li>
+        </ul>
+      </div>
     </div>
-
     <header class="page-header-container">
       <div class="page-header-buttons">
         <a id="hero-button" class="button is-link is-outlined">Main</a>
         <a id="card-button" class="button is-link is-outlined">Card</a>
         <a id="code-button" class="button is-link is-outlined">Code</a>
-        <a id="level-button" class="button is-link is-outlined">Level</a>
+        <a id="more-button" class="button is-link is-outlined">More</a>
       </div>
     </header>
     <script src="js/index.js"></script>
