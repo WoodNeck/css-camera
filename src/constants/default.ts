@@ -26,4 +26,9 @@ export default {
     CAMERA: 'cc-camera',
     WORLD: 'cc-world',
   },
+  UPDATE_OPTION: {
+    property: 'transform',
+    timingFunction: 'ease-out',
+    delay: '0s',
+  },
 };

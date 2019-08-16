@@ -2,7 +2,7 @@ import { mat4, vec3, quat } from 'gl-matrix';
 import { getElement, applyCSS, getTransformMatrix, findIndex, getOffsetFromParent, getRotateOffset } from './utils/helper';
 import { quatToEuler } from './utils/math';
 import DEFAULT from './constants/default';
-import { Offset } from './types';
+import { Offset, UpdateOption, ValueOf } from './types';
 
 class CSSCamera {
   private _element: HTMLElement;
@@ -303,16 +303,23 @@ class CSSCamera {
    * @param - Transition duration in ms.
    * @return {Promise<CSSCamera>} A promise resolving instance itself
    */
-  public async update(duration: number = 0): Promise<this> {
-    const transition = duration > 0 ? `transform ${duration}ms` : '';
+  public async update(duration: number = 0, option: Partial<UpdateOption>): Promise<this> {
+    const transitionDuration = duration > 0 ? `${duration}ms` : '0ms';
+    const mergedOption = Object.assign(Object.assign({}, DEFAULT.UPDATE_OPTION), option);
+    const updateOption = Object.keys(mergedOption).reduce((options: {[key: string]: ValueOf<UpdateOption>}, key) => {
+      options[`transition${key.charAt(0).toUpperCase() + key.slice(1)}`] = mergedOption[key as keyof UpdateOption];
+      return options;
+    }, {});
 
     applyCSS(this._viewportEl, { perspective: `${this.perspective}px` });
     applyCSS(this._cameraEl, {
-      transition,
+      transitionDuration,
+      ...updateOption,
       transform: this.cameraCSS,
     });
     applyCSS(this._worldEl, {
-      transition,
+      transitionDuration,
+      ...updateOption,
       transform: this.worldCSS,
     });
 
