@@ -153,21 +153,20 @@ var CSSCamera = (function () {
         vec3.add(this._rotation, this._rotation, vec3.fromValues(x, y, z));
         return this;
     };
-    CSSCamera.prototype.update = function (duration) {
+    CSSCamera.prototype.update = function (duration, option) {
         if (duration === void 0) { duration = 0; }
         return tslib_1.__awaiter(this, void 0, void 0, function () {
-            var transition;
+            var transitionDuration, mergedOption, updateOption;
             return tslib_1.__generator(this, function (_a) {
-                transition = duration > 0 ? "transform " + duration + "ms" : '';
+                transitionDuration = duration > 0 ? duration + "ms" : '0ms';
+                mergedOption = Object.assign(Object.assign({}, DEFAULT.UPDATE_OPTION), option);
+                updateOption = Object.keys(mergedOption).reduce(function (options, key) {
+                    options["transition" + (key.charAt(0).toUpperCase() + key.slice(1))] = mergedOption[key];
+                    return options;
+                }, {});
                 applyCSS(this._viewportEl, { perspective: this.perspective + "px" });
-                applyCSS(this._cameraEl, {
-                    transition: transition,
-                    transform: this.cameraCSS,
-                });
-                applyCSS(this._worldEl, {
-                    transition: transition,
-                    transform: this.worldCSS,
-                });
+                applyCSS(this._cameraEl, tslib_1.__assign({ transitionDuration: transitionDuration }, updateOption, { transform: this.cameraCSS }));
+                applyCSS(this._worldEl, tslib_1.__assign({ transitionDuration: transitionDuration }, updateOption, { transform: this.worldCSS }));
                 return [2, new Promise(function (resolve) {
                         setTimeout(function () {
                             resolve();

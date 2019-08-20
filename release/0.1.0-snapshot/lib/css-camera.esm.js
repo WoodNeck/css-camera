@@ -22,6 +22,19 @@ MERCHANTABLITY OR NON-INFRINGEMENT.
 See the Apache Version 2.0 License for specific language governing permissions
 and limitations under the License.
 ***************************************************************************** */
+var __assign = function () {
+  __assign = Object.assign || function __assign(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+      s = arguments[i];
+
+      for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+    }
+
+    return t;
+  };
+
+  return __assign.apply(this, arguments);
+};
 function __awaiter(thisArg, _arguments, P, generator) {
   return new (P || (P = Promise))(function (resolve, reject) {
     function fulfilled(value) {
@@ -319,6 +332,11 @@ var DEFAULT = {
     VIEWPORT: 'cc-viewport',
     CAMERA: 'cc-camera',
     WORLD: 'cc-world'
+  },
+  UPDATE_OPTION: {
+    property: 'transform',
+    timingFunction: 'ease-out',
+    delay: '0s'
   }
 };
 
@@ -540,26 +558,33 @@ var CSSCamera = function () {
     return this;
   };
 
-  __proto.update = function (duration) {
+  __proto.update = function (duration, option) {
     if (duration === void 0) {
       duration = 0;
     }
 
     return __awaiter(this, void 0, Promise, function () {
-      var transition;
+      var transitionDuration, mergedOption, updateOption;
       return __generator(this, function (_a) {
-        transition = duration > 0 ? "transform " + duration + "ms" : '';
+        transitionDuration = duration > 0 ? duration + "ms" : '0ms';
+        mergedOption = Object.assign(Object.assign({}, DEFAULT.UPDATE_OPTION), option);
+        updateOption = Object.keys(mergedOption).reduce(function (options, key) {
+          options["transition" + (key.charAt(0).toUpperCase() + key.slice(1))] = mergedOption[key];
+          return options;
+        }, {});
         applyCSS(this._viewportEl, {
           perspective: this.perspective + "px"
         });
-        applyCSS(this._cameraEl, {
-          transition: transition,
+        applyCSS(this._cameraEl, __assign({
+          transitionDuration: transitionDuration
+        }, updateOption, {
           transform: this.cameraCSS
-        });
-        applyCSS(this._worldEl, {
-          transition: transition,
+        }));
+        applyCSS(this._worldEl, __assign({
+          transitionDuration: transitionDuration
+        }, updateOption, {
           transform: this.worldCSS
-        });
+        }));
         return [2, new Promise(function (resolve) {
           setTimeout(function () {
             resolve();

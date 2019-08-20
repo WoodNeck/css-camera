@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css" integrity="sha256-ujE/ZUB6CMZmyJSgQjXGCF4sRRneOimQplBVLu8OU5w=" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.9/build/styles/an-old-hope.min.css">
-    <link type="text/css" rel="stylesheet" href="css/main.css">
+    <link type="text/css" rel="stylesheet" href="css/index.css">
     <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.9/build/highlight.min.js"></script>
     <script src="./release/latest/lib/css-camera.pkgd.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
@@ -40,29 +40,31 @@
           </div>
         </div>
       </section>
-      <div id="card" class="card-wrapper">
-        <div class="card">
-          <div class="card-image">
-            <figure class="image is-4by3">
-              <iframe class="card-youtube" src="https://www.youtube.com/embed/AckybSTFSXo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </figure>
-          </div>
-          <div class="card-content">
-            <div class="media">
-              <div class="media-left">
-                <figure class="image is-48x48">
-                  <img src="https://avatars0.githubusercontent.com/u/26213435?s=460&v=4" alt="Placeholder image">
-                </figure>
-              </div>
-              <div class="media-content">
-                <p class="title is-4">WoodNeck</p>
-                <p class="subtitle is-6">@woodneck</p>
-              </div>
+      <div id="card" class="container">
+        <div class="card-wrapper">
+          <div class="card">
+            <div class="card-image">
+              <figure class="image is-4by3">
+                <iframe class="card-youtube" src="https://www.youtube.com/embed/AckybSTFSXo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              </figure>
             </div>
+            <div class="card-content">
+              <div class="media">
+                <div class="media-left">
+                  <figure class="image is-48x48">
+                    <img src="https://avatars0.githubusercontent.com/u/26213435?s=460&v=4" alt="Placeholder image">
+                  </figure>
+                </div>
+                <div class="media-content">
+                  <p class="title is-4">WoodNeck</p>
+                  <p class="subtitle is-6">@woodneck</p>
+                </div>
+              </div>
 
-            <div class="content">
-              You can put any HTML element you like, then just transform it.
-              <a href="https://github.com/WoodNeck/css-camera">@css-camera</a> will do the rest for you.
+              <div class="content">
+                You can put any HTML element you like, then just transform it.
+                <a href="https://github.com/WoodNeck/css-camera">@css-camera</a> will do the rest for you.
+              </div>
             </div>
           </div>
         </div>
@@ -82,12 +84,14 @@ cardButton.onclick = () => {
   camera.focus(card);
   camera.update(2000);
 }</code></pre>
-        <h1 class="title">That will focus to "#card", showing it's original size.</h1>
+        <h1 class="title is-size-5-mobile">That will focus to "#card", showing it's original size.</h1>
       </div>
 
       <div id="more" class="container">
-        <img src="https://media.giphy.com/media/mvycshEHPCRx8FhhpD/giphy.gif">
-        <div id="disqus_thread"></div>
+        <h1 class="title">More demos?</h1>
+        <ul>
+          <li><a href="./ortho.html">Orthographic projection</a></li>
+        </ul>
       </div>
     </div>
     <header class="page-header-container">
@@ -99,18 +103,5 @@ cardButton.onclick = () => {
       </div>
     </header>
     <script src="js/index.js"></script>
-    <script>
-      var disqus_config = function () {
-        this.page.url = 'https://woodneck.github.io/css-camera/';
-        this.page.identifier = 'css-camera';
-      };
-      (function() {
-      var d = document, s = d.createElement('script');
-      s.src = 'https://css-camera.disqus.com/embed.js';
-      s.setAttribute('data-timestamp', +new Date());
-      (d.head || d.body).appendChild(s);
-      })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
   </body>
 </html>

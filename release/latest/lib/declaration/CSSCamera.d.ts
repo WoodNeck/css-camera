@@ -1,3 +1,4 @@
+import { UpdateOption } from './types';
 declare class CSSCamera {
     private _element;
     private _viewportEl;
@@ -26,7 +27,7 @@ declare class CSSCamera {
     translateLocal(x?: number, y?: number, z?: number): this;
     translate(x?: number, y?: number, z?: number): this;
     rotate(x?: number, y?: number, z?: number): this;
-    update(duration?: number): Promise<this>;
+    update(duration: number | undefined, option: Partial<UpdateOption>): Promise<this>;
     private _getFocusMatrix;
 }
 export default CSSCamera;

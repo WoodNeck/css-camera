@@ -26,5 +26,10 @@ declare const _default: {
         CAMERA: string;
         WORLD: string;
     };
+    UPDATE_OPTION: {
+        property: string;
+        timingFunction: string;
+        delay: string;
+    };
 };
 export default _default;
