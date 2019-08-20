@@ -10,17 +10,163 @@ html, body {
   padding: 0;
   overflow: hidden;
   transform-style: preserve-3d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-
+#info {
+  position: fixed;
+  top: 0%;
+}
 #space {
   transform-style: preserve-3d;
+  width: 640px;
+  height: 100%;
+  font-size: 0;
 }
 .tile {
-  background: url(../asset/Top.png);
+  display: inline-block;
+  background-size: cover;
+  transform-style: preserve-3d;
+  image-rendering: pixelated;
+  margin: 0; border: 0; padding: 0;
+  box-sizing: border-box;
+  width: 64px; height: 64px;
 }
-.tileX {
-  background: url(../asset/SideX.png);
+.tile::before {
+  content: '';
+  background-size: cover;
+  transform-style: preserve-3d;
+  image-rendering: pixelated;
+  position: absolute;
+  width: 64px; height: 32px;
+  transform: translateZ(-32px) scaleZ(-1) rotateZ(90deg) rotateX(-90deg);
+  transform-origin: 0% 0%;
 }
-.tileZ {
-  background: url(../asset/SideZ.png);
+.tile::after {
+  content: '';
+  background-size: cover;
+  transform-style: preserve-3d;
+  image-rendering: pixelated;
+  position: absolute;
+  width: 64px; height: 32px;
+  bottom: 0;
+  transform: rotateX(90deg);
+  transform-origin: bottom;
+}
+
+.height-1 {
+  transform: translateZ(32px);
+}
+.height-2 {
+  transform: translateZ(64px);
+}
+.height-3 {
+  transform: translateZ(96px);
+}
+.height-4 {
+  transform: translateZ(128px);
+}
+.height-5 {
+  transform: translateZ(160px);
+}
+
+.grass {
+  background-color: #8AD44E;
+}
+.grass::before {
+  background-color: #5FB535;
+}
+.grass::after {
+  background-color: #3D9756;
+}
+
+.grass.patch {
+  background-image: url(../asset/patch.png);
+}
+.grass.barrel {
+  background-image: url(../asset/barrel.png);
+}
+.grass.rock {
+  background-image: url(../asset/rock.png);
+}
+.grass.sign {
+  background-image: url(../asset/sign.png);
+}
+.grass.bush {
+  background-image: url(../asset/bush.gif);
+}
+.grass.fence {
+  background-image: url(../asset/fence.png);
+}
+
+.grass.grassa {
+  background-image: url(../asset/grassa.png);
+}
+.grass.grassb {
+  background-image: url(../asset/grassb.png);
+}
+.grass.grassc {
+  background-image: url(../asset/grassc.png);
+}
+.grass.grassd {
+  background-image: url(../asset/grassd.png);
+}
+.grass.grasse {
+  background-image: url(../asset/grasse.png);
+}
+.grass.grassf {
+  background-image: url(../asset/grassf.png);
+}
+.grass.grassg {
+  background-image: url(../asset/grassg.png);
+}
+.grass.grassh {
+  background-image: url(../asset/grassh.png);
+}
+.grass.grassi {
+  background-image: url(../asset/grassi.png);
+}
+
+.grass.river-top {
+  background-image: url(../asset/rivertop.gif);
+}
+.grass.river-top-left {
+  background-image: url(../asset/rivertopleft.gif);
+}
+.grass.river-top-right {
+  background-image: url(../asset/rivertopleft.gif);
+  transform: scaleX(-1);
+}
+.grass.river-bottom {
+  background-image: url(../asset/riverbottom.gif);
+}
+.grass.river-bottom-left {
+  background-image: url(../asset/riverbottomleft.gif);
+}
+.grass.river-bottom-right {
+  background-image: url(../asset/riverbottomleft.gif);
+  transform: scaleX(-1);
+}
+
+.grass.road-top {
+  background-image: url(../asset/roadtop.png);
+}
+.grass.road-vertical {
+  background-image: url(../asset/roadmiddle.png);
+}
+.grass.road-bottom {
+  background-image: url(../asset/roadbottom.png);
+}
+.grass.road-left {
+  background-image: url(../asset/roadtop.png);
+  transform: rotateZ(-90deg);
+}
+.grass.road-horizontal {
+  background-image: url(../asset/roadmiddle.png);
+  transform: rotateZ(-90deg);
+}
+.grass.road-right {
+  background-image: url(../asset/roadbottom.png);
+  transform: rotateZ(-90deg);
 }
