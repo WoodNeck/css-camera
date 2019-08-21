@@ -15,22 +15,21 @@ class CSSCamera {
   private _rotation: vec3;
   private _perspective: number;
   private _perspectiveOffset: number;
+  private _updateTimer: number;
 
   /**
    * Current version of CSSCamera.
-   * ```
+   * @example
    * console.log(CSSCamera.VERSION); // ex) 1.0.0
-   * ```
    * @type {string}
    */
   static get VERSION() { return '#__VERSION__#'; }
 
   /**
    * The element provided in the constructor.
-   * ```
+   * @example
    * const camera = new CSSCamera(el);
    * console.log(camera.element === el); // true
-   * ```
    * @type {HTMLElement}
    */
   public get element() { return this._element; }
@@ -55,50 +54,46 @@ class CSSCamera {
 
   /**
    * The current position as number array([x, y, z]).
-   * ```
+   * @example
    * const camera = new CSSCamera(el);
    * console.log(camera.position); // [0, 0, 0];
    * camera.position = [0, 0, 300];
    * console.log(camera.position); // [0, 0, 300];
-   * ```
    * @type {number[]}
    */
   public get position() { return [...this._position]; }
 
   /**
    * The current scale as number array([x, y, z]).
-   * ```
+   * @example
    * const camera = new CSSCamera(el);
    * console.log(camera.scale); // [1, 1, 1];
    * camera.scale = [5, 1, 1];
    * console.log(camera.scale); // [5, 1, 1];
-   * ```
    * @type {number[]}
    */
   public get scale() { return [...this._scale]; }
 
   /**
    * The current euler rotation as number array([x, y, z]).
-   * ```
+   * @example
    * const camera = new CSSCamera(el);
    * console.log(camera.rotation); // [0, 0, 0];
    * camera.rotation = [90, 0, 0];
    * console.log(camera.rotation); // [90, 0, 0];
-   * ```
    * @type {number[]}
    */
   public get rotation() { return [...this._rotation]; }
 
   /**
    * The current quaternion rotation as number array([x, y, z, w]).
-   * ```
+   * @example
    * const camera = new CSSCamera(el);
    * console.log(camera.quaternion); // [0, 0, 0, 1];
    * camera.rotation = [90, 0, 0];
    * console.log(camera.quaternion); // [0.7071067690849304, 0, 0, 0.7071067690849304];
    * camera.quaternion = [0, 0, 0, 1];
    * console.log(camera.rotation); // [0, -0, 0];
-   * ```
    * @type {number[]}
    */
   public get quaternion() {
@@ -110,35 +105,32 @@ class CSSCamera {
 
   /**
    * The current perspective value that will be applied to viewport element.
-   * ```
+   * @example
    * const camera = new CSSCamera(el);
    * camera.perspective = 300;
    * console.log(camera.perspective); // 300
-   * ```
    * @type {number}
    */
   public get perspective() { return this._perspective; }
 
   /**
    * The current perspective offset value that will be applied to camera element.
-   * ```
+   * @example
    * const camera = new CSSCamera(el);
    * camera.perspective = 300;
    * console.log(camera.cameraCSS); // scale3d(1, 1, 1) translateZ(300px) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
    * camera.perspectiveOffset = 100;
    * console.log(camera.cameraCSS); // scale3d(1, 1, 1) translateZ(400px) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
-   * ```
    * @type {number}
    */
   public get perspectiveOffset() { return this._perspectiveOffset; }
 
   /**
    * CSS string can be applied to camera element based on current transform.
-   * ```
+   * @example
    * const camera = new CSSCamera(el);
    * camera.perspective = 300;
    * console.log(camera.cameraCSS); // scale3d(1, 1, 1) translateZ(300px) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
-   * ```
    * @type {string}
    */
   public get cameraCSS() {
@@ -186,6 +178,7 @@ class CSSCamera {
     this._rotation = vec3.create();
     this._perspective = 0;
     this._perspectiveOffset = 0;
+    this._updateTimer = -1;
 
     const element = this._element;
     const viewport = document.createElement('div');
@@ -288,7 +281,7 @@ class CSSCamera {
   /**
    * Updates a camera CSS with given duration.
    * Every other camera transforming properties / methods will be batched until this method is called.
-   * ```
+   * @example
    * const camera = new CSSCamera(el);
    * console.log(camera.cameraEl.style.transform); // ''
    *
@@ -299,34 +292,54 @@ class CSSCamera {
    *
    * await camera.update(1000); // Camera style is updated.
    * console.log(camera.cameraEl.style.transform); // scale3d(1, 1, 1) translateZ(300px) rotateX(0deg) rotateY(90deg) rotateZ(0deg)
-   * ```
    * @param - Transition duration in ms.
+   * @param - Transition options.
    * @return {Promise<CSSCamera>} A promise resolving instance itself
    */
-  public async update(duration: number = 0, option: Partial<UpdateOption>): Promise<this> {
-    const transitionDuration = duration > 0 ? `${duration}ms` : '0ms';
-    const mergedOption = Object.assign(Object.assign({}, DEFAULT.UPDATE_OPTION), option);
-    const updateOption = Object.keys(mergedOption).reduce((options: {[key: string]: ValueOf<UpdateOption>}, key) => {
-      options[`transition${key.charAt(0).toUpperCase() + key.slice(1)}`] = mergedOption[key as keyof UpdateOption];
-      return options;
-    }, {});
-
+  public async update(duration: number = 0, option: Partial<UpdateOption> = {}): Promise<this> {
     applyCSS(this._viewportEl, { perspective: `${this.perspective}px` });
-    applyCSS(this._cameraEl, {
-      transitionDuration,
-      ...updateOption,
-      transform: this.cameraCSS,
-    });
-    applyCSS(this._worldEl, {
-      transitionDuration,
-      ...updateOption,
-      transform: this.worldCSS,
-    });
+    applyCSS(this._cameraEl, { transform: this.cameraCSS });
+    applyCSS(this._worldEl, { transform: this.worldCSS });
+
+    if (duration > 0) {
+      if (this._updateTimer > 0) {
+        window.clearTimeout(this._updateTimer);
+      }
+
+      const transitionDuration = `${duration}ms`;
+      const mergedOption = Object.assign(Object.assign({}, DEFAULT.UPDATE_OPTION), option);
+      const updateOption = Object.keys(mergedOption).reduce((options: {[key: string]: ValueOf<UpdateOption>}, key) => {
+        options[`transition${key.charAt(0).toUpperCase() + key.slice(1)}`] = mergedOption[key as keyof UpdateOption];
+        return options;
+      }, {});
+
+      applyCSS(this._cameraEl, {
+        transitionDuration,
+        ...updateOption,
+      });
+
+      applyCSS(this._worldEl, {
+        transitionDuration,
+        ...updateOption,
+      });
+    }
 
     return new Promise(resolve => {
-      setTimeout(() => {
-        resolve();
-      }, duration);
+      // Make sure to use requestAnimationFrame even if duration is 0
+      // To make sure DOM is updated, for successive update() calls.
+      if (duration > 0) {
+        this._updateTimer = window.setTimeout(() => {
+          // Reset transition values
+          applyCSS(this._cameraEl, { transition: '' });
+          applyCSS(this._worldEl, { transition: '' });
+          this._updateTimer = -1;
+          resolve();
+        }, duration);
+      } else {
+        requestAnimationFrame(() => {
+          resolve();
+        });
+      }
     });
   }
 

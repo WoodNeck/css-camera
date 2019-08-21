@@ -2,10 +2,12 @@ const windowWidth = document.body.offsetWidth;
 const windowHeight = document.body.offsetHeight;
 
 const camera = new CSSCamera("#space");
-camera.rotation = [55, 0, -45]
-camera.position = [-windowWidth / 2, -windowHeight / 2, 0];
-camera.scale = [2, 2, 2];
-camera.update(0);
+camera.update(0).then(async () => {
+  camera.rotation = [55, 0, -45]
+  camera.position = [-windowWidth / 2, -windowHeight / 2, 0];
+  camera.scale = [2, 2, 2];
+  await camera.update(2000);
+});
 
 var up = false,
 right = false,
