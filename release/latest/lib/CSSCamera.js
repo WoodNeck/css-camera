@@ -158,7 +158,7 @@ var CSSCamera = (function () {
         if (duration === void 0) { duration = 0; }
         if (option === void 0) { option = {}; }
         return tslib_1.__awaiter(this, void 0, void 0, function () {
-            var transitionDuration, mergedOption_1, updateOption;
+            var transitionDuration, mergedOption_1, updateOption, finalOption_1;
             var _this = this;
             return tslib_1.__generator(this, function (_a) {
                 applyCSS(this._viewportEl, { perspective: this.perspective + "px" });
@@ -174,14 +174,17 @@ var CSSCamera = (function () {
                         options["transition" + (key.charAt(0).toUpperCase() + key.slice(1))] = mergedOption_1[key];
                         return options;
                     }, {});
-                    applyCSS(this._cameraEl, tslib_1.__assign({ transitionDuration: transitionDuration }, updateOption));
-                    applyCSS(this._worldEl, tslib_1.__assign({ transitionDuration: transitionDuration }, updateOption));
+                    finalOption_1 = tslib_1.__assign({ transitionDuration: transitionDuration }, updateOption);
+                    [this._viewportEl, this._cameraEl, this._worldEl].forEach(function (el) {
+                        applyCSS(el, finalOption_1);
+                    });
                 }
                 return [2, new Promise(function (resolve) {
                         if (duration > 0) {
                             _this._updateTimer = window.setTimeout(function () {
-                                applyCSS(_this._cameraEl, { transition: '' });
-                                applyCSS(_this._worldEl, { transition: '' });
+                                [_this._viewportEl, _this._cameraEl, _this._worldEl].forEach(function (el) {
+                                    applyCSS(el, { transition: '' });
+                                });
                                 _this._updateTimer = -1;
                                 resolve();
                             }, duration);

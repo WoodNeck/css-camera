@@ -3798,7 +3798,7 @@ version: 0.1.0-snapshot
         }
 
         return __awaiter(this, void 0, Promise, function () {
-          var transitionDuration, mergedOption_1, updateOption;
+          var transitionDuration, mergedOption_1, updateOption, finalOption_1;
 
           var _this = this;
 
@@ -3824,22 +3824,21 @@ version: 0.1.0-snapshot
                 options["transition" + (key.charAt(0).toUpperCase() + key.slice(1))] = mergedOption_1[key];
                 return options;
               }, {});
-              applyCSS(this._cameraEl, __assign({
+              finalOption_1 = __assign({
                 transitionDuration: transitionDuration
-              }, updateOption));
-              applyCSS(this._worldEl, __assign({
-                transitionDuration: transitionDuration
-              }, updateOption));
+              }, updateOption);
+              [this._viewportEl, this._cameraEl, this._worldEl].forEach(function (el) {
+                applyCSS(el, finalOption_1);
+              });
             }
 
             return [2, new Promise(function (resolve) {
               if (duration > 0) {
                 _this._updateTimer = window.setTimeout(function () {
-                  applyCSS(_this._cameraEl, {
-                    transition: ''
-                  });
-                  applyCSS(_this._worldEl, {
-                    transition: ''
+                  [_this._viewportEl, _this._cameraEl, _this._worldEl].forEach(function (el) {
+                    applyCSS(el, {
+                      transition: ''
+                    });
                   });
                   _this._updateTimer = -1;
                   resolve();
