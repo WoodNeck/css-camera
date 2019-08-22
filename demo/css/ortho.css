@@ -84,21 +84,6 @@ html, body {
 .grass.patch {
   background-image: url(../asset/patch.png);
 }
-.grass.barrel {
-  background-image: url(../asset/barrel.png);
-}
-.grass.rock {
-  background-image: url(../asset/rock.png);
-}
-.grass.sign {
-  background-image: url(../asset/sign.png);
-}
-.grass.bush {
-  background-image: url(../asset/bush.gif);
-}
-.grass.fence {
-  background-image: url(../asset/fence.png);
-}
 
 .grass.grassa {
   background-image: url(../asset/grassa.png);
@@ -169,4 +154,36 @@ html, body {
 .grass.road-right {
   background-image: url(../asset/roadbottom.png);
   transform: rotateZ(-90deg);
+}
+
+.grass div {
+  position: absolute;
+  transform: rotateX(-90deg);
+  transform-origin: bottom;
+  background-size: cover;
+}
+
+.barrel {
+  width: 32px; height: 32px;
+  background-image: url(../asset/barrel.png);
+  left: 8px; bottom: 16px;
+}
+.rock {
+  background-image: url(../asset/rock.png);
+}
+.sign {
+  background-image: url(../asset/sign.png);
+}
+.bush {
+  background-image: url(../asset/bush.gif);
+}
+.fence {
+  width: 64px; height: 64px;
+  background-image: url(../asset/fence.png);
+  left: 0px; bottom: 0px;
+}
+.tree {
+  width: 192px; height: 192px;
+  background-image: url(../asset/tree.gif);
+  left: -64px; bottom: 0px;
 }
