@@ -11,6 +11,7 @@ var CSSCamera = (function () {
         this._rotation = vec3.create();
         this._perspective = 0;
         this._perspectiveOffset = 0;
+        this._updateTimer = -1;
         var element = this._element;
         var viewport = document.createElement('div');
         var camera = viewport.cloneNode();
@@ -155,22 +156,41 @@ var CSSCamera = (function () {
     };
     CSSCamera.prototype.update = function (duration, option) {
         if (duration === void 0) { duration = 0; }
+        if (option === void 0) { option = {}; }
         return tslib_1.__awaiter(this, void 0, void 0, function () {
-            var transitionDuration, mergedOption, updateOption;
+            var transitionDuration, mergedOption_1, updateOption;
+            var _this = this;
             return tslib_1.__generator(this, function (_a) {
-                transitionDuration = duration > 0 ? duration + "ms" : '0ms';
-                mergedOption = Object.assign(Object.assign({}, DEFAULT.UPDATE_OPTION), option);
-                updateOption = Object.keys(mergedOption).reduce(function (options, key) {
-                    options["transition" + (key.charAt(0).toUpperCase() + key.slice(1))] = mergedOption[key];
-                    return options;
-                }, {});
                 applyCSS(this._viewportEl, { perspective: this.perspective + "px" });
-                applyCSS(this._cameraEl, tslib_1.__assign({ transitionDuration: transitionDuration }, updateOption, { transform: this.cameraCSS }));
-                applyCSS(this._worldEl, tslib_1.__assign({ transitionDuration: transitionDuration }, updateOption, { transform: this.worldCSS }));
+                applyCSS(this._cameraEl, { transform: this.cameraCSS });
+                applyCSS(this._worldEl, { transform: this.worldCSS });
+                if (duration > 0) {
+                    if (this._updateTimer > 0) {
+                        window.clearTimeout(this._updateTimer);
+                    }
+                    transitionDuration = duration + "ms";
+                    mergedOption_1 = Object.assign(Object.assign({}, DEFAULT.UPDATE_OPTION), option);
+                    updateOption = Object.keys(mergedOption_1).reduce(function (options, key) {
+                        options["transition" + (key.charAt(0).toUpperCase() + key.slice(1))] = mergedOption_1[key];
+                        return options;
+                    }, {});
+                    applyCSS(this._cameraEl, tslib_1.__assign({ transitionDuration: transitionDuration }, updateOption));
+                    applyCSS(this._worldEl, tslib_1.__assign({ transitionDuration: transitionDuration }, updateOption));
+                }
                 return [2, new Promise(function (resolve) {
-                        setTimeout(function () {
-                            resolve();
-                        }, duration);
+                        if (duration > 0) {
+                            _this._updateTimer = window.setTimeout(function () {
+                                applyCSS(_this._cameraEl, { transition: '' });
+                                applyCSS(_this._worldEl, { transition: '' });
+                                _this._updateTimer = -1;
+                                resolve();
+                            }, duration);
+                        }
+                        else {
+                            requestAnimationFrame(function () {
+                                resolve();
+                            });
+                        }
                     })];
             });
         });

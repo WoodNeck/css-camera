@@ -7,7 +7,7 @@ export interface Offset {
     height: number;
 }
 export interface UpdateOption {
-    property: CSSStyleDeclaration['transitionProperty'];
-    timingFunction: CSSStyleDeclaration['transitionTimingFunction'];
-    delay: CSSStyleDeclaration['transitionDelay'];
+    property: string;
+    timingFunction: string;
+    delay: string;
 }

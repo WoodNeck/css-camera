@@ -29,7 +29,7 @@ export default {
     UPDATE_OPTION: {
         property: 'transform',
         timingFunction: 'ease-out',
-        delay: '0s',
+        delay: '0ms',
     },
 };
 //# sourceMappingURL=default.js.map

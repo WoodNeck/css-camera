@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>Home - css-camera</title>
+    <title>types.ts - css-camera</title>
     
     <meta name="description" content="Add a depth to your web page with CSS3 3D transform." />
     
@@ -46,73 +46,53 @@
 
 <div id="main">
     
+    <h1 class="page-title">types.ts</h1>
+    
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>export type ValueOf&lt;T> = T[keyof T];
 
+export type Matrix4x4 = [
+  number, number, number, number,
+  number, number, number, number,
+  number, number, number, number,
+  number, number, number, number,
+];
 
-    <section class="package">
-        <h3> </h3>		
-    </section>
+export interface Offset {
+  left: number;
+  top: number;
+  width: number;
+  height: number;
+}
 
-
-
-
-
-
-
-
-
-    
-
-
-
-    <section class="readme">
-        <article><h1>📷 CSS-CAMERA</h1>
-<!-- BADGES -->
-<p><img src="https://img.shields.io/npm/v/css-camera?style=for-the-badge" alt="npm"><br>
-<img src="https://img.shields.io/github/license/woodneck/css-camera?style=for-the-badge" alt="GitHub"></p>
-<p>
-  <h4><a href="https://woodneck.github.io/css-camera">🎥 Demo</a> · <a href="https://woodneck.github.io/css-camera/release/latest/docs/index.html">📄 Document</a></h2>
-</p>
-<p><b>Add depth to your web page with CSS3 3D transform.</b></p>
-<blockquote>
-<p>This project is mostly inspired by <a href="https://keithclark.co.uk/labs/css-fps/">Keith Clark's work</a>.</p>
-</blockquote>
-<h2>✨ Features</h2>
-<ul>
-<li>Movable, and Rotatable camera for your scene.</li>
-<li>Can move to in front of any element in your scene, whether it has been rotated or translated.</li>
-</ul>
-<h2>⚙️ Installation</h2>
-<pre class="prettyprint source lang-sh"><code>npm i css-camera
-# or
-yarn add css-camera
-</code></pre>
-<h2>🏃 Quick Start</h2>
-<pre class="prettyprint source lang-js"><code>// Prerequisite:
-// Create your scene as you like
-const card = document.querySelector(&quot;#card&quot;);
-const cardButton = document.querySelector(&quot;#card-button&quot;);
-
-// First, make camera
-const camera = new CSSCamera(&quot;#space&quot;);
-
-// Call its method, then update it!
-cardButton.onclick = () => {
-  camera.focus(card);
-  camera.update(2000);
+/**
+ * @typedef
+ * @property {string} [property="transform"] - CSS [transition-property](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-property) to apply.
+ * @property {string} [timingFunction="ease-out"] - CSS [transition-timing-function](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-timing-function) to apply.
+ * @property {string} [delay="0ms"] - CSS [transition-delay](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-delay) to apply.
+ * @example
+ * // When if you want to apply multiple properties
+ * camera.update(1000, {
+ *   property: "transform, background-color",
+ *   timingFunction: "ease-out, ease-out", // As same with CSS, you should assign values to each property
+ *   delay: "0ms, 100ms"
+ * });
+ */
+export interface UpdateOption {
+  property: string;
+  timingFunction: string;
+  delay: string;
 }
 </code></pre>
-<p>Check more methods on <a href="https://woodneck.gith4b.io/css-camera/release/latest/docs/index.html">📄Documentation</a></h2></p>
-<h2>📜 License</h2>
-<p><a href="https://github.com/WoodNeck/css-camera/blob/master/LICENSE">MIT</a></p></article>
+        </article>
     </section>
-
-
 
 
 

@@ -9,6 +9,7 @@ declare class CSSCamera {
     private _rotation;
     private _perspective;
     private _perspectiveOffset;
+    private _updateTimer;
     static readonly VERSION: string;
     readonly element: HTMLElement;
     readonly viewportEl: HTMLElement;
@@ -27,7 +28,7 @@ declare class CSSCamera {
     translateLocal(x?: number, y?: number, z?: number): this;
     translate(x?: number, y?: number, z?: number): this;
     rotate(x?: number, y?: number, z?: number): this;
-    update(duration: number | undefined, option: Partial<UpdateOption>): Promise<this>;
+    update(duration?: number, option?: Partial<UpdateOption>): Promise<this>;
     private _getFocusMatrix;
 }
 export default CSSCamera;
