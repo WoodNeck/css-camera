@@ -313,14 +313,13 @@ class CSSCamera {
         return options;
       }, {});
 
-      applyCSS(this._cameraEl, {
+      const finalOption = {
         transitionDuration,
         ...updateOption,
-      });
+      };
 
-      applyCSS(this._worldEl, {
-        transitionDuration,
-        ...updateOption,
+      [this._viewportEl, this._cameraEl, this._worldEl].forEach(el => {
+        applyCSS(el, finalOption);
       });
     }
 
@@ -330,8 +329,9 @@ class CSSCamera {
       if (duration > 0) {
         this._updateTimer = window.setTimeout(() => {
           // Reset transition values
-          applyCSS(this._cameraEl, { transition: '' });
-          applyCSS(this._worldEl, { transition: '' });
+          [this._viewportEl, this._cameraEl, this._worldEl].forEach(el => {
+            applyCSS(el, { transition: '' });
+          });
           this._updateTimer = -1;
           resolve();
         }, duration);
