@@ -296,7 +296,11 @@ class CSSCamera {
    * @param - Transition options.
    * @return {Promise<CSSCamera>} A promise resolving instance itself
    */
-  public async update(duration: number = 0, option: Partial<UpdateOption> = {}): Promise<this> {
+  public async update(duration: number = 0, option: Partial<UpdateOption> = {
+    property: 'transform',
+    timingFunction: 'ease-out',
+    delay: '0ms',
+  }): Promise<this> {
     applyCSS(this._viewportEl, { perspective: `${this.perspective}px` });
     applyCSS(this._cameraEl, { transform: this.cameraCSS });
     applyCSS(this._worldEl, { transform: this.worldCSS });
@@ -307,9 +311,8 @@ class CSSCamera {
       }
 
       const transitionDuration = `${duration}ms`;
-      const mergedOption = Object.assign(Object.assign({}, DEFAULT.UPDATE_OPTION), option);
-      const updateOption = Object.keys(mergedOption).reduce((options: {[key: string]: ValueOf<UpdateOption>}, key) => {
-        options[`transition${key.charAt(0).toUpperCase() + key.slice(1)}`] = mergedOption[key as keyof UpdateOption];
+      const updateOption = Object.keys(option).reduce((options: {[key: string]: ValueOf<UpdateOption>}, key) => {
+        options[`transition${key.charAt(0).toUpperCase() + key.slice(1)}`] = option[key as keyof UpdateOption]!;
         return options;
       }, {});
 
