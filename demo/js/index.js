@@ -29,7 +29,16 @@ heroButton.onclick = () => {
   camera.focus(hero);
   camera.update(2000);
 }
+
+var flicking;
 moreButton.onclick = () => {
   camera.focus(more);
-  camera.update(2000);
+  camera.update(2000).then(() => {
+    if (flicking) return;
+    // Demo carousel
+    flicking = new eg.Flicking("#demo-flicking", {
+      collectStatistics: false,
+      adaptive: true
+    });
+  });
 }

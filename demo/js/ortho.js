@@ -27,7 +27,7 @@ camera.update(0).then(async () => {
     x: { range: [-400, 400] },
     y: { range: [-150, 250] }
   }, {
-    deceleration: 0.001
+    deceleration: 0.004
   }, {
     x: 0,
     y: 0
