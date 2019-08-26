@@ -39,7 +39,7 @@ cardButton.onclick = () => {
   camera.update(2000);
 }
 ```
-Check more methods on <a href="https://woodneck.gith4b.io/css-camera/release/latest/docs/index.html">📄Documentation</a></h2>
+Check more methods on the <a href="https://woodneck.github.io/css-camera/release/latest/docs/index.html">📄API Documentation</a> page</h2>
 
 ## 📜 License
 [MIT](https://github.com/WoodNeck/css-camera/blob/master/LICENSE)
