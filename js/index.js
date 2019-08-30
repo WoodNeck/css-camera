@@ -8,6 +8,14 @@ const code = document.querySelector("#code");
 const hero = document.querySelector("#hero");
 const more = document.querySelector("#more");
 
+var flicking = new eg.Flicking("#demo-flicking", {
+  collectStatistics: false,
+  adaptive: true,
+  zIndex: "",
+  gap: 50,
+  overflow: true
+});
+
 const camera = new CSSCamera("#space");
 const windowWidth = document.body.offsetWidth;
 
@@ -30,15 +38,7 @@ heroButton.onclick = () => {
   camera.update(2000);
 }
 
-var flicking;
 moreButton.onclick = () => {
   camera.focus(more);
-  camera.update(2000).then(() => {
-    if (flicking) return;
-    // Demo carousel
-    flicking = new eg.Flicking("#demo-flicking", {
-      collectStatistics: false,
-      adaptive: true
-    });
-  });
+  camera.update(2000);
 }
