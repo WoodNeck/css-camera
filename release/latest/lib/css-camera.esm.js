@@ -332,11 +332,6 @@ var DEFAULT = {
     VIEWPORT: 'cc-viewport',
     CAMERA: 'cc-camera',
     WORLD: 'cc-world'
-  },
-  UPDATE_OPTION: {
-    property: 'transform',
-    timingFunction: 'ease-out',
-    delay: '0ms'
   }
 };
 
@@ -565,11 +560,15 @@ var CSSCamera = function () {
     }
 
     if (option === void 0) {
-      option = {};
+      option = {
+        property: 'transform',
+        timingFunction: 'ease-out',
+        delay: '0ms'
+      };
     }
 
     return __awaiter(this, void 0, Promise, function () {
-      var transitionDuration, mergedOption_1, updateOption, finalOption_1;
+      var transitionDuration, updateOption, finalOption_1;
 
       var _this = this;
 
@@ -590,9 +589,8 @@ var CSSCamera = function () {
           }
 
           transitionDuration = duration + "ms";
-          mergedOption_1 = Object.assign(Object.assign({}, DEFAULT.UPDATE_OPTION), option);
-          updateOption = Object.keys(mergedOption_1).reduce(function (options, key) {
-            options["transition" + (key.charAt(0).toUpperCase() + key.slice(1))] = mergedOption_1[key];
+          updateOption = Object.keys(option).reduce(function (options, key) {
+            options["transition" + (key.charAt(0).toUpperCase() + key.slice(1))] = option[key];
             return options;
           }, {});
           finalOption_1 = __assign({

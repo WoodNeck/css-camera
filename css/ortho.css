@@ -1,4 +1,3 @@
-
 * {
   box-sizing: border-box;
 }
@@ -16,7 +15,12 @@ html, body {
 }
 #info {
   position: fixed;
-  top: 0%;
+  top: 12px;
+  color: gold;
+  font-size: 24px;
+}
+#info a {
+  color: hotpink;
 }
 #space {
   transform-style: preserve-3d;

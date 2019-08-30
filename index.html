@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.9/build/styles/an-old-hope.min.css">
     <link type="text/css" rel="stylesheet" href="css/index.css">
     <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.9/build/highlight.min.js"></script>
+    <script src="https://naver.github.io/egjs-flicking/release/latest/dist/flicking.pkgd.min.js"></script>
     <script src="./release/latest/lib/css-camera.pkgd.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
   </head>
@@ -22,7 +23,7 @@
         <div class="hero-body">
           <div class="container has-text-centered">
             <h1 class="title"><i class="fas fa-camera-retro"></i> CSS-CAMERA</h1>
-            <h2 class="subtitle">Add a depth to your web page with CSS3 3D transform.</h2>
+            <h2 class="subtitle">Add depth to your web page with CSS3 3D transform.</h2>
             <a class="button is-white" href="./release/latest/docs/index.html">
               <span class="icon"><i class="fas fa-book"></i></span>
               <span>Documents</span>
@@ -81,6 +82,7 @@ const camera = new CSSCamera("#space");
 
 // Call its method, then update it!
 cardButton.onclick = () => {
+  // Move camera in front of "card"
   camera.focus(card);
   camera.update(2000);
 }</code></pre>
@@ -88,10 +90,23 @@ cardButton.onclick = () => {
       </div>
 
       <div id="more" class="container">
-        <h1 class="title">More demos?</h1>
-        <ul>
-          <li><a href="./ortho.html">Orthographic projection</a></li>
-        </ul>
+        <h1 class="title has-text-centered">More demos?</h1>
+        <div class="arrow left"><i class="fas fa-arrow-left"></i></div>
+        <div class="arrow right"><i class="fas fa-arrow-right"></i></div>
+        <div id="demo-flicking" class="container">
+          <div class="demo-entry">
+            <div class="demo-wrapper">
+              <figure class="image is-4by3">
+                <img class="demo-thumb" src="./asset/ortho-thumb.png" />
+              </figure>
+              <div class="caption-wrapper">
+                <a class="demo-caption is-size-5-mobile" href="./ortho.html">
+                  <span>Orthographic projection</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <header class="page-header-container">

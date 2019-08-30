@@ -156,9 +156,13 @@ var CSSCamera = (function () {
     };
     CSSCamera.prototype.update = function (duration, option) {
         if (duration === void 0) { duration = 0; }
-        if (option === void 0) { option = {}; }
+        if (option === void 0) { option = {
+            property: 'transform',
+            timingFunction: 'ease-out',
+            delay: '0ms',
+        }; }
         return tslib_1.__awaiter(this, void 0, void 0, function () {
-            var transitionDuration, mergedOption_1, updateOption, finalOption_1;
+            var transitionDuration, updateOption, finalOption_1;
             var _this = this;
             return tslib_1.__generator(this, function (_a) {
                 applyCSS(this._viewportEl, { perspective: this.perspective + "px" });
@@ -169,9 +173,8 @@ var CSSCamera = (function () {
                         window.clearTimeout(this._updateTimer);
                     }
                     transitionDuration = duration + "ms";
-                    mergedOption_1 = Object.assign(Object.assign({}, DEFAULT.UPDATE_OPTION), option);
-                    updateOption = Object.keys(mergedOption_1).reduce(function (options, key) {
-                        options["transition" + (key.charAt(0).toUpperCase() + key.slice(1))] = mergedOption_1[key];
+                    updateOption = Object.keys(option).reduce(function (options, key) {
+                        options["transition" + (key.charAt(0).toUpperCase() + key.slice(1))] = option[key];
                         return options;
                     }, {});
                     finalOption_1 = tslib_1.__assign({ transitionDuration: transitionDuration }, updateOption);
