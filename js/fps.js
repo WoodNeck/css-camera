@@ -5,6 +5,7 @@ camera.perspective = windowHeight / 2;
 camera.update(0);
 
 var zone = 0;
+var rotate = 0;
 var inst = document.querySelector("#inst");
 
 document.documentElement.onclick = function() {
@@ -124,12 +125,61 @@ var clampPosition1 = function(prev, position) {
   return position;
 }
 
+var clampPosition2 = function(prev, position) {
+  position[0] = clamp(position[0], 1310, 1890);
+  position[2] = clamp(position[2], -1790, -610);
+
+  // Long Corridor
+  if (position[0] <= 1490 || (prev[0] <= 1490 && prev[2] < -790)) {
+    position[0] = clamp(position[0], 1310, 1490);
+    position[2] = clamp(position[2], -1790, -610);
+  }
+  // Bottom
+  else if (prev[2] >= -790) {
+    if (prev[0] > 1490 && prev[0] < 1710) {
+      position[2] = clamp(position[2], -790, -610);
+    } else {
+      position[2] = clamp(position[2], -1790, -610);
+    }
+  }
+  // Right
+  else if (position[0] >= 310 || (prev[0] >= 310 && prev[2] > -1010)) {
+    position[0] = clamp(position[0], 310, 490);
+    position[2] = clamp(position[2], -1190, -610);
+  }
+
+  return position;
+}
+
 var checkZone = function(prevPos) {
   var newPos = camera.position;
   // Zone 0 to 1
   if (zone === 0 && newPos[0] > 310 && prevPos[2] <= -980 && newPos[2] > -980) {
     camera.translate(700, 0, 0);
     zone = 1;
+    rotate = 0;
+  } else if (zone === 1 && newPos[0] > 1010) {
+    if (prevPos[2] <= -980 && newPos[2] > -980) {
+      rotate += 1;
+    } else if (prevPos[2] > -980 && newPos[2] <= -980) {
+      rotate -= 1;
+    }
+    if (rotate < 0) {
+      camera.translate(-700, 0, 0);
+      zone = 0;
+    }
+  } else if (zone === 1 && newPos[2] >= -790) {
+    if (prevPos[0] > 980 && newPos[0] <= 980) {
+      if (rotate > 5) {
+        camera.translate(700, 0, 0);
+        zone = 2;
+      }
+    }
+  } else if (zone === 2 && newPos[2] >= -790) {
+    if (prevPos[0] < 1680 && newPos[0] >= 1680) {
+      camera.translate(-700, 0, 0);
+      zone = 1;
+    }
   }
 }
 
@@ -138,7 +188,7 @@ var updateMouse = function(e) {
   var diffY = e.movementY;
 
   camera.rotate(-diffY / 5, diffX / 5);
-  camera.rotation = [clamp(camera.rotation[0], -89, 89), camera.rotation[1], camera.rotation[2]];
+  camera.rotation = [clamp(camera.rotation[0], -85, 85), camera.rotation[1], camera.rotation[2]];
   camera.update(0);
 
   prevMouseLocation.x = e.screenX;
@@ -153,18 +203,20 @@ var keyLoop = function() {
     camera.translateLocal(0, 0, -speedVal);
   }
   if (right){
-    camera.translateLocal(speedVal, 0, 0);
+    camera.translateLocal(speed, 0, 0);
   }
   if (down){
     camera.translateLocal(0, 0, speedVal);
   }
   if (left){
-    camera.translateLocal(-speedVal, 0, 0);
+    camera.translateLocal(-speed, 0, 0);
   }
   var newPos = [camera.position[0], 0, camera.position[2]];
   camera.position = zone === 0
     ? clampPosition0(prevPos, newPos)
-    : clampPosition1(prevPos, newPos);
+    : zone === 1
+      ? clampPosition1(prevPos, newPos)
+      : clampPosition2(prevPos, newPos);
   checkZone(prevPos);
   camera.update(0);
   requestAnimationFrame(keyLoop);
