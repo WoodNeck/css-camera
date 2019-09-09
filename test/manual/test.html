@@ -44,10 +44,10 @@
   </div>
   <script type="text/javascript" src="../../lib/css-camera.pkgd.js"></script>
   <script type="text/javascript">
-    var camera = new CSSCamera("#space");
-    camera.perspective = 300;
-    camera.perspectiveOffset = 0;
-    camera.translate(0, 0, 300);
+    var camera = new CSSCamera("#space", {
+      perspective: 300,
+      rotateOffset: 300,
+    });
     camera.update(0).then(async () => {
       camera.rotate(0, 90, 0);
       await camera.update(2000, {

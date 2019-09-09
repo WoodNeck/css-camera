@@ -142,7 +142,7 @@ class CSSCamera {
 
     // Rotate in order of Z - Y - X
     // tslint:disable-next-line: max-line-length
-    return `scale3d(${scale[0]}, ${scale[1]}, ${scale[2]}) translateZ(${perspective + rotateOffset}px) rotateX(${rotation[0]}deg) rotateY(${rotation[1]}deg) rotateZ(${rotation[2]}deg)`;
+    return `scale3d(${scale[0]}, ${scale[1]}, ${scale[2]}) translateZ(${perspective - rotateOffset}px) rotateX(${rotation[0]}deg) rotateY(${rotation[1]}deg) rotateZ(${rotation[2]}deg)`;
   }
 
   /**

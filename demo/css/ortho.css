@@ -19,8 +19,14 @@ html, body {
   color: gold;
   font-size: 24px;
 }
-#info a {
+#info2 {
+  position: fixed;
+  bottom: 12px;
+  font-size: 24px;
+}
+#info2 a {
   color: hotpink;
+  text-decoration: none;
 }
 #space {
   transform-style: preserve-3d;

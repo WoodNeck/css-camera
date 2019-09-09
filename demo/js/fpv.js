@@ -1,12 +1,12 @@
-var windowHeight = window.innerHeight;
-var camera = new CSSCamera("#space");
-camera.position = [0, 0, -10];
-camera.perspective = windowHeight / 2;
-camera.update(0);
+const windowHeight = window.innerHeight;
+const camera = new CSSCamera("#space", {
+  position: [0, 0, -10],
+  perspective: windowHeight / 2,
+});
 
-var zone = 0;
-var rotate = 0;
-var inst = document.querySelector("#inst");
+let zone = 0;
+let rotate = 0;
+const inst = document.querySelector("#inst");
 
 document.documentElement.onclick = function() {
   document.documentElement.requestPointerLock();
@@ -25,10 +25,10 @@ function onLockChange() {
   }
 }
 
-var up = false,
-right = false,
-down = false,
-left = false;
+let up = false;
+let right = false;
+let down = false;
+let left = false;
 
 document.addEventListener('keydown', press);
 function press(e){
@@ -62,18 +62,18 @@ function release(e){
   }
 }
 
-var prevMouseLocation = {
+const prevMouseLocation = {
   x: NaN, y: NaN,
 }
 
-var clamp = function(val, min, max) {
+const clamp = function(val, min, max) {
   return Math.min(Math.max(val, min), max);
 }
-var degToRad = function(deg) {
+const degToRad = function(deg) {
   return Math.PI * deg / 180;
 }
 
-var clampPosition0 = function(prev, position) {
+const clampPosition0 = function(prev, position) {
   // Long Corridor
   if (position[0] <= 90 || (prev[0] <= 90 && prev[2] > -1010)) {
     position[0] = clamp(position[0], -90, 90);
@@ -97,7 +97,7 @@ var clampPosition0 = function(prev, position) {
   return position;
 }
 
-var clampPosition1 = function(prev, position) {
+const clampPosition1 = function(prev, position) {
   position[0] = clamp(position[0], 610, 1190);
   position[2] = clamp(position[2], -1190, -610);
 
@@ -125,7 +125,7 @@ var clampPosition1 = function(prev, position) {
   return position;
 }
 
-var clampPosition2 = function(prev, position) {
+const clampPosition2 = function(prev, position) {
   position[0] = clamp(position[0], 1310, 1890);
   position[2] = clamp(position[2], -1790, -610);
 
@@ -151,8 +151,8 @@ var clampPosition2 = function(prev, position) {
   return position;
 }
 
-var checkZone = function(prevPos) {
-  var newPos = camera.position;
+const checkZone = function(prevPos) {
+  const newPos = camera.position;
   // Zone 0 to 1
   if (zone === 0 && newPos[0] > 310 && prevPos[2] <= -980 && newPos[2] > -980) {
     camera.translate(700, 0, 0);
@@ -183,9 +183,9 @@ var checkZone = function(prevPos) {
   }
 }
 
-var updateMouse = function(e) {
-  var diffX = e.movementX;
-  var diffY = e.movementY;
+const updateMouse = function(e) {
+  const diffX = e.movementX;
+  const diffY = e.movementY;
 
   camera.rotate(-diffY / 5, diffX / 5);
   camera.rotation = [clamp(camera.rotation[0], -85, 85), camera.rotation[1], camera.rotation[2]];
@@ -194,10 +194,10 @@ var updateMouse = function(e) {
   prevMouseLocation.x = e.screenX;
   prevMouseLocation.y = e.screenY;
 }
-var speed = 5;
-var keyLoop = function() {
-  var prevPos = camera.position.concat();
-  var speedVal = speed / Math.cos(degToRad(camera.rotation[0]));
+const speed = 5;
+const keyLoop = function() {
+  const prevPos = camera.position.concat();
+  const speedVal = speed / Math.cos(degToRad(camera.rotation[0]));
 
   if (up){
     camera.translateLocal(0, 0, -speedVal);

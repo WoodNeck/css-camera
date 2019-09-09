@@ -30,5 +30,5 @@ export const OPTIONS = {
   scale: [1, 1, 1],
   rotation: [0, 0, 0],
   perspective: 0,
-  perspectiveOffset: 0,
+  rotateOffset: 0,
 };
