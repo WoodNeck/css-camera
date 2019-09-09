@@ -46,7 +46,8 @@
   <script type="text/javascript">
     var camera = new CSSCamera("#space", {
       perspective: 300,
-      rotateOffset: 300,
+      rotateOffset: 0,
+      position: [0, 0, -150],
     });
     camera.update(0).then(async () => {
       camera.rotate(0, 90, 0);

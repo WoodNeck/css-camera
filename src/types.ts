@@ -9,11 +9,11 @@ export type Matrix4x4 = [
 
 /**
  * @typedef
- * @property {Array<number>} [position=[0, 0, 0]] - Initial position of the camera.
- * @property {Array<number>} [scale=[1, 1, 1]] - Initial scale of the camera.
- * @property {Array<number>} [rotation=[0, 0, 0]] - Initial rotation(x, y, z) of the camera.
- * @property {number} [perspective=0] - Initial perspective of the camera.
- * @property {number} [rotateOffset=0] - Initial rotate offset of the camera.
+ * @property - Initial position of the camera.
+ * @property - Initial scale of the camera.
+ * @property - Initial Euler rotation angles(x, y, z) of the camera in degree.
+ * @property - Initial perspective of the camera.
+ * @property - Initial rotate offset of the camera.
  */
 export interface Options {
   position: number[];
@@ -32,16 +32,9 @@ export interface Offset {
 
 /**
  * @typedef
- * @property {string} [property="transform"] - CSS [transition-property](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-property) to apply.
- * @property {string} [timingFunction="ease-out"] - CSS [transition-timing-function](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-timing-function) to apply.
- * @property {string} [delay="0ms"] - CSS [transition-delay](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-delay) to apply.
- * @example
- * // When if you want to apply multiple properties
- * camera.update(1000, {
- *   property: "transform, background-color",
- *   timingFunction: "ease-out, ease-out", // As same with CSS, you should assign values to each property
- *   delay: "0ms, 100ms"
- * });
+ * @property - CSS [transition-property](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-property) to apply.
+ * @property - CSS [transition-timing-function](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-timing-function) to apply.
+ * @property - CSS [transition-delay](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-delay) to apply.
  */
 export interface UpdateOption {
   property: string;

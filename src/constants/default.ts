@@ -32,3 +32,9 @@ export const OPTIONS = {
   perspective: 0,
   rotateOffset: 0,
 };
+
+export const UPDATE_OPTIONS = {
+  property: 'transform',
+  timingFunction: 'ease-out',
+  delay: '0ms',
+};

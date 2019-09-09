@@ -75,7 +75,7 @@ class CSSCamera {
   public get scale() { return [...this._scale]; }
 
   /**
-   * The current euler rotation as number array([x, y, z]).
+   * The current Euler rotation angles in degree as number array([x, y, z]).
    * @example
    * const camera = new CSSCamera(el);
    * console.log(camera.rotation); // [0, 0, 0];
@@ -116,6 +116,8 @@ class CSSCamera {
   /**
    * The current rotate offset value that will be applied to camera element.
    * The camera will be as far away from the focal point as this value.
+   * |![rot0](https://woodneck.github.io/css-camera/asset/rot0.gif)|![rot150](https://woodneck.github.io/css-camera/asset/rot150.gif)|
+   * |:---:|:---:|
    * @example
    * const camera = new CSSCamera(el);
    * camera.perspective = 300;
@@ -171,6 +173,18 @@ class CSSCamera {
   /**
    * Create new CSSCamera with given element / selector.
    * @param - The element to apply camera. Can be HTMLElement or CSS selector.
+   * @param {Partial<Options>} [options] Camera options
+   * @param {number[]} [options.position=[0, 0, 0]] Initial position of the camera.
+   * @param {number[]} [options.scale=[1, 1, 1]] Initial scale of the camera.
+   * @param {number[]} [options.rotation=[0, 0, 0]] Initial Euler rotation angles(x, y, z) of the camera in degree.
+   * @param {number} [options.perspective=0] Initial perspective of the camera.
+   * @param {number} [options.rotateOffset=0] Initial rotate offset of the camera.
+   * @example
+   * const camera = new CSSCamera("#el", {
+   *   position: [0, 0, 150], // Initial pos(x, y, z)
+   *   rotation: [90, 0, 0],  // Initial rotation(x, y, z, in degree)
+   *   perspective: 300       // CSS "perspective" value to apply
+   * });
    */
   constructor(el: string | HTMLElement, options: Partial<Options> = {}) {
     this._element = getElement(el);
@@ -296,18 +310,26 @@ class CSSCamera {
    *
    * await camera.update(1000); // Camera style is updated.
    * console.log(camera.cameraEl.style.transform); // scale3d(1, 1, 1) translateZ(300px) rotateX(0deg) rotateY(90deg) rotateZ(0deg)
+   *
+   * // When if you want to apply multiple properties
+   * camera.update(1000, {
+   *   property: "transform, background-color",
+   *   timingFunction: "ease-out, ease-out", // As same with CSS, you should assign values to each property
+   *   delay: "0ms, 100ms"
+   * });
    * @param - Transition duration in ms.
-   * @param - Transition options.
+   * @param {Partial<UpdateOption>} [options] Transition options.
+   * @param {string} [options.property="transform"] CSS [transition-property](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-property) to apply.
+   * @param {string} [options.timingFunction="ease-out"] CSS [transition-timing-function](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-timing-function) to apply.
+   * @param {string} [options.delay="0ms"] CSS [transition-delay](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-delay) to apply.
    * @return {Promise<CSSCamera>} A promise resolving instance itself
    */
-  public async update(duration: number = 0, option: Partial<UpdateOption> = {
-    property: 'transform',
-    timingFunction: 'ease-out',
-    delay: '0ms',
-  }): Promise<this> {
+  public async update(duration: number = 0, options: Partial<UpdateOption> = {}): Promise<this> {
     applyCSS(this._viewportEl, { perspective: `${this.perspective}px` });
     applyCSS(this._cameraEl, { transform: this.cameraCSS });
     applyCSS(this._worldEl, { transform: this.worldCSS });
+
+    const updateOptions = assign(assign({}, DEFAULT.UPDATE_OPTIONS), options) as UpdateOption;
 
     if (duration > 0) {
       if (this._updateTimer > 0) {
@@ -315,9 +337,9 @@ class CSSCamera {
       }
 
       const transitionDuration = `${duration}ms`;
-      const updateOption = Object.keys(option).reduce((options: {[key: string]: ValueOf<UpdateOption>}, key) => {
-        options[`transition${key.charAt(0).toUpperCase() + key.slice(1)}`] = option[key as keyof UpdateOption]!;
-        return options;
+      const updateOption = Object.keys(updateOptions).reduce((option: {[key: string]: ValueOf<UpdateOption>}, key) => {
+        option[`transition${key.charAt(0).toUpperCase() + key.slice(1)}`] = updateOptions[key as keyof UpdateOption]!;
+        return option;
       }, {});
 
       const finalOption = {
