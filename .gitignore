@@ -103,7 +103,7 @@ typings/
 
 ## Custom ###
 .DS_Store
-# lib/
+lib/
 docs/
 demo/release
 demo/_data/version.yml
