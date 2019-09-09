@@ -76,4 +76,17 @@ export function range(max) {
 export function clamp(val, min, max) {
     return Math.max(Math.min(val, max), min);
 }
+export function assign(target) {
+    var srcs = [];
+    for (var _i = 1; _i < arguments.length; _i++) {
+        srcs[_i - 1] = arguments[_i];
+    }
+    srcs.forEach(function (source) {
+        Object.keys(source).forEach(function (key) {
+            var value = source[key];
+            target[key] = value;
+        });
+    });
+    return target;
+}
 //# sourceMappingURL=helper.js.map

@@ -10,3 +10,4 @@ export declare function getRotateOffset(elStyle: CSSStyleDeclaration, currentOff
 export declare function findIndex<T>(iterable: T[], callback: (el: T) => boolean): number;
 export declare function range(max: number): number[];
 export declare function clamp(val: number, min: number, max: number): number;
+export declare function assign(target: object, ...srcs: object[]): object;

@@ -1,16 +1,18 @@
 import * as tslib_1 from "tslib";
 import { mat4, vec3, quat } from 'gl-matrix';
-import { getElement, applyCSS, getTransformMatrix, findIndex, getOffsetFromParent, getRotateOffset } from './utils/helper';
+import { getElement, applyCSS, getTransformMatrix, findIndex, getOffsetFromParent, getRotateOffset, assign } from './utils/helper';
 import { quatToEuler } from './utils/math';
-import DEFAULT from './constants/default';
+import * as DEFAULT from './constants/default';
 var CSSCamera = (function () {
-    function CSSCamera(el) {
+    function CSSCamera(el, options) {
+        if (options === void 0) { options = {}; }
         this._element = getElement(el);
-        this._position = vec3.create();
-        this._scale = vec3.fromValues(1, 1, 1);
-        this._rotation = vec3.create();
-        this._perspective = 0;
-        this._perspectiveOffset = 0;
+        var op = assign(assign({}, DEFAULT.OPTIONS), options);
+        this._position = vec3.fromValues(op.position[0], op.position[1], op.position[2]);
+        this._scale = vec3.fromValues(op.scale[0], op.scale[1], op.scale[2]);
+        this._rotation = vec3.fromValues(op.rotation[0], op.rotation[1], op.rotation[2]);
+        this._perspective = op.perspective;
+        this._rotateOffset = op.rotateOffset;
         this._updateTimer = -1;
         var element = this._element;
         var viewport = document.createElement('div');
@@ -89,19 +91,19 @@ var CSSCamera = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(CSSCamera.prototype, "perspectiveOffset", {
-        get: function () { return this._perspectiveOffset; },
-        set: function (val) { this._perspectiveOffset = val; },
+    Object.defineProperty(CSSCamera.prototype, "rotateOffset", {
+        get: function () { return this._rotateOffset; },
+        set: function (val) { this._rotateOffset = val; },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(CSSCamera.prototype, "cameraCSS", {
         get: function () {
             var perspective = this._perspective;
-            var perspectiveOffset = this._perspectiveOffset;
+            var rotateOffset = this._rotateOffset;
             var rotation = this._rotation;
             var scale = this._scale;
-            return "scale3d(" + scale[0] + ", " + scale[1] + ", " + scale[2] + ") translateZ(" + (perspective + perspectiveOffset) + "px) rotateX(" + rotation[0] + "deg) rotateY(" + rotation[1] + "deg) rotateZ(" + rotation[2] + "deg)";
+            return "scale3d(" + scale[0] + ", " + scale[1] + ", " + scale[2] + ") translateZ(" + (perspective - rotateOffset) + "px) rotateX(" + rotation[0] + "deg) rotateY(" + rotation[1] + "deg) rotateZ(" + rotation[2] + "deg)";
         },
         enumerable: true,
         configurable: true

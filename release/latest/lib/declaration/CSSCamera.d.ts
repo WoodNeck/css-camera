@@ -1,4 +1,4 @@
-import { UpdateOption } from './types';
+import { UpdateOption, Options } from './types';
 declare class CSSCamera {
     private _element;
     private _viewportEl;
@@ -8,7 +8,7 @@ declare class CSSCamera {
     private _scale;
     private _rotation;
     private _perspective;
-    private _perspectiveOffset;
+    private _rotateOffset;
     private _updateTimer;
     static readonly VERSION: string;
     readonly element: HTMLElement;
@@ -20,10 +20,10 @@ declare class CSSCamera {
     rotation: number[];
     quaternion: number[];
     perspective: number;
-    perspectiveOffset: number;
+    rotateOffset: number;
     readonly cameraCSS: string;
     readonly worldCSS: string;
-    constructor(el: string | HTMLElement);
+    constructor(el: string | HTMLElement, options?: Partial<Options>);
     focus(el: string | HTMLElement): this;
     translateLocal(x?: number, y?: number, z?: number): this;
     translate(x?: number, y?: number, z?: number): this;

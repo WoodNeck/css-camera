@@ -1,0 +1,93 @@
+* {
+  box-sizing: border-box;
+  transform-style: preserve-3d;
+  font-size: 0;
+}
+html, body {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#space {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+.zone {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+}
+.zone0 {
+  left: 0;
+}
+.zone1 {
+  left: 700px;
+}
+.zone2 {
+  left: 1400px;
+}
+.long-hallway {
+  width: 200px;
+  height: 200px;
+}
+.is-left {
+  left: 0%;
+  transform-origin: left;
+  transform: rotateY(90deg);
+}
+.is-right {
+  right: 0%;
+  transform-origin: right;
+  transform: rotateY(-90deg);
+}
+.wall {
+  height: 200px;
+  position: absolute;
+  border: 10px solid #333;
+  background-color: white;
+}
+.is-1200 {
+  width: 1200px;
+}
+.is-1000 {
+  width: 1000px;
+}
+.is-800 {
+  width: 800px;
+}
+.is-600 {
+  width: 600px;
+}
+.is-400 {
+  width: 400px;
+}
+.is-200 {
+  width: 200px;
+}
+.arrow {
+  transform: rotateX(90deg);
+  width: 200px;
+  font-size: 300px;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  transform-origin: bottom;
+}
+#inst {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 72px;
+}

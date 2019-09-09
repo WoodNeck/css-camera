@@ -41,7 +41,7 @@
     
     <input type="text" id="nav-search" placeholder="Search" />
     
-    <h2><a href="index.html">Home</a></h2><h2><a href="https://github.com/WoodNeck/css-camera" target="_blank" >Github</a></h2><h3>Classes</h3><ul><li><a href="CSSCamera.html">CSSCamera</a><ul class='members'><li data-type='member'><a href="CSSCamera.html#.VERSION">VERSION</a></li><li data-type='member'><a href="CSSCamera.html#cameraCSS">cameraCSS</a></li><li data-type='member'><a href="CSSCamera.html#cameraEl">cameraEl</a></li><li data-type='member'><a href="CSSCamera.html#element">element</a></li><li data-type='member'><a href="CSSCamera.html#perspective">perspective</a></li><li data-type='member'><a href="CSSCamera.html#perspectiveOffset">perspectiveOffset</a></li><li data-type='member'><a href="CSSCamera.html#position">position</a></li><li data-type='member'><a href="CSSCamera.html#quaternion">quaternion</a></li><li data-type='member'><a href="CSSCamera.html#rotation">rotation</a></li><li data-type='member'><a href="CSSCamera.html#scale">scale</a></li><li data-type='member'><a href="CSSCamera.html#viewportEl">viewportEl</a></li><li data-type='member'><a href="CSSCamera.html#worldCSS">worldCSS</a></li><li data-type='member'><a href="CSSCamera.html#worldEl">worldEl</a></li></ul><ul class='methods'><li data-type='method'><a href="CSSCamera.html#focus">focus</a></li><li data-type='method'><a href="CSSCamera.html#rotate">rotate</a></li><li data-type='method'><a href="CSSCamera.html#translate">translate</a></li><li data-type='method'><a href="CSSCamera.html#translateLocal">translateLocal</a></li><li data-type='method'><a href="CSSCamera.html#update">update</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#UpdateOption">UpdateOption</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h2><a href="https://github.com/WoodNeck/css-camera" target="_blank" >Github</a></h2><h3>Classes</h3><ul><li><a href="CSSCamera.html">CSSCamera</a><ul class='members'><li data-type='member'><a href="CSSCamera.html#.VERSION">VERSION</a></li><li data-type='member'><a href="CSSCamera.html#cameraCSS">cameraCSS</a></li><li data-type='member'><a href="CSSCamera.html#cameraEl">cameraEl</a></li><li data-type='member'><a href="CSSCamera.html#element">element</a></li><li data-type='member'><a href="CSSCamera.html#perspective">perspective</a></li><li data-type='member'><a href="CSSCamera.html#position">position</a></li><li data-type='member'><a href="CSSCamera.html#quaternion">quaternion</a></li><li data-type='member'><a href="CSSCamera.html#rotateOffset">rotateOffset</a></li><li data-type='member'><a href="CSSCamera.html#rotation">rotation</a></li><li data-type='member'><a href="CSSCamera.html#scale">scale</a></li><li data-type='member'><a href="CSSCamera.html#viewportEl">viewportEl</a></li><li data-type='member'><a href="CSSCamera.html#worldCSS">worldCSS</a></li><li data-type='member'><a href="CSSCamera.html#worldEl">worldEl</a></li></ul><ul class='methods'><li data-type='method'><a href="CSSCamera.html#focus">focus</a></li><li data-type='method'><a href="CSSCamera.html#rotate">rotate</a></li><li data-type='method'><a href="CSSCamera.html#translate">translate</a></li><li data-type='method'><a href="CSSCamera.html#translateLocal">translateLocal</a></li><li data-type='method'><a href="CSSCamera.html#update">update</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#Options">Options</a></li><li><a href="global.html#UpdateOption">UpdateOption</a></li></ul>
 </nav>
 
 <div id="main">
@@ -137,6 +137,261 @@
 
         
                 
+<h4 class="name" id="Options">Options</h4>
+
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="types.ts.html">types.ts</a>, <a href="types.ts.html#line18">line 18</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>position</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;number></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Initial position of the camera.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>scale</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;number></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Initial scale of the camera.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>rotation</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;number></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Initial rotation(x, y, z) of the camera.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>perspective</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Initial perspective of the camera.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>rotateOffset</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Initial rotate offset of the camera.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">TSInterface</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+
+            
+                
 <h4 class="name" id="UpdateOption">UpdateOption</h4>
 
 
@@ -148,7 +403,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="types.ts.html">types.ts</a>, <a href="types.ts.html#line30">line 30</a>
+        <a href="types.ts.html">types.ts</a>, <a href="types.ts.html#line46">line 46</a>
     </li></ul></dd>
     
 
@@ -356,7 +611,7 @@ camera.update(1000, {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 0.3.7</a> on Fri Sep 06 2019 14:17:11 GMT+0900 (대한민국 표준시) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 0.3.7</a> on Mon Sep 09 2019 18:18:11 GMT+0900 (대한민국 표준시) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

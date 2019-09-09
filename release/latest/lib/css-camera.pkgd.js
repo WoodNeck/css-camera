@@ -4,7 +4,7 @@ name: css-camera
 license: MIT
 author: WoodNeck
 repository: git+https://github.com/WoodNeck/css-camera.git
-version: 0.1.0-snapshot
+version: 1.0.0-rc
 */
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -3504,6 +3504,21 @@ version: 0.1.0-snapshot
     function clamp(val, min, max) {
       return Math.max(Math.min(val, max), min);
     }
+    function assign(target) {
+      var srcs = [];
+
+      for (var _i = 1; _i < arguments.length; _i++) {
+        srcs[_i - 1] = arguments[_i];
+      }
+
+      srcs.forEach(function (source) {
+        Object.keys(source).forEach(function (key) {
+          var value = source[key];
+          target[key] = value;
+        });
+      });
+      return target;
+    }
 
     function radToDeg(rad) {
       return 180 * rad / Math.PI;
@@ -3534,55 +3549,63 @@ version: 0.1.0-snapshot
       });
     }
 
-    var DEFAULT = {
-      FOV: 50,
-      ORTHOGRAPHIC: false,
-      STYLE: {
-        VIEWPORT: {
-          width: '100%',
-          height: '100%',
-          'transform-style': 'preserve-3d',
-          overflow: 'hidden'
-        },
-        CAMERA: {
-          width: '100%',
-          height: '100%',
-          'transform-style': 'preserve-3d',
-          'will-change': 'transform'
-        },
-        WORLD: {
-          width: '100%',
-          height: '100%',
-          'transform-style': 'preserve-3d',
-          'will-change': 'transform'
-        }
+    var STYLE = {
+      VIEWPORT: {
+        width: '100%',
+        height: '100%',
+        'transform-style': 'preserve-3d',
+        overflow: 'hidden'
       },
-      CLASS: {
-        VIEWPORT: 'cc-viewport',
-        CAMERA: 'cc-camera',
-        WORLD: 'cc-world'
+      CAMERA: {
+        width: '100%',
+        height: '100%',
+        'transform-style': 'preserve-3d',
+        'will-change': 'transform'
+      },
+      WORLD: {
+        width: '100%',
+        height: '100%',
+        'transform-style': 'preserve-3d',
+        'will-change': 'transform'
       }
+    };
+    var CLASS = {
+      VIEWPORT: 'cc-viewport',
+      CAMERA: 'cc-camera',
+      WORLD: 'cc-world'
+    };
+    var OPTIONS = {
+      position: [0, 0, 0],
+      scale: [1, 1, 1],
+      rotation: [0, 0, 0],
+      perspective: 0,
+      rotateOffset: 0
     };
 
     var CSSCamera = function () {
-      function CSSCamera(el) {
+      function CSSCamera(el, options) {
+        if (options === void 0) {
+          options = {};
+        }
+
         this._element = getElement(el);
-        this._position = create$2();
-        this._scale = fromValues$1(1, 1, 1);
-        this._rotation = create$2();
-        this._perspective = 0;
-        this._perspectiveOffset = 0;
+        var op = assign(assign({}, OPTIONS), options);
+        this._position = fromValues$1(op.position[0], op.position[1], op.position[2]);
+        this._scale = fromValues$1(op.scale[0], op.scale[1], op.scale[2]);
+        this._rotation = fromValues$1(op.rotation[0], op.rotation[1], op.rotation[2]);
+        this._perspective = op.perspective;
+        this._rotateOffset = op.rotateOffset;
         this._updateTimer = -1;
         var element = this._element;
         var viewport = document.createElement('div');
         var camera = viewport.cloneNode();
         var world = viewport.cloneNode();
-        viewport.className = DEFAULT.CLASS.VIEWPORT;
-        camera.className = DEFAULT.CLASS.CAMERA;
-        world.className = DEFAULT.CLASS.WORLD;
-        applyCSS(viewport, DEFAULT.STYLE.VIEWPORT);
-        applyCSS(camera, DEFAULT.STYLE.CAMERA);
-        applyCSS(world, DEFAULT.STYLE.WORLD);
+        viewport.className = CLASS.VIEWPORT;
+        camera.className = CLASS.CAMERA;
+        world.className = CLASS.WORLD;
+        applyCSS(viewport, STYLE.VIEWPORT);
+        applyCSS(camera, STYLE.CAMERA);
+        applyCSS(world, STYLE.WORLD);
         camera.appendChild(world);
         viewport.appendChild(camera);
         this._viewportEl = viewport;
@@ -3595,7 +3618,7 @@ version: 0.1.0-snapshot
       var __proto = CSSCamera.prototype;
       Object.defineProperty(CSSCamera, "VERSION", {
         get: function () {
-          return '0.1.0-snapshot';
+          return '1.0.0-rc';
         },
         enumerable: true,
         configurable: true
@@ -3680,12 +3703,12 @@ version: 0.1.0-snapshot
         enumerable: true,
         configurable: true
       });
-      Object.defineProperty(__proto, "perspectiveOffset", {
+      Object.defineProperty(__proto, "rotateOffset", {
         get: function () {
-          return this._perspectiveOffset;
+          return this._rotateOffset;
         },
         set: function (val) {
-          this._perspectiveOffset = val;
+          this._rotateOffset = val;
         },
         enumerable: true,
         configurable: true
@@ -3693,10 +3716,10 @@ version: 0.1.0-snapshot
       Object.defineProperty(__proto, "cameraCSS", {
         get: function () {
           var perspective = this._perspective;
-          var perspectiveOffset = this._perspectiveOffset;
+          var rotateOffset = this._rotateOffset;
           var rotation = this._rotation;
           var scale = this._scale;
-          return "scale3d(" + scale[0] + ", " + scale[1] + ", " + scale[2] + ") translateZ(" + (perspective + perspectiveOffset) + "px) rotateX(" + rotation[0] + "deg) rotateY(" + rotation[1] + "deg) rotateZ(" + rotation[2] + "deg)";
+          return "scale3d(" + scale[0] + ", " + scale[1] + ", " + scale[2] + ") translateZ(" + (perspective - rotateOffset) + "px) rotateX(" + rotation[0] + "deg) rotateY(" + rotation[1] + "deg) rotateZ(" + rotation[2] + "deg)";
         },
         enumerable: true,
         configurable: true

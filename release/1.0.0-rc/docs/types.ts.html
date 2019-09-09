@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>types.ts - css-camera</title>
+    
+    <meta name="description" content="Add a depth to your web page with CSS3 3D transform." />
+    
+        <meta name="keywords" content="css3, camera, graphics, 3d" />
+        <meta name="keyword" content="css3, camera, graphics, 3d" />
+    
+    
+    
+    <meta property="og:title" content="css-camera"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:image" content=""/>
+    <meta property="og:site_name" content="css-camera"/>
+    <meta property="og:url" content="https://woodneck.github.io/css-camera/"/>
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    <h2><a href="index.html">Home</a></h2><h2><a href="https://github.com/WoodNeck/css-camera" target="_blank" >Github</a></h2><h3>Classes</h3><ul><li><a href="CSSCamera.html">CSSCamera</a><ul class='members'><li data-type='member'><a href="CSSCamera.html#.VERSION">VERSION</a></li><li data-type='member'><a href="CSSCamera.html#cameraCSS">cameraCSS</a></li><li data-type='member'><a href="CSSCamera.html#cameraEl">cameraEl</a></li><li data-type='member'><a href="CSSCamera.html#element">element</a></li><li data-type='member'><a href="CSSCamera.html#perspective">perspective</a></li><li data-type='member'><a href="CSSCamera.html#position">position</a></li><li data-type='member'><a href="CSSCamera.html#quaternion">quaternion</a></li><li data-type='member'><a href="CSSCamera.html#rotateOffset">rotateOffset</a></li><li data-type='member'><a href="CSSCamera.html#rotation">rotation</a></li><li data-type='member'><a href="CSSCamera.html#scale">scale</a></li><li data-type='member'><a href="CSSCamera.html#viewportEl">viewportEl</a></li><li data-type='member'><a href="CSSCamera.html#worldCSS">worldCSS</a></li><li data-type='member'><a href="CSSCamera.html#worldEl">worldEl</a></li></ul><ul class='methods'><li data-type='method'><a href="CSSCamera.html#focus">focus</a></li><li data-type='method'><a href="CSSCamera.html#rotate">rotate</a></li><li data-type='method'><a href="CSSCamera.html#translate">translate</a></li><li data-type='method'><a href="CSSCamera.html#translateLocal">translateLocal</a></li><li data-type='method'><a href="CSSCamera.html#update">update</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#Options">Options</a></li><li><a href="global.html#UpdateOption">UpdateOption</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">types.ts</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>export type ValueOf&lt;T> = T[keyof T];
+
+export type Matrix4x4 = [
+  number, number, number, number,
+  number, number, number, number,
+  number, number, number, number,
+  number, number, number, number,
+];
+
+/**
+ * @typedef
+ * @property {Array&lt;number>} [position=[0, 0, 0]] - Initial position of the camera.
+ * @property {Array&lt;number>} [scale=[1, 1, 1]] - Initial scale of the camera.
+ * @property {Array&lt;number>} [rotation=[0, 0, 0]] - Initial rotation(x, y, z) of the camera.
+ * @property {number} [perspective=0] - Initial perspective of the camera.
+ * @property {number} [rotateOffset=0] - Initial rotate offset of the camera.
+ */
+export interface Options {
+  position: number[];
+  scale: number[];
+  rotation: number[];
+  perspective: number;
+  rotateOffset: number;
+}
+
+export interface Offset {
+  left: number;
+  top: number;
+  width: number;
+  height: number;
+}
+
+/**
+ * @typedef
+ * @property {string} [property="transform"] - CSS [transition-property](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-property) to apply.
+ * @property {string} [timingFunction="ease-out"] - CSS [transition-timing-function](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-timing-function) to apply.
+ * @property {string} [delay="0ms"] - CSS [transition-delay](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-delay) to apply.
+ * @example
+ * // When if you want to apply multiple properties
+ * camera.update(1000, {
+ *   property: "transform, background-color",
+ *   timingFunction: "ease-out, ease-out", // As same with CSS, you should assign values to each property
+ *   delay: "0ms, 100ms"
+ * });
+ */
+export interface UpdateOption {
+  property: string;
+  timingFunction: string;
+  delay: string;
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 0.3.7</a> on Mon Sep 09 2019 18:18:11 GMT+0900 (대한민국 표준시) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js" defer></script>
+
+
+
+</body>
+</html>

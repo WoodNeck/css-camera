@@ -1,3 +1,3 @@
 import CSSCamera from './CSSCamera';
-export { CSSCamera as default, };
+export default CSSCamera;
 //# sourceMappingURL=index.js.map

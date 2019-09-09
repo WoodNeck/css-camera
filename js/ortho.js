@@ -21,17 +21,13 @@ camera.update(0).then(async () => {
     delay: "0ms, 0ms"
   });
 
-  var Axes = eg.Axes;
-  var PanInput = Axes.PanInput;
+  // Controls after init
+  const Axes = eg.Axes;
+  const PanInput = Axes.PanInput;
   const axes = new Axes({
     x: { range: [-400, 400] },
     y: { range: [-150, 250] }
-  }, {
-    deceleration: 0.004
-  }, {
-    x: 0,
-    y: 0
-  });
+  }, { deceleration: 0.004 }, { x: 0, y: 0 });
   const panInput = new PanInput(".cc-viewport", {
     scale: [0.3, 0.3],
   });

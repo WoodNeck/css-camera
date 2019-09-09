@@ -1,2 +1,3 @@
 import CSSCamera from './CSSCamera';
-export { CSSCamera as default, };
+export * from './types';
+export default CSSCamera;

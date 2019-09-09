@@ -41,7 +41,7 @@
     
     <input type="text" id="nav-search" placeholder="Search" />
     
-    <h2><a href="index.html">Home</a></h2><h2><a href="https://github.com/WoodNeck/css-camera" target="_blank" >Github</a></h2><h3>Classes</h3><ul><li><a href="CSSCamera.html">CSSCamera</a><ul class='members'><li data-type='member'><a href="CSSCamera.html#.VERSION">VERSION</a></li><li data-type='member'><a href="CSSCamera.html#cameraCSS">cameraCSS</a></li><li data-type='member'><a href="CSSCamera.html#cameraEl">cameraEl</a></li><li data-type='member'><a href="CSSCamera.html#element">element</a></li><li data-type='member'><a href="CSSCamera.html#perspective">perspective</a></li><li data-type='member'><a href="CSSCamera.html#perspectiveOffset">perspectiveOffset</a></li><li data-type='member'><a href="CSSCamera.html#position">position</a></li><li data-type='member'><a href="CSSCamera.html#quaternion">quaternion</a></li><li data-type='member'><a href="CSSCamera.html#rotation">rotation</a></li><li data-type='member'><a href="CSSCamera.html#scale">scale</a></li><li data-type='member'><a href="CSSCamera.html#viewportEl">viewportEl</a></li><li data-type='member'><a href="CSSCamera.html#worldCSS">worldCSS</a></li><li data-type='member'><a href="CSSCamera.html#worldEl">worldEl</a></li></ul><ul class='methods'><li data-type='method'><a href="CSSCamera.html#focus">focus</a></li><li data-type='method'><a href="CSSCamera.html#rotate">rotate</a></li><li data-type='method'><a href="CSSCamera.html#translate">translate</a></li><li data-type='method'><a href="CSSCamera.html#translateLocal">translateLocal</a></li><li data-type='method'><a href="CSSCamera.html#update">update</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#UpdateOption">UpdateOption</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h2><a href="https://github.com/WoodNeck/css-camera" target="_blank" >Github</a></h2><h3>Classes</h3><ul><li><a href="CSSCamera.html">CSSCamera</a><ul class='members'><li data-type='member'><a href="CSSCamera.html#.VERSION">VERSION</a></li><li data-type='member'><a href="CSSCamera.html#cameraCSS">cameraCSS</a></li><li data-type='member'><a href="CSSCamera.html#cameraEl">cameraEl</a></li><li data-type='member'><a href="CSSCamera.html#element">element</a></li><li data-type='member'><a href="CSSCamera.html#perspective">perspective</a></li><li data-type='member'><a href="CSSCamera.html#position">position</a></li><li data-type='member'><a href="CSSCamera.html#quaternion">quaternion</a></li><li data-type='member'><a href="CSSCamera.html#rotateOffset">rotateOffset</a></li><li data-type='member'><a href="CSSCamera.html#rotation">rotation</a></li><li data-type='member'><a href="CSSCamera.html#scale">scale</a></li><li data-type='member'><a href="CSSCamera.html#viewportEl">viewportEl</a></li><li data-type='member'><a href="CSSCamera.html#worldCSS">worldCSS</a></li><li data-type='member'><a href="CSSCamera.html#worldEl">worldEl</a></li></ul><ul class='methods'><li data-type='method'><a href="CSSCamera.html#focus">focus</a></li><li data-type='method'><a href="CSSCamera.html#rotate">rotate</a></li><li data-type='method'><a href="CSSCamera.html#translate">translate</a></li><li data-type='method'><a href="CSSCamera.html#translateLocal">translateLocal</a></li><li data-type='method'><a href="CSSCamera.html#update">update</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#Options">Options</a></li><li><a href="global.html#UpdateOption">UpdateOption</a></li></ul>
 </nav>
 
 <div id="main">
@@ -73,7 +73,7 @@
 
     
 
-    <h4 class="name" id="CSSCamera"><span class="type-signature"></span>new CSSCamera<span class="signature">(el)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="CSSCamera"><span class="type-signature"></span>new CSSCamera<span class="signature">(el, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
 
     
 
@@ -85,7 +85,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="CSSCamera.ts.html">CSSCamera.ts</a>, <a href="CSSCamera.ts.html#line174">line 174</a>
+        <a href="CSSCamera.ts.html">CSSCamera.ts</a>, <a href="CSSCamera.ts.html#line175">line 175</a>
     </li></ul></dd>
     
 
@@ -151,7 +151,11 @@
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
+        
+        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -176,10 +180,61 @@
             </td>
 
             
+                <td class="attributes">
+                
 
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last"><p>The element to apply camera. Can be HTMLElement or CSS selector.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Partial&lt;<a href="global.html#Options">Options</a>></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>{}</code>
+                
+                </td>
+            
+
+            <td class="description last"></td>
         </tr>
 
     
@@ -314,7 +369,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="CSSCamera.ts.html">CSSCamera.ts</a>, <a href="CSSCamera.ts.html#line136">line 136</a>
+        <a href="CSSCamera.ts.html">CSSCamera.ts</a>, <a href="CSSCamera.ts.html#line137">line 137</a>
     </li></ul></dd>
     
 
@@ -615,88 +670,6 @@ console.log(camera.perspective); // 300</code></pre>
 
         
             
-<h4 class="name" id="perspectiveOffset"><span class="type-signature"></span>perspectiveOffset<span class="type-signature"> :number</span></h4>
-
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="CSSCamera.ts.html">CSSCamera.ts</a>, <a href="CSSCamera.ts.html#line126">line 126</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description">
-    <p>The current perspective offset value that will be applied to camera element.</p>
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">number</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>const camera = new CSSCamera(el);
-camera.perspective = 300;
-console.log(camera.cameraCSS); // scale3d(1, 1, 1) translateZ(300px) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
-camera.perspectiveOffset = 100;
-console.log(camera.cameraCSS); // scale3d(1, 1, 1) translateZ(400px) rotateX(0deg) rotateY(0deg) rotateZ(0deg);</code></pre>
-
-
-
-        
-            
 <h4 class="name" id="position"><span class="type-signature"></span>position<span class="type-signature"> :Array.&lt;number></span></h4>
 
 
@@ -856,6 +829,89 @@ camera.rotation = [90, 0, 0];
 console.log(camera.quaternion); // [0.7071067690849304, 0, 0, 0.7071067690849304];
 camera.quaternion = [0, 0, 0, 1];
 console.log(camera.rotation); // [0, -0, 0];</code></pre>
+
+
+
+        
+            
+<h4 class="name" id="rotateOffset"><span class="type-signature"></span>rotateOffset<span class="type-signature"> :number</span></h4>
+
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="CSSCamera.ts.html">CSSCamera.ts</a>, <a href="CSSCamera.ts.html#line127">line 127</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    <p>The current rotate offset value that will be applied to camera element.<br>
+The camera will be as far away from the focal point as this value.</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">number</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>const camera = new CSSCamera(el);
+camera.perspective = 300;
+console.log(camera.cameraCSS); // scale3d(1, 1, 1) translateZ(300px) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+camera.rotateOffset = 100;
+console.log(camera.cameraCSS); // scale3d(1, 1, 1) translateZ(400px) rotateX(0deg) rotateY(0deg) rotateZ(0deg);</code></pre>
 
 
 
@@ -1107,7 +1163,7 @@ console.log(camera.scale); // [5, 1, 1];</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="CSSCamera.ts.html">CSSCamera.ts</a>, <a href="CSSCamera.ts.html#line157">line 157</a>
+        <a href="CSSCamera.ts.html">CSSCamera.ts</a>, <a href="CSSCamera.ts.html#line158">line 158</a>
     </li></ul></dd>
     
 
@@ -1268,7 +1324,7 @@ console.log(camera.worldCSS); // &quot;translate3d(0px, 0px, -300px)&quot;;
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="CSSCamera.ts.html">CSSCamera.ts</a>, <a href="CSSCamera.ts.html#line216">line 216</a>
+        <a href="CSSCamera.ts.html">CSSCamera.ts</a>, <a href="CSSCamera.ts.html#line220">line 220</a>
     </li></ul></dd>
     
 
@@ -1429,7 +1485,7 @@ This method won't work if any of element's parent except camera element has scal
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="CSSCamera.ts.html">CSSCamera.ts</a>, <a href="CSSCamera.ts.html#line275">line 275</a>
+        <a href="CSSCamera.ts.html">CSSCamera.ts</a>, <a href="CSSCamera.ts.html#line279">line 279</a>
     </li></ul></dd>
     
 
@@ -1685,7 +1741,7 @@ This method won't work if any of element's parent except camera element has scal
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="CSSCamera.ts.html">CSSCamera.ts</a>, <a href="CSSCamera.ts.html#line262">line 262</a>
+        <a href="CSSCamera.ts.html">CSSCamera.ts</a>, <a href="CSSCamera.ts.html#line266">line 266</a>
     </li></ul></dd>
     
 
@@ -1941,7 +1997,7 @@ This method won't work if any of element's parent except camera element has scal
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="CSSCamera.ts.html">CSSCamera.ts</a>, <a href="CSSCamera.ts.html#line242">line 242</a>
+        <a href="CSSCamera.ts.html">CSSCamera.ts</a>, <a href="CSSCamera.ts.html#line246">line 246</a>
     </li></ul></dd>
     
 
@@ -2198,7 +2254,7 @@ For example, <code>camera.translateLocal(0, 0, -300)</code> will always move cam
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="CSSCamera.ts.html">CSSCamera.ts</a>, <a href="CSSCamera.ts.html#line299">line 299</a>
+        <a href="CSSCamera.ts.html">CSSCamera.ts</a>, <a href="CSSCamera.ts.html#line303">line 303</a>
     </li></ul></dd>
     
 
@@ -2433,7 +2489,7 @@ console.log(camera.cameraEl.style.transform); // scale3d(1, 1, 1) translateZ(300
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 0.3.7</a> on Fri Sep 06 2019 14:17:11 GMT+0900 (대한민국 표준시) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 0.3.7</a> on Mon Sep 09 2019 18:18:11 GMT+0900 (대한민국 표준시) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

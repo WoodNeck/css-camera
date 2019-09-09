@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>css-camera</title>
+    <meta charsset="utf-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <meta property="og:title" content="css-camera" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://woodneck.github.io/css-camera/" />
+    <link type="text/css" rel="stylesheet" href="css/fpv.css">
+    <script src="./release/latest/lib/css-camera.pkgd.js"></script>
+  </head>
+  <body>
+    <div id="space">
+      <div class="zone zone0">
+        <div class="long-hallway">
+          <div class="arrow">↑</div>
+          <div class="wall is-200"></div>
+          <div class="wall is-left is-1200" style="background: linear-gradient( to right, white 800px, cyan )"></div>
+          <div class="wall is-right is-1000" style="background: linear-gradient( to left, white 800px, magenta )"></div>
+          <div class="wall is-600" style="left: 0; transform: translateZ(-1200px); background: linear-gradient( to right, cyan, white, yellow );"></div>
+          <div class="wall is-200" style="left: 200px; transform: translateZ(-1000px); background: magenta;"></div>
+          <div class="wall is-right is-600" style="transform: translateZ(-600px) rotateY(-90deg) translateZ(-400px); background: linear-gradient( to left, magenta, white, yellow )"></div>
+          <div class="wall is-right is-200" style="transform: translateZ(-800px) rotateY(-90deg) translateZ(-200px); background: linear-gradient( to right, magenta, white, cyan )"></div>
+          <div class="wall" style="width: 398px; border-left: none; transform: translateX(202px) translateZ(-600px); background: linear-gradient( to left, magenta, white 180px)"></div>
+        </div>
+      </div>
+      <div class="zone zone1">
+        <div style="width: 200px; height: 200px; transform: translateZ(-600px);">
+          <div class="wall is-600" style="left: 0; background: linear-gradient( to right, white 400px, magenta );"></div>
+          <div class="wall is-left is-600" style="background: linear-gradient( to right, white, white, cyan );"></div>
+          <div class="wall is-600" style="transform: translateZ(-600px); background: linear-gradient( to left, yellow, white, cyan );"></div>
+          <div class="wall is-right is-600" style="transform: rotateY(-90deg) translateZ(-400px); background: linear-gradient( to right, yellow, white, magenta );"></div>
+          <div class="wall is-200" style="transform: translateX(200px) translateZ(-400px); background: magenta;"></div>
+          <div class="wall is-200" style="transform: translateX(200px) translateZ(-200px); background: cyan;"></div>
+          <div class="wall is-left is-200" style="transform: translateZ(-200px) rotateY(90deg) translateZ(200px); background: linear-gradient( to left, magenta, white, cyan);"></div>
+          <div class="wall is-right is-200" style="transform: translateZ(-200px) rotateY(-90deg) translateZ(-200px); background: linear-gradient( to right, magenta, white, cyan);"></div>
+        </div>
+      </div>
+      <div class="zone zone2">
+        <div style="width: 200px; height: 200px; transform: translateZ(-600px);">
+          <div class="wall is-600" style="left: 0; background: linear-gradient( to right, white 400px, magenta );"></div>
+          <div class="wall is-left is-1200" style="background: linear-gradient( to right, white, white, cyan 600px)"></div>
+          <div class="wall" style="width: 398px; border-left: none; transform: translateX(202px) translateZ(-600px); background: linear-gradient( to left, yellow, white, cyan );"></div>
+          <div class="wall is-right is-600" style="transform: rotateY(-90deg) translateZ(-400px); background: linear-gradient( to right, yellow, white, magenta );"></div>
+          <div class="wall is-200" style="transform: translateZ(-1200px); background: url(./asset/winner.png); background-position: center; background-repeat: no-repeat; background-size: cover; padding: 10%; background-origin: content-box;"></div>
+          <div class="wall is-200" style="transform: translateX(200px) translateZ(-200px); background: cyan;"></div>
+          <div class="wall is-left is-1000" style="backface-visibility: hidden; transform: translateZ(-1200px) translateX(200px) rotateY(-90deg); background: cyan;"></div>
+          <div class="wall is-right is-200" style="transform: translateZ(-200px) rotateY(-90deg) translateZ(-200px); background: linear-gradient( to right, magenta, white, cyan);"></div>
+        </div>
+      </div>
+    </div>
+    <div id="inst">Click the screen to control</div>
+    <script src="js/fpv.js"></script>
+  </body>
+</html>
