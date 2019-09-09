@@ -88,3 +88,14 @@ export function range(max: number): number[] {
 export function clamp(val: number, min: number, max: number): number {
   return Math.max(Math.min(val, max), min);
 }
+
+export function assign(target: object, ...srcs: object[]): object {
+  srcs.forEach(source => {
+    Object.keys(source).forEach(key => {
+      const value = (source as any)[key];
+      (target as any)[key] = value;
+    });
+  });
+
+  return target;
+}

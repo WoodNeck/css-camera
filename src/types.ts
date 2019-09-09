@@ -7,6 +7,22 @@ export type Matrix4x4 = [
   number, number, number, number,
 ];
 
+/**
+ * @typedef
+ * @property {Array<number>} [position=[0, 0, 0]] - Initial position of the camera.
+ * @property {Array<number>} [scale=[1, 1, 1]] - Initial scale of the camera.
+ * @property {Array<number>} [rotation=[0, 0, 0]] - Initial rotation(x, y, z) of the camera.
+ * @property {number} [perspective=0] - Initial perspective of the camera.
+ * @property {number} [rotateOffset=0] - Initial rotate offset of the camera.
+ */
+export interface Options {
+  position: number[];
+  scale: number[];
+  rotation: number[];
+  perspective: number;
+  rotateOffset: number;
+}
+
 export interface Offset {
   left: number;
   top: number;

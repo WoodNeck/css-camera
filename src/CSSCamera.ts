@@ -1,8 +1,8 @@
 import { mat4, vec3, quat } from 'gl-matrix';
-import { getElement, applyCSS, getTransformMatrix, findIndex, getOffsetFromParent, getRotateOffset } from './utils/helper';
+import { getElement, applyCSS, getTransformMatrix, findIndex, getOffsetFromParent, getRotateOffset, assign } from './utils/helper';
 import { quatToEuler } from './utils/math';
-import DEFAULT from './constants/default';
-import { Offset, UpdateOption, ValueOf } from './types';
+import * as DEFAULT from './constants/default';
+import { Offset, UpdateOption, ValueOf, Options } from './types';
 
 class CSSCamera {
   private _element: HTMLElement;
@@ -14,7 +14,7 @@ class CSSCamera {
   private _scale: vec3;
   private _rotation: vec3;
   private _perspective: number;
-  private _perspectiveOffset: number;
+  private _rotateOffset: number;
   private _updateTimer: number;
 
   /**
@@ -114,16 +114,17 @@ class CSSCamera {
   public get perspective() { return this._perspective; }
 
   /**
-   * The current perspective offset value that will be applied to camera element.
+   * The current rotate offset value that will be applied to camera element.
+   * The camera will be as far away from the focal point as this value.
    * @example
    * const camera = new CSSCamera(el);
    * camera.perspective = 300;
    * console.log(camera.cameraCSS); // scale3d(1, 1, 1) translateZ(300px) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
-   * camera.perspectiveOffset = 100;
+   * camera.rotateOffset = 100;
    * console.log(camera.cameraCSS); // scale3d(1, 1, 1) translateZ(400px) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
    * @type {number}
    */
-  public get perspectiveOffset() { return this._perspectiveOffset; }
+  public get rotateOffset() { return this._rotateOffset; }
 
   /**
    * CSS string can be applied to camera element based on current transform.
@@ -135,13 +136,13 @@ class CSSCamera {
    */
   public get cameraCSS() {
     const perspective = this._perspective;
-    const perspectiveOffset = this._perspectiveOffset;
+    const rotateOffset = this._rotateOffset;
     const rotation = this._rotation;
     const scale = this._scale;
 
     // Rotate in order of Z - Y - X
     // tslint:disable-next-line: max-line-length
-    return `scale3d(${scale[0]}, ${scale[1]}, ${scale[2]}) translateZ(${perspective + perspectiveOffset}px) rotateX(${rotation[0]}deg) rotateY(${rotation[1]}deg) rotateZ(${rotation[2]}deg)`;
+    return `scale3d(${scale[0]}, ${scale[1]}, ${scale[2]}) translateZ(${perspective + rotateOffset}px) rotateX(${rotation[0]}deg) rotateY(${rotation[1]}deg) rotateZ(${rotation[2]}deg)`;
   }
 
   /**
@@ -165,19 +166,22 @@ class CSSCamera {
   public set rotation(val: number[]) { this._rotation = vec3.fromValues(val[0], val[1], val[2]); }
   public set quaternion(val: number[]) { this._rotation = quatToEuler(quat.fromValues(val[0], val[1], val[2], val[3])); }
   public set perspective(val: number) { this._perspective = val; }
-  public set perspectiveOffset(val: number) { this._perspectiveOffset = val; }
+  public set rotateOffset(val: number) { this._rotateOffset = val; }
 
   /**
    * Create new CSSCamera with given element / selector.
    * @param - The element to apply camera. Can be HTMLElement or CSS selector.
    */
-  constructor(el: string | HTMLElement) {
+  constructor(el: string | HTMLElement, options: Partial<Options> = {}) {
     this._element = getElement(el);
-    this._position = vec3.create();
-    this._scale = vec3.fromValues(1, 1, 1);
-    this._rotation = vec3.create();
-    this._perspective = 0;
-    this._perspectiveOffset = 0;
+
+    const op = assign(assign({}, DEFAULT.OPTIONS), options) as Options;
+
+    this._position = vec3.fromValues(op.position[0], op.position[1], op.position[2]);
+    this._scale = vec3.fromValues(op.scale[0], op.scale[1], op.scale[2]);
+    this._rotation = vec3.fromValues(op.rotation[0], op.rotation[1], op.rotation[2]);
+    this._perspective = op.perspective;
+    this._rotateOffset = op.rotateOffset;
     this._updateTimer = -1;
 
     const element = this._element;
