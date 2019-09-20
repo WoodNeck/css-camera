@@ -1,6 +1,6 @@
 {
   "name": "css-camera",
-  "version": "1.0.1",
+  "version": "1.0.1-snapshot",
   "description": "Add a depth to your web page with CSS3 3D transform.",
   "main": "lib/css-camera.js",
   "module": "lib/css-camera.esm.js",
