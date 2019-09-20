@@ -221,6 +221,8 @@ class CSSCamera {
     // EL's PARENT -> VIEWPORT -> CAMERA -> WORLD -> EL
     element.parentElement!.insertBefore(viewport, element);
     world.appendChild(element);
+
+    this.update(0);
   }
 
   /**
